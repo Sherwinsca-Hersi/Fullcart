@@ -1,0 +1,16 @@
+[2025-01-23 12:25:47] Sign up user insert
+[2025-01-23 12:25:47] INSERT INTO e_user_details (cos_id, name, mobile, r_date, email_id, password, c_code, code, platform) 
+                                        VALUES ('221007', 'Suja', '2121212121', '2025-01-23 12:25:47', 'affg@gmail.com', '123', '91', '644118', '1')
+[2025-01-23 12:25:47] You have Successfully Signed Up
+[2025-01-23 15:01:33] User Login Details
+[2025-01-23 15:01:33] Invalid Mobile no or Password
+[2025-01-23 15:01:37] User Login Details
+[2025-01-23 15:01:38] {"id":"199","name":"Suja","mobile":"2121212121","email_id":"affg@gmail.com","password":"123","whatsapp":null,"r_date":"2025-01-23 12:25:47","c_code":"91","code":"644118","refer_code":null,"wallet":"0","type":"1"}
+[2025-01-23 15:01:38] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('199', '1', 'dyN0WzBJRF64snJtFPpaO9:APA91bHV9BwpD36EO8LmsST6DACd07GMPLVNrgQXlV7JsVGhFxfVhC7fCX20XvYvDZiVsaDs4zpdGJcwCjff6x3k0-vTT96OpefEAIhLFBiewkhRhqx-9Wc', '221007')
+[2025-01-23 15:01:38] Login Successful
+[2025-01-23 16:02:06] User Login Details
+[2025-01-23 16:02:06] Invalid Mobile no or Password
+[2025-01-23 16:02:13] User Login Details
+[2025-01-23 16:02:13] {"id":"199","name":"Suja","mobile":"2121212121","email_id":"suja@gmail.com","password":"123","whatsapp":"","r_date":"2025-01-23 12:25:47","c_code":"91","code":"644118","refer_code":null,"wallet":"0","type":"1"}
+[2025-01-23 16:02:13] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('199', '1', 'e1CsvP79QCWN3DbI1JjcAi:APA91bFHIVjaPKkvrAdZifLoZoSZhSBdWw76nkyqUwbukNv-hioAf9iz0v2DjQaYqKKLRCec0KCCTPqsXW1LiajjznqYNpbi3gy6k9Kyn3matBsfXosSAkg', '221007')
+[2025-01-23 16:02:13] Login Successful

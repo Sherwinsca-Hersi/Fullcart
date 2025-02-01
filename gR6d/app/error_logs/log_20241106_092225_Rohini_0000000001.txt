@@ -1,0 +1,5 @@
+Order 706 Products Error : 0 {"cos_id":"221001","o_id":706,"batch_no":"1","p_quantity":1,"p_title":"Idhayam","p_discount":"2.0","p_img":"product\/Idhayam.png","p_price":100,"p_type":"200 ml","platform":"1"}
+Order 706 Products Error : 1 {"cos_id":"221001","o_id":706,"batch_no":"1","p_quantity":1,"p_title":"Idhayam","p_discount":"3.0","p_img":"product\/Idhayam.png","p_price":250,"p_type":"500 ml","platform":"1"}
+Order 706 Products Error : 2 {"cos_id":"221001","o_id":706,"batch_no":"1","p_quantity":1,"p_title":"Idhayam","p_discount":"8.0","p_img":"product\/Idhayam_1_1729230795.png","p_price":495,"p_type":"1 ","platform":"1"}
+Order 706 Products Error : 3 {"cos_id":"221001","o_id":706,"batch_no":"1","p_quantity":1,"p_title":"King","p_discount":"26.0","p_img":"product\/King 500ml.png","p_price":190,"p_type":"500 ml","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221001', '0', '23', '706', '1', '1')

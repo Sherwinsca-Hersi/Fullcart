@@ -1,0 +1,10 @@
+Order 702 Products Error : 0 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":1,"p_title":"Aachi Kulambu Powder","p_discount":"0","p_img":"product\/Aachi Kulambu Powder 500g.png","p_price":170,"p_type":"500 g","platform":"1"}
+Order 702 Products Error : 1 {"cos_id":"221001","o_id":702,"batch_no":"AAIP003","p_quantity":1,"p_title":"Aachi Kashmiri Chilly Powder","p_discount":"0","p_img":"product\/Aachi Kashmiri Chilly Powder 50g.png","p_price":23,"p_type":"50 g","platform":"1"}
+Order 702 Products Error : 2 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":1,"p_title":"Bru Green Label","p_discount":"0","p_img":"product\/Bru Green Label.png","p_price":108,"p_type":"200 g","platform":"1"}
+Order 702 Products Error : 3 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":1,"p_title":"Bru Green Label","p_discount":"0","p_img":"product\/Bru Green Label.png","p_price":278,"p_type":"500 g","platform":"1"}
+Order 702 Products Error : 4 {"cos_id":"221001","o_id":702,"batch_no":"67675","p_quantity":20,"p_title":"SunRight","p_discount":"0.0","p_img":"product\/Sunright.png","p_price":50,"p_type":"1 L","platform":"1"}
+Order 702 Products Error : 5 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":2,"p_title":"SVS Groundnut","p_discount":"37.0","p_img":"product\/SVS GN.png","p_price":189,"p_type":"1 L","platform":"1"}
+Order 702 Products Error : 6 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":8,"p_title":"Poorna","p_discount":"25.0","p_img":"product\/Poorna.png","p_price":140,"p_type":"1 L","platform":"1"}
+Order 702 Products Error : 7 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":2,"p_title":"Fortune","p_discount":"4.0","p_img":"product\/Fortune Mustard Oil.png","p_price":90,"p_type":"500 ml","platform":"1"}
+Order 702 Products Error : 8 {"cos_id":"221001","o_id":702,"batch_no":"1","p_quantity":1,"p_title":"Dheepam Bottle","p_discount":"21.0","p_img":"product\/Dheepam Oil.png","p_price":90,"p_type":"500 ml","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221001', '30', '23', '702', '1', '1')

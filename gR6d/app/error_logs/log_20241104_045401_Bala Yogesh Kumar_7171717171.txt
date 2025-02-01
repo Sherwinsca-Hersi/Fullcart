@@ -1,0 +1,2 @@
+Order 696 Products Error : 0 {"cos_id":"221001","o_id":696,"batch_no":"1","p_quantity":1,"p_title":"3 Roses","p_discount":"1.0","p_img":"product\/3 Roses.png","p_price":89,"p_type":"100 g","platform":"1"}
+Order 696 Products Error : 1 {"cos_id":"221001","o_id":696,"batch_no":"1","p_quantity":3,"p_title":"3 Roses","p_discount":"5.0","p_img":"product\/3 Roses.png","p_price":340,"p_type":"500 g","platform":"1"}

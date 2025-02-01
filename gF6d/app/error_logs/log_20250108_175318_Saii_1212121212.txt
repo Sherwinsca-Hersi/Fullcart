@@ -1,0 +1,3 @@
+Order 809 Products Error : 0 {"cos_id":"221003","o_id":809,"batch_no":"","p_quantity":1,"p_title":"Time Measurement Marker Water Bottle","p_discount":"0","p_img":"product\/Time_Measurement_Marker_Water_Bottle_Single_1736328917.webp","p_price":26,"p_type":"Single Pc","platform":"1"}
+Order 809 Products Error : 1 {"cos_id":"221003","o_id":809,"batch_no":"","p_quantity":1,"p_title":"Bottles with handy","p_discount":"0","p_img":"product\/Bottles_with_handy_Single_1736330237.jpg","p_price":400,"p_type":"Single Pc","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '809', '1', '1')

@@ -1,0 +1,3 @@
+[2025-01-22 12:15:33] Sign up user insert
+[2025-01-22 12:15:33] Mobile Number Already Used!
+[2025-01-22 12:15:33] Mobile Number Already Used!

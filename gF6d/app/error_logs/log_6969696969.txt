@@ -1,0 +1,13 @@
+[2025-01-22 12:45:24] Sign up user insert
+[2025-01-22 12:45:24] INSERT INTO e_user_details (cos_id, name, mobile, r_date, email_id, password, c_code, code, platform) 
+                                        VALUES ('221003', 'Kishore', '6969696969', '2025-01-22 12:45:24', 'hapiapps10@gmail.com', '1234', '91', '963531', '1')
+[2025-01-22 12:45:24] You have Successfully Signed Up
+[2025-01-22 12:45:57] Update Password Details Change
+[2025-01-22 12:45:57] UPDATE e_user_details 
+                        SET password = '1234', up_platform = '1' 
+                        WHERE mobile = '6969696969' AND cos_id = '221003'
+[2025-01-22 12:45:57] Password Changed Successfully
+[2025-01-24 11:39:42] User Login Details
+[2025-01-24 11:39:42] {"id":"197","name":"Kishore","mobile":"6969696969","email_id":"hapiapps10@gmail.com","password":"1234","whatsapp":null,"r_date":"2025-01-22 12:45:24","c_code":"91","code":"963531","refer_code":null,"wallet":"0","type":"1"}
+[2025-01-24 11:39:42] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('197', '1', 'csUlv1_hRCOxKJK-KINkFw:APA91bHboL8-GEpSVijG4xXJsenQTMFTloUOXsiyKwsUzoC8lMZH22pCgssT5PAHmMk6RI-5qeWJXPwXBGO8PGdCJRx45SmKraMjvWVxXYKLIzILrnOaOCQ', '221003')
+[2025-01-24 11:39:42] Login Successful

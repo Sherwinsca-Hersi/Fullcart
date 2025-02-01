@@ -1,0 +1,4 @@
+[2025-01-24 11:41:39] User Login Details
+[2025-01-24 11:41:39] {"id":"179","name":"Jeevi","mobile":"1234561234","email_id":"abc@gmail.com","password":"123","whatsapp":null,"r_date":"2025-01-09 17:14:26","c_code":"91","code":"310441","refer_code":null,"wallet":"0","type":"1"}
+[2025-01-24 11:41:39] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('179', '1', 'csUlv1_hRCOxKJK-KINkFw:APA91bHboL8-GEpSVijG4xXJsenQTMFTloUOXsiyKwsUzoC8lMZH22pCgssT5PAHmMk6RI-5qeWJXPwXBGO8PGdCJRx45SmKraMjvWVxXYKLIzILrnOaOCQ', '221003')
+[2025-01-24 11:41:39] Login Successful

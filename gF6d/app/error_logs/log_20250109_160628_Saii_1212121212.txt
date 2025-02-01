@@ -1,0 +1,2 @@
+Order 854 Products Error : 0 {"cos_id":"221003","o_id":854,"batch_no":"GVK9CG","p_quantity":1,"p_title":"Lunch Cooler Lunch Bags","p_discount":"0","p_img":"product\/Lunch_Cooler_Lunch_Bags_Single_1736407308.jpg","p_price":250,"p_type":"Single Pc","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '854', '1', '1')

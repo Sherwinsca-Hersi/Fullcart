@@ -1,0 +1,6 @@
+Order 695 Products Error : 0 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses","p_discount":"1.0","p_img":"product\/3 Roses.png","p_price":44,"p_type":"50 g","platform":"1"}
+Order 695 Products Error : 1 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses","p_discount":"1.0","p_img":"product\/3 Roses.png","p_price":89,"p_type":"100 g","platform":"1"}
+Order 695 Products Error : 2 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses","p_discount":"3.0","p_img":"product\/3 Roses.png","p_price":217,"p_type":"250 g","platform":"1"}
+Order 695 Products Error : 3 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses","p_discount":"5.0","p_img":"product\/3 Roses.png","p_price":340,"p_type":"500 g","platform":"1"}
+Order 695 Products Error : 4 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses Natural Care","p_discount":"2.0","p_img":"product\/3 Roses Nc.png","p_price":98,"p_type":"100 g","platform":"1"}
+Order 695 Products Error : 5 {"cos_id":"221001","o_id":695,"batch_no":"1","p_quantity":1,"p_title":"3 Roses Natural Care","p_discount":"3.0","p_img":"product\/3 Roses Nc.png","p_price":237,"p_type":"250 g","platform":"1"}

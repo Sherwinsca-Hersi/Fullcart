@@ -1,0 +1,2342 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+:root {
+
+    /* color */
+    --sidebar-color:#000000;
+    --sidebar-font-color:white;
+    --font-color:rgba(0, 0, 0, 1);
+    --card-background:rgba(255, 255, 255, 1);
+    --card-title-color:rgba(175, 175, 175, 1);
+    --btn-background-color:rgba(243, 243, 242, 1);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+@media screen and (max-width:375px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 2rem 0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding: 5em 5em;
+    }
+    .card-style{
+        display: block;
+    }
+    .grid-container{
+        display: grid;
+        grid-template-columns:repeat(1,1fr);
+        grid-template-rows: repeat(4,1fr);
+        margin-left: -2.5em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 80vw;
+        height: 35vh;
+        max-width: 100%;
+        margin-left: 0.3em;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+    }
+    .grid_card_heading h3{
+        margin: 1em;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        margin: 1em;
+    }
+    .topselling_productList{
+        margin-left: 10em;
+    }
+    .stock_progress,
+    .unsold_progress {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: block;
+        gap: 3em;
+    }
+    .legend{
+        margin-top: 2em;
+        margin-left: 2em;
+    }
+    .linechart_div {
+        width:100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: 5em;
+    }
+    .linechart_div canvas{
+        width: fit-content;
+    }
+    .grid_recent_saled{
+        width: 80vw;
+        margin-top: 1em;
+        overflow: scroll;
+    }
+    .login_container{
+        display: block;
+        overflow: hidden;
+    }
+    .login_img img{
+        width: 100vw;
+        height: 40vh;
+        max-width: 100%;
+    }
+    .login_form{
+        margin: 1em 2em;
+    }
+    .login_form h1{
+        white-space: nowrap;
+    }
+    .login_input{
+        margin-top: -4em;
+        margin-left: 3.5em;
+    }
+    .login_container h5{
+        margin-top: 0;
+        margin-left: 1em;
+    }
+    .date_sect{
+        display: block;
+    }
+    .datepicker{
+        margin-left: -10%;
+    }
+}
+@media screen and (width:360px){
+    #check:checked ~ label #cancel {
+        left: 300px;
+    }
+}
+@media screen and (width:344px){
+    
+    #check:checked ~ label #cancel {
+        left: 300px;
+    }
+}
+@media screen and (max-width:414px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,
+    .product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,
+    .employee_rightbar,.addemployee_rightbar,.banner_rightbar,
+    .addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,
+    .inventory_rightbar{
+        margin: 2rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:auto;
+        padding: 5em 5em;
+    }
+    .card-style{
+        display: block;
+    }
+    .grid-container{
+        display: grid;
+        grid-template-columns:repeat(1,1fr);
+        grid-template-rows: repeat(4,1fr);
+        margin-left: -2.5em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 80vw;
+        height: 35vh;
+        max-width: 100%;
+        margin-left: 0.3em;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+    }
+    .grid_card_heading h3{
+        margin: 1em;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        margin: 1em;
+    }
+    .topselling_productList{
+        margin-left: 10em;
+    }
+    .stock_progress,
+    .unsold_progress {
+        overflow-y: auto;
+        display: block;
+        gap: 3em;
+    }
+    .legend{
+        margin-top: 2em;
+        margin-left: 2em;
+    }
+    .linechart_div {
+        width:100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: 5em;
+    }
+    .linechart_div canvas{
+        width: fit-content;
+    }
+    .grid_recent_saled{
+        width: 80vw;
+        margin-left:-2.5em;
+        overflow: scroll;
+        margin-bottom: 4em;
+    }
+    .login_container{
+        display: block;
+        overflow: hidden;
+    }
+    .login_img img{
+        width: 100vw;
+        height: 40vh;
+        max-width: 100%;
+    }
+    .login_sect{
+        margin-left:-1em;
+    }
+    .login_form{
+        margin: 1em 0;
+    }
+    .login_form h1{
+        white-space: nowrap;
+    }
+    .login_input{
+        margin-top: -4em;
+        margin-left: 4em;
+    }
+    .login_container h5{
+        margin-top: 0;
+        margin-left: 1em;
+    }
+    .date_sect{
+        display: block;
+    }
+}
+@media screen and (max-width:430px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem 0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+    }
+    .card-style{
+        display: grid;
+    }
+    .grid-container{
+        display: grid;
+        grid-template-columns:repeat(1,1fr);
+        grid-template-rows: repeat(4,1fr);
+        margin-left: -3em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 80vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+    }
+    .grid_card_heading h3{
+        margin: 1em;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        margin: 1em;
+    }
+    .topselling_productList{
+        margin-left: 10em;
+    }
+    .stock_progress,
+    .unsold_progress {
+        overflow-y: auto;
+        display: block;
+        gap: 3em;
+    }
+    .legend{
+        margin-top: 2em;
+        margin-left: 2em;
+    }
+    .linechart_div {
+        width:100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: 5em;
+    }
+    .linechart_div canvas{
+        width: fit-content;
+    }
+    .grid_recent_saled{
+        width: 80vw;
+        margin-left:-2.5em;
+        overflow: auto;
+        margin-bottom: 4em;
+    }
+    .login_container{
+        display: block;
+        overflow: hidden;
+    }
+    .login_img img{
+        width: 100vw;
+        height: 40vh;
+        max-width: 100%;
+    }
+    .login_form{
+        margin: 1em 2em;
+    }
+    .login_form h1{
+        white-space: nowrap;
+    }
+    .login_input{
+        margin-left: 3.5em;
+    }
+    .login_btn{
+        margin-right: 8em;
+    }
+    .login_container h5{
+        margin-top: 0;
+        margin-left: 1em;
+    }
+    .date_sect{
+        display: block;
+    }
+}
+@media screen and (width:540px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    #check:checked ~ label #cancel {
+        left: 500px;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+    }
+    .card-style{
+        display: grid;
+    }
+    .grid-container{
+        display: grid;
+        grid-template-columns:repeat(1,1fr);
+        grid-template-rows: repeat(4,1fr);
+        margin-left: -2.5em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 80vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+    }
+    .grid_card_heading h3{
+        margin: 1em;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        margin: 1em;
+    }
+    .login_container{
+        display: block;
+    }
+    .login_img img{
+        width: 100vw;
+        height: 40vh;
+        max-width: 100%;
+    }
+    .login_form{
+        margin: 1em 2em;
+    }
+    .login_form h1{
+        white-space: nowrap;
+    }
+    .login_input{
+        margin-left: 6em;
+    }
+    .login_btn{
+        margin-right: 12em;
+    }
+    .login_container h5{
+        margin-top: 0;
+        margin-left: 1em;
+    }
+    .date_sect{
+        display: block;
+    }
+}
+@media screen and (width:768px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    #check:checked ~ label #cancel {
+        left: 700px;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 0.5em;
+    }
+    .date_sect{
+        display: block;
+    }
+}
+@media screen and (width:820px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    #check:checked ~ label #cancel {
+        left: 750px;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding: 5em 6em;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 0.5em;
+    }
+    .date_sect{
+        display: block;
+    }
+}
+@media screen and (width:853px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    #check:checked ~ label #cancel {
+        left: 800px;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding: 5em 6em;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 0.5em;
+    }
+}
+@media screen and (width:912px){
+    .sidebar{
+        display: none;
+    }
+    .navbar_div{
+        display: block;
+    }
+    .mobileview_logo{
+        width: 5em;
+        height: 4em;
+        margin:  1.5em 2em;
+    }
+    .leftbar_container{
+        display: block;
+        overflow-y: auto;
+    }
+    .leftbar_container .mainmenu_toggle{
+        white-space: nowrap;
+        display: flex;
+    }
+    #check:checked ~ label #cancel {
+        left: 800px;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.sales_rightbar,.product_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 6rem  0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y:scroll;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 0.5em;
+    }
+}
+@media screen and (max-width:1011px){
+    .sidebar{
+        display: block;
+        width: 25vw;
+        height: 100vh;
+        background-color: var(--sidebar-color);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .sidemenu{
+        width: 25vw;
+        height: 100vh;
+    }
+    .logobar{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: 15em;
+        height: 11em;
+        padding:2em;
+        text-align: center;
+    }
+    .navbar_div{
+        display: none;
+    }
+    .leftbar_container{
+        display: none;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.orders_rightbar,.sales_rightbar,.product_rightbar,.addCustomer_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 0  25vw;
+        width: 75vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding:  2em 1em;
+    }
+    .rightbar{
+        overflow-x: hidden !important;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }   
+    .date_sect{
+        /* width: 80vw; */
+        display: grid;
+        justify-content: center;
+    }
+    .datepicker{
+        margin-top: 1em;
+    }
+    .date_dropdown{
+        width: 20vw;
+    }
+    .grid-container{
+        width: 100%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap: 0.3em;
+    }
+    .recent_saled_card{
+        width: 72vw;
+        overflow:scroll;
+    }
+    #date-selector,#button-selector1,#button-selector2{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        margin-left: 0;
+        padding: 1em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 36vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+        width: 3em;
+        height: 7em;
+    }
+    .grid_card_heading h3{
+        display: block;
+    }
+    .grid_card-4{
+        padding: 0;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        width: fit-content;
+        margin: 1em;
+    }
+    .linechart_div {
+        padding-top: 2em;
+    }
+    .cust_btn_div{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1.5em;
+        padding: 1em;
+        margin-left: 0;
+    }
+    .cust_btn_div button{
+       white-space: nowrap;
+    }
+    
+  /*Feedback Input Container */
+.fixed-top-container {
+    width: 74.5vw;
+    margin-left: 25vw;
+}
+.message-input-container {
+    margin-left: 25vw;
+    width: 85vw;
+}  
+.message-input {
+    width: 60vw;
+} 
+    
+/* new progress bar */
+
+.circular-progress-bar,
+.unsold-progress-bar {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.circular-progress-bar svg,
+.unsold-progress-bar svg {
+    width: 100%;
+    height: auto;
+    transform: rotate(-90deg);
+    overflow: visible; 
+    margin-top: 3.5em;
+    margin-left: 1em; 
+}
+.circular-progress-bar .circle-bg,
+.unsold-progress-bar .circle-bg {
+    fill: none;
+    stroke-width: 30;
+}
+.circular-progress-bar .circle,
+.unsold-progress-bar .circle {
+    fill: none;
+    stroke-width: 30;
+}
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+.legend .text{
+    font-weight: bold;
+    padding-top:10%;
+    margin-bottom: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 15px;
+    height: 15px;
+}
+.stock_progress,
+.unsold_progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 90%;
+    gap: 5em;
+}
+.grid_recent_saled{
+    width: 75vw !important;
+    margin-top: 1em;
+    /* margin-left: -1.5em; */
+}
+.grid_card-4{
+    display: grid;
+    grid-template-rows: 2fr 4fr;
+    overflow-y: scroll;
+}
+.grid_card-4 a{
+    margin-left: 70% !important;
+}
+.inventory_cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin-top: 60px;
+    gap: 30px;
+}
+.topselling_productList{
+    margin-left: 10em;
+    margin-top: -3em;
+}
+.signup_container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    overflow: hidden;
+}
+.login_form{
+    margin: 5em 0;
+    display: grid;
+    justify-content: center;
+}
+.login_img img{
+    width: 100%;
+    height: 50%;
+}
+
+.login_form  input{
+    width: 100%;
+}
+.login_sect h1 span,.signup_sect h1 span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.login_input{
+    display: grid;
+    grid-template-rows: repeat(5);
+    justify-content:center;
+    text-align:left;
+    width:100%;
+}
+.login_input .form-div div{
+    width:100%;
+}
+.login_input .form-div div input,.signup_input .form-div div input{
+    background-color: white;
+    width: 30vw;
+}
+.login_btn {
+    border-radius: 15em;
+    color: var(--sidebar-font-color);
+    padding: 1em 4em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+}
+.grid_col{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.order_btns{
+    margin-left: 3em !important;
+}
+.add_btnDiv{
+    text-align: center;
+}
+.popup{
+    left: 60%;
+}
+.combo_form{
+    display: grid;
+}
+.combo_form .grid_col{
+    display: grid;
+    grid-template-rows: repeat(3);
+    grid-template-columns: 5fr;
+    gap: 5em;
+}
+.combo_form .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    white-space: nowrap;
+    align-items: center;
+}
+.combo_form .grid_col .grid-col-4,.combo_form .grid_col .grid-col-3{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    white-space: nowrap;
+}
+.bulk_price_div{
+    display: flex;
+    width: fit-content;
+}
+.combo_head_flex{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.combo_head_flex p{
+    font-weight: bold;
+    display: flex;
+    gap: 1em;
+}
+.addSub_head div h3,.addSub_head2 div h3{
+    font-weight: bold;
+}
+.addSub_head2{
+    padding: 3em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.combo_add_btn{
+    float: right;
+    margin-right: 7em;
+}
+ .form-div label{
+    padding:1em 0.6em;
+}
+#data{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    row-gap: 0.3em;
+    margin: 0 2em;
+}
+.cust_card_dash div i.fa{
+    font-size: 25px;
+}
+.prod_card_dash{
+    width: 100%;
+    height: 100%;
+    row-gap: 0;
+    padding: 2em;
+}
+.prod_card_dash h3{
+    font-size: var(--small-font-size);
+    white-space: wrap;
+}
+.prod_card_dash img{
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2em;
+}
+.addstock_form  .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3,1fr);
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+}
+}
+@media screen and (width:1024px){
+    .sidebar{
+        display: block;
+        width: 25vw;
+        height: 100vh;
+        background-color: var(--sidebar-color);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .sidemenu{
+        width: 25vw;
+        height: 100vh;
+    }
+    .logobar{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: 15em;
+        height: 11em;
+        padding:2em;
+        text-align: center;
+    }
+
+    .navbar_div{
+        display: none;
+    }
+    .leftbar_container{
+        display: none;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.orders_rightbar,.sales_rightbar,.product_rightbar,.addCustomer_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 0  25vw;
+        width: 75vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding:  2em 1em;
+    }
+    .rightbar{
+        overflow-x: hidden !important;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }   
+    .date_sect{
+        /* width: 80vw; */
+        display: grid;
+        justify-content: center;
+    }
+    .datepicker{
+        margin-top: 1em;
+    }
+    .date_dropdown{
+        width: 20vw;
+    }
+    .grid-container{
+        width: 100%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap: 0.3em;
+    }
+    .recent_saled_card{
+        width: 72vw;
+        overflow:scroll;
+    }
+    #date-selector,#button-selector1,#button-selector2{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        margin-left: 0;
+        padding: 1em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 36vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+        width: 3em;
+        height: 7em;
+    }
+    .grid_card_heading h3{
+        display: block;
+    }
+    .grid_card-4{
+        padding: 0;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        width: fit-content;
+        margin: 1em;
+    }
+    .linechart_div {
+        padding-top: 2em;
+    }
+    .cust_btn_div{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1em;
+        padding: 1em;
+        margin-left: 0;
+    }
+    .cust_btn_div button{
+       white-space: nowrap;
+    }
+   
+  /*Feedback Input Container */
+.fixed-top-container {
+    width: 74.5vw;
+    margin-left: 25vw;
+}
+.message-input-container {
+    margin-left: 25vw;
+    width: 85vw;
+}  
+.message-input {
+    width: 60vw;
+} 
+    
+/* new progress bar */
+
+.circular-progress-bar,
+.unsold-progress-bar {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.circular-progress-bar svg,
+.unsold-progress-bar svg {
+    width: 100%;
+    height: auto;
+    transform: rotate(-90deg);
+    overflow: visible; 
+    margin-top: 3.5em;
+    margin-left: 1em; 
+}
+.circular-progress-bar .circle-bg,
+.unsold-progress-bar .circle-bg {
+    fill: none;
+    stroke-width: 30;
+}
+.circular-progress-bar .circle,
+.unsold-progress-bar .circle {
+    fill: none;
+    stroke-width: 30;
+}
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+.legend .text{
+    font-weight: bold;
+    padding-top:10%;
+    margin-bottom: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 15px;
+    height: 15px;
+}
+.stock_progress,
+.unsold_progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 90%;
+    gap: 5em;
+}
+.grid_recent_saled{
+    width: 75vw !important;
+    margin-top: 1em;
+    /* margin-left: -1.5em; */
+}
+.grid_card-4{
+    display: grid;
+    grid-template-rows: 2fr 4fr;
+    overflow-y: scroll;
+}
+.grid_card-4 a{
+    margin-left: 70% !important;
+}
+.inventory_cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin-top: 60px;
+    gap: 30px;
+}
+.topselling_productList{
+    margin-left: 10em;
+    margin-top: -3em;
+}
+.signup_container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    overflow: hidden;
+}
+.login_form{
+    margin: 5em 0;
+    display: grid;
+    justify-content: center;
+}
+.login_img img{
+    width: 100%;
+    height: 50%;
+}
+
+.login_form  input{
+    width: 100%;
+}
+.login_sect h1 span,.signup_sect h1 span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.login_input{
+    display: grid;
+    grid-template-rows: repeat(5);
+    justify-content:center;
+    text-align:left;
+    width:100%;
+}
+.login_input .form-div div{
+    width:100%;
+}
+.login_input .form-div div input,.signup_input .form-div div input{
+    background-color: white;
+    width: 30vw;
+}
+.login_btn {
+    border-radius: 15em;
+    color: var(--sidebar-font-color);
+    padding: 1em 4em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+}
+.grid_col{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.order_btns{
+    margin-left: 3em !important;
+}
+.add_btnDiv{
+    text-align: center;
+}
+.popup{
+    left: 60%;
+}
+.combo_form{
+    display: grid;
+}
+.combo_form .grid_col{
+    display: grid;
+    grid-template-rows: repeat(3);
+    grid-template-columns: 5fr;
+    gap: 5em;
+}
+.combo_form .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    white-space: nowrap;
+    align-items: center;
+}
+.combo_form .grid_col .grid-col-4,.combo_form .grid_col .grid-col-3{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    white-space: nowrap;
+}
+.bulk_price_div{
+    display: flex;
+    width: fit-content;
+}
+.combo_head_flex{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.combo_head_flex p{
+    font-weight: bold;
+    display: flex;
+    gap: 1em;
+}
+.addSub_head div h3,.addSub_head2 div h3{
+    font-weight: bold;
+}
+.addSub_head2{
+    padding: 3em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.combo_add_btn{
+    float: right;
+    margin-right: 7em;
+}
+ .form-div label{
+    padding:1em 0.6em;
+}
+.preview_popup{
+    width: 60vw;
+    height: 80vh;
+    overflow-y: auto;
+    position: fixed;
+    overflow-x: hidden;
+}
+#data{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    padding: 0.3em !important;
+}
+.cust_card_dash div i.fa{
+    font-size: 25px;
+}
+.cust_card_dash,.prod_card_dash{
+    row-gap: 0;
+    margin: 0.2em;
+    padding: 0.3em;
+}
+.prod_card_dash h3,.prod_card_dash p,.cust_card_dash h3,.cust_card_dash p{
+    font-size: var(--small-font-size);
+}
+.prod_card_dash img{
+    width: 20px;
+    height: 20px;
+}
+.addstock_form  .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3,1fr);
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+}
+}
+
+@media screen and (width:1080px){
+    .sidebar{
+        display: block;
+        width: 25vw;
+        height: 100vh;
+        background-color: var(--sidebar-color);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .sidemenu{
+        width: 25vw;
+        height: 100vh;
+    }
+    .logobar{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: 15em;
+        height: 11em;
+        padding:2em;
+        text-align: center;
+    }
+    .navbar_div{
+        display: none;
+    }
+    .leftbar_container{
+        display: none;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.orders_rightbar,.sales_rightbar,.product_rightbar,.addCustomer_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 0  25vw;
+        width: 75vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding:  2em 1em;
+    }
+    .rightbar{
+        overflow-x: hidden !important;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }   
+    .product_card,.sales_card,.customer_card,.revenue_card{
+        width: 100%;
+    }
+    .date_sect{
+        /* width: 80vw; */
+        display: grid;
+        justify-content: center;
+    }
+    .datepicker{
+        margin-top: 1em;
+    }
+    .date_dropdown{
+        width: 20vw;
+    }
+    .grid-container{
+        width: 100%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap: 0.3em;
+    }
+    .recent_saled_card{
+        width: 72vw;
+        overflow:scroll;
+    }
+    #date-selector,#button-selector1,#button-selector2{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        margin-left: 0;
+        padding: 1em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 36vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+        width: 3em;
+        height: 7em;
+    }
+    .grid_card_heading h3{
+        display: block;
+    }
+    .grid_card-4{
+        padding: 0;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        width: fit-content;
+        margin: 1em;
+    }
+    .linechart_div {
+        padding-top: 2em;
+    }
+    .cust_btn_div{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1.5em;
+        padding: 1em;
+        margin-left: 0;
+    }
+    .cust_btn_div button{
+       white-space: nowrap;
+    }
+  /*Feedback Input Container */
+.fixed-top-container {
+    width: 74.5vw;
+    margin-left: 25vw;
+}
+.message-input-container {
+    margin-left: 25vw;
+    width: 85vw;
+}  
+.message-input {
+    width: 60vw;
+} 
+    
+/* new progress bar */
+
+.circular-progress-bar,
+.unsold-progress-bar {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.circular-progress-bar svg,
+.unsold-progress-bar svg {
+    width: 100%;
+    height: auto;
+    transform: rotate(-90deg);
+    overflow: visible; 
+    margin-top: 3.5em;
+    margin-left: 1em; 
+}
+.circular-progress-bar .circle-bg,
+.unsold-progress-bar .circle-bg {
+    fill: none;
+    stroke-width: 30;
+}
+.circular-progress-bar .circle,
+.unsold-progress-bar .circle {
+    fill: none;
+    stroke-width: 30;
+}
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+.legend .text{
+    font-weight: bold;
+    padding-top:10%;
+    margin-bottom: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 15px;
+    height: 15px;
+}
+.stock_progress,
+.unsold_progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 90%;
+    gap: 5em;
+}
+.grid_recent_saled{
+    width: 75vw !important;
+    margin-top: 1em;
+    /* margin-left: -1.5em; */
+}
+.grid_card-4{
+    display: grid;
+    grid-template-rows: 2fr 4fr;
+    overflow-y: scroll;
+}
+.grid_card-4 a{
+    margin-left: 70% !important;
+}
+.inventory_cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin-top: 60px;
+    gap: 30px;
+}
+.topselling_productList{
+    margin-left: 10em;
+    margin-top: -3em;
+}
+.login_form{
+    margin: 5em 0;
+    display: grid;
+    justify-content: center;
+}
+.login_img img{
+    width: 100%;
+    height: 50%;
+}
+
+.login_form  input{
+    width: 100%;
+}
+.login_sect h1 span,.signup_sect h1 span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.login_input{
+    display: grid;
+    grid-template-rows: repeat(5);
+    justify-content:center;
+    text-align:left;
+    width:100%;
+}
+.login_input .form-div div{
+    width:100%;
+}
+.login_input .form-div div input,.signup_input .form-div div input{
+    background-color: white;
+    width: 30vw;
+}
+.login_btn {
+    border-radius: 15em;
+    color: var(--sidebar-font-color);
+    padding: 1em 4em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+}
+.grid_col{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.order_btns{
+    margin-left: 3em !important;
+}
+.add_btnDiv{
+    text-align: center;
+}
+.popup{
+    left: 60%;
+}
+.combo_form{
+    display: grid;
+}
+.combo_form .grid_col{
+    display: grid;
+    grid-template-rows: repeat(3);
+    grid-template-columns: 5fr;
+    gap: 5em;
+}
+.combo_form .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    white-space: nowrap;
+    align-items: center;
+}
+.combo_form .grid_col .grid-col-4,.combo_form .grid_col .grid-col-3{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    white-space: nowrap;
+}
+.bulk_price_div{
+    display: flex;
+    width: fit-content;
+}
+.combo_head_flex{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.combo_head_flex p{
+    font-weight: bold;
+    display: flex;
+    gap: 1em;
+}
+.addSub_head div h3,.addSub_head2 div h3{
+    font-weight: bold;
+}
+.addSub_head2{
+    padding: 3em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.combo_add_btn{
+    float: right;
+    margin-right: 7em;
+}
+ .form-div label{
+    padding:1em 0.6em;
+}
+.preview_popup{
+    width: 60vw;
+    height: 80vh;
+    overflow-y: auto;
+    position: fixed;
+    overflow-x: hidden;
+}
+#data{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    row-gap: 0;
+    margin: 0 2em;
+}
+.cust_card_dash div i.fa{
+    font-size: 25px;
+}
+.cust_card_dash{
+    width: 100%;
+    height: 85%;
+    margin: 0;
+}
+.prod_card_dash{
+    width: 100%;
+    height: 90%;
+    row-gap: 1em;
+    padding: 0;
+    margin: 0.5em;
+}
+.prod_card_dash h3,.prod_card_dash p,.cust_card_dash h3,.cust_card_dash p{
+    font-size: var(--small-font-size);
+    white-space: wrap;
+}
+.prod_card_dash img{
+    width: 30px;
+    height: 30px;
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+}
+}
+@media screen and (width:1280px){
+    .sidebar{
+        display: block;
+        width: 25vw;
+        height: 100vh;
+        background-color: var(--sidebar-color);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .sidemenu{
+        width: 25vw;
+        height: 100vh;
+    }
+    .logobar{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: 20em;
+        height: 15em;
+        padding:3em;
+        text-align: center;
+    }
+    .navbar_div{
+        display: none;
+    }
+    .leftbar_container{
+        display: none;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.orders_rightbar,.sales_rightbar,.product_rightbar,.addCustomer_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 0  25vw;
+        width: 75vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding:  2em 1em;
+    }
+    .rightbar{
+        overflow-x: hidden !important;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }   
+    .date_sect{
+        /* width: 80vw; */
+        display: grid;
+        justify-content: center;
+    }
+    .datepicker{
+        margin-top: 1em;
+    }
+    .date_dropdown{
+        width: 20vw;
+    }
+    .card-link{
+        width: fit-content;
+    }
+    .product_card,.sales_card,.customer_card,.revenue_card{
+        width: 100%;
+    }
+    .grid-container{
+        width: 100%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap: 0.3em;
+    }
+    .recent_saled_card{
+        width: 72vw;
+        overflow:scroll;
+    }
+    #date-selector,#button-selector1,#button-selector2{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        margin-left: 0;
+        padding: 1em;
+    }
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 36vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+        width: 3em;
+        height: 4em;
+    }
+    .grid_card_heading h3{
+        display: block;
+    }
+    .grid_card-4{
+        padding: 0;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        width: fit-content;
+        margin: 1em;
+    }
+    .linechart_div {
+        padding-top: 2em;
+    }
+    .cust_btn_div{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 1.5em;
+        padding: 1em;
+        margin-left: 0;
+    }
+    .cust_btn_div button{
+       white-space: nowrap;
+    }
+  /*Feedback Input Container */
+.fixed-top-container {
+    width: 74.5vw;
+    margin-left: 25vw;
+}
+.message-input-container {
+    margin-left: 25vw;
+    width: 85vw;
+}  
+.message-input {
+    width: 60vw;
+} 
+    
+/* new progress bar */
+
+.circular-progress-bar,
+.unsold-progress-bar {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.circular-progress-bar svg,
+.unsold-progress-bar svg {
+    width: 100%;
+    height: auto;
+    transform: rotate(-90deg);
+    overflow: visible; 
+    margin-top: 3.5em;
+    margin-left: 1em; 
+}
+.circular-progress-bar .circle-bg,
+.unsold-progress-bar .circle-bg {
+    fill: none;
+    stroke-width: 30;
+}
+.circular-progress-bar .circle,
+.unsold-progress-bar .circle {
+    fill: none;
+    stroke-width: 30;
+}
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+.legend .text{
+    font-weight: bold;
+    padding-top:10%;
+    margin-bottom: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 15px;
+    height: 15px;
+}
+.stock_progress,
+.unsold_progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 90%;
+    gap: 5em;
+}
+.grid_recent_saled{
+    width: 75vw !important;
+    margin-top: 1em;
+    /* margin-left: -1.5em; */
+}
+.grid_card-4{
+    display: grid;
+    grid-template-rows: 2fr 4fr;
+    overflow-y: scroll;
+}
+.grid_card-4 a{
+    margin-left: 70% !important;
+}
+.inventory_cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin-top: 60px;
+    gap: 30px;
+}
+
+.login_form{
+    margin: 5em 0;
+    display: grid;
+    justify-content: center;
+}
+.login_img img{
+    width: 100%;
+    height: 50%;
+}
+
+.login_form  input{
+    width: 100%;
+}
+.login_sect h1 span,.signup_sect h1 span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.login_input{
+    display: grid;
+    grid-template-rows: repeat(5);
+    justify-content:center;
+    text-align:left;
+    width:100%;
+}
+.login_input .form-div div{
+    width:100%;
+}
+.login_input .form-div div input,.signup_input .form-div div input{
+    background-color: white;
+    width: 30vw;
+}
+.login_btn {
+    border-radius: 15em;
+    color: var(--sidebar-font-color);
+    padding: 1em 4em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+}
+.grid_col{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.order_btns{
+    margin-left: 3em !important;
+}
+.add_btnDiv{
+    text-align: center;
+}
+.popup{
+    left: 60%;
+}
+.combo_form{
+    display: grid;
+}
+.combo_form .grid_col{
+    display: grid;
+    grid-template-rows: repeat(3);
+    grid-template-columns: 5fr;
+    gap: 5em;
+}
+.combo_form .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    white-space: nowrap;
+    align-items: center;
+}
+.combo_form .grid_col .grid-col-4,.combo_form .grid_col .grid-col-3{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    white-space: nowrap;
+}
+.bulk_price_div{
+    display: flex;
+    width: fit-content;
+}
+.combo_head_flex{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.combo_head_flex p{
+    font-weight: bold;
+    display: flex;
+    gap: 1em;
+}
+.addSub_head div h3,.addSub_head2 div h3{
+    font-weight: bold;
+}
+.addSub_head2{
+    padding: 3em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.combo_add_btn{
+    float: right;
+    margin-right: 7em;
+}
+ .form-div label{
+    padding:1em 0.6em;
+}
+.preview_popup{
+    width: 60vw;
+    height: 80vh;
+    overflow-y: auto;
+    position: fixed;
+    overflow-x: hidden;
+}
+#data{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    row-gap: 0;
+    margin: 0 2em;
+}
+.cust_card_dash div i.fa{
+    font-size: 25px;
+}
+.cust_card_dash{
+    width: 100%;
+    height: 85%;
+    margin: 1em 0;
+}
+.prod_card_dash{
+    width: 100%;
+    height: 75%;
+}
+.prod_card_dash h3,.prod_card_dash p,.cust_card_dash h3,.cust_card_dash p{
+    font-size: var(--small-font-size);
+    white-space: wrap;
+}
+.prod_card_dash img{
+    width: 30px;
+    height: 30px;
+}
+.addstock_form  .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3,1fr);
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+}
+}
+@media screen and (width:1366px){
+    .sidebar{
+        display: block;
+        width: 25vw;
+        height: 100vh;
+        background-color: var(--sidebar-color);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .sidemenu{
+        width: 25vw;
+        height: 100vh;
+    }
+    .logobar{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        width: 17em;
+        height: 15em;
+        text-align: center;
+    }
+    .navbar_div{
+        display: none;
+    }
+    .leftbar_container{
+        display: none;
+    }
+    .rightbar,.report_rightbar,.stock_rightbar,.orders_rightbar,.sales_rightbar,.product_rightbar,.addCustomer_rightbar,.addproduct_rightbar,.customer_sales_rightbar,.employee_rightbar,.addemployee_rightbar,.banner_rightbar,.addBanner_rightbar,.coupon_rightbar,.addCoupon_rightbar,.inventory_rightbar{
+        margin: 0  25vw;
+        width: 75vw;
+        height: 100vh;
+        overflow-y:scroll;
+        padding:  2em 1em;
+    }
+    .rightbar{
+        overflow-x: hidden !important;
+    }
+    .card-style{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }   
+    .date_sect{
+        /* width: 80vw; */
+        display: grid;
+        justify-content: center;
+    }
+    .datepicker{
+        margin-top: 1em;
+    }
+    .date_dropdown{
+        width: 20vw;
+    }
+    .card-link{
+        width: fit-content;
+    }
+    .product_card,.sales_card,.customer_card,.revenue_card{
+        width: 100%;
+    }
+    .grid-container{
+        width: 100%;
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap: 0.3em;
+    }
+    .recent_saled_card{
+        width: 72vw;
+        overflow:scroll;
+    }
+    #date-selector,#button-selector1,#button-selector2{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        margin-left: 0;
+        padding: 1em;
+    }
+    
+    .grid_card-1,.grid_card-2,.grid_card-3,.grid_card-4,.grid_card-5,.grid_card-6{
+        width: 36vw;
+        height: 35vh;
+        max-width: 100%;
+    }
+    .grid_card_heading{
+        display: block;
+        gap: 1em;
+        width: 3em;
+        height: 4em;
+    }
+    .grid_card_heading h3{
+        display: block;
+    }
+    .grid_card-4{
+        padding: 0;
+    }
+    .date_dropdown{
+        min-width: 100%;
+        margin: 1em;
+    }
+    .date_btn{
+        width: fit-content;
+        margin: 1em;
+    }
+    .linechart_div {
+        padding-top: 2em;
+    }
+    .cust_btn_div{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 1.5em;
+        padding: 1em;
+        margin-left: 0;
+    }
+    .cust_btn_div button{
+       white-space: nowrap;
+    }
+  
+   /*Feedback Input Container */
+.fixed-top-container {
+    width: 74.5vw;
+    margin-left: 25vw;
+}
+.message-input-container {
+    margin-left: 25vw;
+    width: 85vw;
+}  
+.message-input {
+    width: 60vw;
+}  
+/* new progress bar */
+
+.circular-progress-bar,
+.unsold-progress-bar {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.circular-progress-bar svg,
+.unsold-progress-bar svg {
+    width: 100%;
+    height: auto;
+    transform: rotate(-90deg);
+    overflow: visible; 
+    margin-top: 3.5em;
+    margin-left: 1em; 
+}
+.circular-progress-bar .circle-bg,
+.unsold-progress-bar .circle-bg {
+    fill: none;
+    stroke-width: 30;
+}
+.circular-progress-bar .circle,
+.unsold-progress-bar .circle {
+    fill: none;
+    stroke-width: 30;
+}
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+.legend .text{
+    font-weight: bold;
+    padding-top:10%;
+    margin-bottom: 10px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.legend-color {
+    width: 15px;
+    height: 15px;
+}
+.stock_progress,
+.unsold_progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    height: 90%;
+    gap: 5em;
+}
+.grid_recent_saled{
+    width: 75vw !important;
+    margin-top: 1em;
+    /* margin-left: -1.5em; */
+}
+.grid_card-4{
+    display: grid;
+    grid-template-rows: 2fr 4fr;
+    overflow-y: scroll;
+}
+.grid_card-4 a{
+    margin-left: 70% !important;
+}
+.inventory_cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    margin-top: 60px;
+    gap: 30px;
+}
+.signup_container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    overflow: hidden;
+}
+.login_form{
+    margin: 5em 0;
+    display: grid;
+    justify-content: center;
+}
+.login_img img{
+    width: 100%;
+    height: 50%;
+}
+
+.login_form  input{
+    width: 100%;
+}
+.login_sect h1 span,.signup_sect h1 span{
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.login_input{
+    display: grid;
+    grid-template-rows: repeat(5);
+    justify-content:center;
+    text-align:left;
+    width:100%;
+}
+.login_input .form-div div{
+    width:100%;
+}
+.login_input .form-div div input,.signup_input .form-div div input{
+    background-color: white;
+    width: 30vw;
+}
+.login_btn {
+    border-radius: 15em;
+    color: var(--sidebar-font-color);
+    padding: 1em 4em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+}
+.grid_col{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.order_btns{
+    margin-left: 3em !important;
+}
+.add_btnDiv{
+    text-align: center;
+}
+.popup{
+    left: 60%;
+}
+.combo_form{
+    display: grid;
+}
+.combo_form .grid_col{
+    display: grid;
+    grid-template-rows: repeat(3);
+    grid-template-columns: 5fr;
+    gap: 5em;
+}
+.combo_form .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    white-space: nowrap;
+    align-items: center;
+}
+.combo_form .grid_col .grid-col-4,.combo_form .grid_col .grid-col-3{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    white-space: nowrap;
+}
+.bulk_price_div{
+    display: flex;
+    width: fit-content;
+}
+.combo_head_flex{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.combo_head_flex p{
+    font-weight: bold;
+    display: flex;
+    gap: 1em;
+}
+.addSub_head div h3,.addSub_head2 div h3{
+    font-weight: bold;
+}
+.addSub_head2{
+    padding: 3em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.combo_add_btn{
+    float: right;
+    margin-right: 7em;
+}
+ .form-div label{
+    padding:1em 0.6em;
+}
+.preview_popup{
+    width: 60vw;
+    height: 80vh;
+    overflow-y: auto;
+    position: fixed;
+    overflow-x: hidden;
+}
+#data{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    row-gap: 0;
+    margin: 0 2em;
+}
+.cust_card_dash div i.fa{
+    font-size: 25px;
+}
+.cust_card_dash{
+    width: 100%;
+    height: 85%;
+    margin: 0.7em;
+}
+.prod_card_dash{
+    width: 100%;
+    height: 90%;
+    row-gap: 1em;
+    padding: 0.6em;
+    margin: 0.8em 0;
+}
+.prod_card_dash h3,.prod_card_dash p,.cust_card_dash h3,.cust_card_dash p{
+    font-size: var(--small-font-size);
+    white-space: wrap;
+}
+.prod_card_dash img{
+    width: 30px;
+    height: 30px;
+}
+.addstock_form  .grid_col .grid-col-1{
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3,1fr);
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+}
+}

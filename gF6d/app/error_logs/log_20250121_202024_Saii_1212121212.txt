@@ -1,0 +1,3 @@
+Order 880 Products Error : 0 {"cos_id":"221003","o_id":880,"batch_no":"G3OSOG","p_quantity":1,"p_title":"Wood Gift Card Holder","p_discount":"0","p_img":"product\/Wood_Gift_Card_Holder_Single_1736569884.jpg","p_price":137,"p_type":"Single Pc","platform":"1"}
+Order 880 Products Error : 1 {"cos_id":"221003","o_id":880,"batch_no":"QZHJ2O","p_quantity":5,"p_title":"Foldable Holder","p_discount":"0","p_img":"product\/Foldable_Holder_Single_1736570061.jpg","p_price":165,"p_type":"Single Pc","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '880', '1', '1')

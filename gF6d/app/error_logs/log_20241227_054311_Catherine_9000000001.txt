@@ -1,0 +1,3 @@
+Order 757 Products Error : 0 {"cos_id":"221003","o_id":757,"batch_no":"SA9LBB","p_quantity":1,"p_title":"Foldable Jute Bags","p_discount":"0","p_img":"product\/Foldable_Jute_Bags_Single_1731484666.jfif","p_price":40,"p_type":"Jute Single","platform":"3"}
+Order 757 Products Error : 1 {"cos_id":"221003","o_id":757,"batch_no":"QM05MT","p_quantity":1,"p_title":"Laptop Sleeves","p_discount":"0","p_img":"product\/Laptop_Sleeves_Single_1731484809.jfif","p_price":150,"p_type":"Fabrics Single","platform":"3"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '171', '757', '1', '3')

@@ -1,0 +1,2 @@
+Order 856 Products Error : 0 {"cos_id":"221003","o_id":856,"batch_no":"47MSXU","p_quantity":4,"p_title":"Momento","p_discount":"0","p_img":"product\/Momento_Single_1736240609.jpg","p_price":180,"p_type":"Single 500 ml","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '856', '1', '1')

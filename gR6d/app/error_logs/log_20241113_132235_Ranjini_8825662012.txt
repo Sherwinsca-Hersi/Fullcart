@@ -1,0 +1,2 @@
+Order 708 Products Error : 0 {"cos_id":"221001","o_id":708,"batch_no":"67675","p_quantity":72,"p_title":"SunRight","p_discount":"0.0","p_img":"product\/Sunright.png","p_price":50,"p_type":"1 L","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221001', '30', '130', '708', '1', '1')

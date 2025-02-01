@@ -1,0 +1,5 @@
+Order 716 Products Error : 0 {"cos_id":"221001","o_id":716,"batch_no":"1","p_quantity":5,"p_title":"3 Roses","p_discount":"1.0","p_img":"product\/3 Roses.png","p_price":44,"p_type":"50 g","platform":"1"}
+Order 716 Products Error : 1 {"cos_id":"221001","o_id":716,"batch_no":"1","p_quantity":4,"p_title":"3 Roses","p_discount":"1.0","p_img":"product\/3 Roses.png","p_price":89,"p_type":"100 g","platform":"1"}
+Order 716 Products Error : 2 {"cos_id":"221001","o_id":716,"batch_no":"1","p_quantity":1,"p_title":"VKR Sivaji","p_discount":"0","p_img":"product\/Sivaji Rice.png","p_price":1790,"p_type":"25 kg","platform":"1"}
+Order 716 Products Error : 3 {"cos_id":"221001","o_id":716,"batch_no":"1","p_quantity":1,"p_title":"Olivilaku","p_discount":"0","p_img":"product\/Olivilaku 5kg.png","p_price":750,"p_type":"5 kg","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221001', '28', '130', '716', '1', '1')

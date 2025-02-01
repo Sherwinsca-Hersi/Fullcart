@@ -1,0 +1,2 @@
+Order 863 Products Error : 0 {"cos_id":"221003","o_id":863,"batch_no":"49433H","p_quantity":1,"p_title":"Stainless Steel Tumbler Bottles","p_discount":"0","p_img":"product\/Stainless_Steel_Tumbler_Bottles_Single_1736444458.jpg","p_price":160,"p_type":"Single Pc","platform":"1"}
+INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '180', '863', '1', '1')

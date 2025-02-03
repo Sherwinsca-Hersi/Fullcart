@@ -55,7 +55,7 @@
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $expense_detail['exp_id']; ?>">
                         &emsp;<?php echo $i;?></td>
                         <td><?php echo $expense_detail['exp_date'];?></td>
-                        <td><img src="../<?php echo $expense_detail['exp_img'];?>"  width="50px" height="50px"></td>
+                        <td><img src="../../<?php echo $expense_detail['exp_img'];?>"  width="50px" height="50px"></td>
                         <td><?php echo $expense_detail['exp_desc'];?></td>
                         <td><?php echo '₹'.$expense_detail['exp_amount'];?></td>
                     </tr>

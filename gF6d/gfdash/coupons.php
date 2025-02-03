@@ -57,7 +57,7 @@
                     <tr class="<?php echo ($i % 2 === 0)? 'teven' : 'todd';?>" onclick="redirect(this, <?php echo $coupon_details['id'];?>)">
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $coupon_details['id']; ?>">&emsp;<?php echo $i;?></td>
                         <td><?php echo $coupon_details['c_title'];?></td>
-                        <td><img src="../<?php echo $coupon_details['c_img'];?>"  width="50px" height="50px"></td>
+                        <td><img src="../../<?php echo $coupon_details['c_img'];?>"  width="50px" height="50px"></td>
                         <td><?php echo $coupon_details['c_date'];?></td>
                         <td><?php echo $coupon_details['min_amt'];?></td>
                         <td><?php echo $coupon_details['c_value'];?></td>

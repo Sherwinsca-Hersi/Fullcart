@@ -1,6 +1,0 @@
-[2025-01-22 12:12:48] Sign up user insert
-[2025-01-22 12:12:48] You have Successfully Signed Up
-[2025-01-24 11:40:57] User Login Details
-[2025-01-24 11:40:57] {"id":"195","name":"Sindhujaa","mobile":"0890890897","email_id":"abv@gmail.com","password":"123","whatsapp":null,"r_date":"2025-01-22 12:12:48","c_code":"91","code":"543438","refer_code":null,"wallet":"0","type":"1"}
-[2025-01-24 11:40:57] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('195', '1', 'csUlv1_hRCOxKJK-KINkFw:APA91bHboL8-GEpSVijG4xXJsenQTMFTloUOXsiyKwsUzoC8lMZH22pCgssT5PAHmMk6RI-5qeWJXPwXBGO8PGdCJRx45SmKraMjvWVxXYKLIzILrnOaOCQ', '221003')
-[2025-01-24 11:40:57] Login Successful

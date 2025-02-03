@@ -56,7 +56,7 @@
                     <tr class="<?php echo ($i % 2 === 0)? 'teven' : 'todd';?>" onclick="redirect(this, <?php echo $category['id'];?>)">
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $category['id']; ?>">&emsp;<?php echo $i; ?></td>
                         <td><?php echo $category['title']; ?></td>
-                        <td><img src="../<?php echo $category['c_img']; ?>" width="80px" height="60px"/></td>
+                        <td><img src="../../<?php echo $category['c_img']; ?>" width="80px" height="60px"/></td>
                         <?php if($category['active'] == 1) { ?>
                             <td><div class="badge badge-success">Published</div></td>
 								<?php } else { ?>

@@ -1,2 +1,0 @@
-Order 853 Products Error : 0 {"cos_id":"221003","o_id":853,"batch_no":"RYYHUY","p_quantity":1,"p_title":"Jute Gift Bags","p_discount":"0","p_img":"product\/Jute_Gift_Bags_Single_1736414044.jpg","p_price":300,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '853', '1', '1')

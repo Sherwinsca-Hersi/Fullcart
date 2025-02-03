@@ -1,3 +1,0 @@
-Order 791 Products Error : 0 {"cos_id":"221003","o_id":791,"batch_no":"16OWRN","p_quantity":2,"p_title":"Bottle With Temperature","p_discount":"0.0","p_img":"product\/Bottle_With_Temperature_Black_1736241176.jpg","p_price":100,"p_type":"Black Single","platform":"1"}
-Order 791 Products Error : 1 {"cos_id":"221003","o_id":791,"batch_no":"XZAYLO","p_quantity":1,"p_title":"White Mugs","p_discount":"0.0","p_img":"product\/White_Mugs_White_1736240680.jpg","p_price":37,"p_type":"White 400 ml","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '791', '1', '1')

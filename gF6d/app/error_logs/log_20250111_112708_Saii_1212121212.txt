@@ -1,3 +1,0 @@
-Order 872 Products Error : 0 {"cos_id":"221003","o_id":872,"batch_no":"SPZ1A5","p_quantity":1,"p_title":"Glass Bottles with Temperature","p_discount":"0","p_img":"product\/Glass_Bottles_with_Temperture_Single_1736440534.jpg","p_price":280,"p_type":"Single Pc","platform":"1"}
-Order 872 Products Error : 1 {"cos_id":"221003","o_id":872,"batch_no":"K929KJ","p_quantity":1,"p_title":"Bamboo Bottles with Temperature","p_discount":"0","p_img":"product\/Bamboo_Bottles_with_Temperature_Single_1736440863.jpg","p_price":355,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '35', '178', '872', '1', '1')

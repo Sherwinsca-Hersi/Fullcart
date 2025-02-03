@@ -65,7 +65,7 @@
                             <div>
                                 <?php if(!($data['bg_img']==NULL || '')){
                                     ?>
-                                    <img id="previewImage" src="..\<?php echo $data['bg_img'];?>" width="100px"/>
+                                    <img id="previewImage" src="..\..\<?php echo $data['bg_img'];?>" width="100px"/>
                                 <?php
                                 } ?>
                             </div>

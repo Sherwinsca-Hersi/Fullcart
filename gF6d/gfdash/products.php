@@ -81,7 +81,7 @@
                 <td><?php echo $product_detail['sku_id']; ?></td>
                 <td><?php echo $product_detail['hsn_code']; ?></td>
                 <td><?php echo $product_detail['p_title']; ?></td>
-                <td><img src='../<?php echo $product_detail['p_img']; ?>'  width="60px" height="60px"></td>
+                <td><img src='../../<?php echo $product_detail['p_img']; ?>'  width="60px" height="60px"></td>
                 <td>
                     <?php  
                     if($product_detail['cat_id']!=NULL){

@@ -139,7 +139,7 @@
                 <td style="width:100px;height:100px">
                     <a href="../<?php echo $stock_detail['stock_bill'];?>" target="_blank"><?php if($stock_detail['stock_bill'] !=NULL){
                     ?>
-                        <img src="../<?php echo $stock_detail['stock_bill']; ?>" width="100" height="100">
+                        <img src="../../<?php echo $stock_detail['stock_bill']; ?>" width="100" height="100">
                     </a>
                 </td>
                 <?php

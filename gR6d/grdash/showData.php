@@ -84,7 +84,7 @@ $newProducts = $prodDetails;
                 <div class="prod_card_dash">
                     <h3>${product.p_title}</h3>
                     <p>${product.p_variation} ${product.unit}</p>
-                    <img src="../${product.p_img}"  width="50px" height="50px">
+                    <img src="../../${product.p_img}"  width="50px" height="50px">
                 </div>
              `;
             dataDiv.innerHTML += productCard;

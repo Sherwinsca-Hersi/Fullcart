@@ -1,4 +1,0 @@
-Order 868 Products Error : 0 {"cos_id":"221003","o_id":868,"batch_no":"CHJA5A","p_quantity":1,"p_title":"Bottles Non Temperature","p_discount":"0","p_img":"product\/Bottles_Non_Temperature_Red_1736241161.jpg","p_price":230,"p_type":"Red Single","platform":"1"}
-Order 868 Products Error : 1 {"cos_id":"221003","o_id":868,"batch_no":"VZU9UK","p_quantity":1,"p_title":"Iron Mobile Stand","p_discount":"0","p_img":"product\/Iron_Mobile_Stand_Iron_1736240663.jfif","p_price":80,"p_type":"Iron Single","platform":"1"}
-Order 868 Products Error : 2 {"cos_id":"221003","o_id":868,"batch_no":"ROVBPQ","p_quantity":3,"p_title":"Stainless Steel Bottles with Carabiners","p_discount":"0","p_img":"product\/Stainless_Steel_Bottles_with_Carabiners_Single_1736444674.jpg","p_price":280,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '182', '868', '1', '1')

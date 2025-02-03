@@ -97,7 +97,7 @@
                                     <?php
                                 if(!($data['c_img']==NULL || '')){
                                 ?>
-                                    <img id="previewImage" src="../<?php echo $data['c_img'];?>" width="100px"/>
+                                    <img id="previewImage" src="../../<?php echo $data['c_img'];?>" width="100px"/>
                                     <?php } ?>
                                 </div>
                                 <script>

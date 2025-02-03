@@ -59,7 +59,7 @@
                         <td> <?php $cdata = $mysqli->query("select * from e_category_details where cos_id = '$cos_id' and id=".$subcategory['c_id']."")->fetch_assoc(); echo $cdata['title']??'N/A'; ?>
                         </td>
                         <td> <?php echo $subcategory['title']; ?></td>
-                        <td><img src="../<?php echo $subcategory['c_img']; ?>"  width="80px" height="60px"/></td>
+                        <td><img src="../../<?php echo $subcategory['c_img']; ?>"  width="80px" height="60px"/></td>
                         <?php if($subcategory['active'] == 1) { ?>
                             <td><div class="badge badge-success">Published</div></td>
 								<?php } else { ?>

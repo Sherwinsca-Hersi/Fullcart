@@ -53,7 +53,7 @@
                     ?>
                     <tr class="<?php echo ($i % 2 === 0) ? 'teven' : 'todd'; ?>"  onclick="redirect(this, <?php echo $banner_details['id'];?>)">
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $banner_details['id']; ?>">&emsp;<?php echo $i; ?></td>
-                        <td><img src='../<?php echo $banner_details['bg_img']; ?>'  width="80px" height="60px"/></td>
+                        <td><img src='../../<?php echo $banner_details['bg_img']; ?>'  width="80px" height="60px"/></td>
                         <td> <?php 
                             $cdata = $mysqli->query("select * from e_category_details where cos_id = '$cos_id' and id='".$banner_details['c_id']."'")->fetch_assoc(); 
                             if($cdata['title'] == '' || $cdata['title']==NULL){

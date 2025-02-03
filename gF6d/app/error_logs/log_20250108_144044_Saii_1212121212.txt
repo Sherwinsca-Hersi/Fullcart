@@ -1,4 +1,0 @@
-Order 793 Products Error : 0 {"cos_id":"221003","o_id":793,"batch_no":"","p_quantity":1,"p_title":"Laptop Sleeves","p_discount":"0","p_img":"product\/Laptop_Sleeves_Fabrics_1736241190.webp","p_price":150,"p_type":"Fabrics Single","platform":"1"}
-Order 793 Products Error : 1 {"cos_id":"221003","o_id":793,"batch_no":"","p_quantity":1,"p_title":"Iron Mobile Stand","p_discount":"0","p_img":"product\/Iron_Mobile_Stand_Iron_1736240663.jfif","p_price":80,"p_type":"Iron Single","platform":"1"}
-Order 793 Products Error : 2 {"cos_id":"221003","o_id":793,"batch_no":"","p_quantity":1,"p_title":"Gold Design Diary","p_discount":"0","p_img":"product\/Gold_Design_Diary_Gold_1736240634.jpg","p_price":100,"p_type":"Gold Single","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '793', '1', '1')

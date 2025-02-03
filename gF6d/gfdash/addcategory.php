@@ -25,7 +25,7 @@
         ?>
     </div>
     <div class="addBanner_rightbar container">
-    <button onclick="window.history.back()" class="back_arrow"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+    <!-- <button onclick="window.history.back()" class="back_arrow"><i class="fa fa-arrow-left" aria-hidden="true"></i></button> -->
         <?php
             if(isset($_GET['categoryid'])){
                 echo  "<h2>Update Category</h2>";
@@ -58,7 +58,7 @@
                                 <?php 
                                     if(!($data['c_img']==NULL || '')){
                                     ?>
-                                        <img id="previewImage" src="../<?php echo $data['c_img'];?>" width="100px"/>
+                                        <img id="previewImage" src="../../<?php echo $data['c_img'];?>" width="100px"/>
                                     <?php
                                     }
                                 ?>

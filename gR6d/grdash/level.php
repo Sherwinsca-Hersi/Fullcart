@@ -66,7 +66,7 @@
             <tr class="<?php echo ($i % 2 === 0) ? 'teven' : 'todd'; ?>" onclick="redirect(this, <?php echo $product_detail['id'];?>)">
                 <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $product_detail['id']?>">&emsp;<?php echo $i; ?></td>
                 <td><?php echo $product_detail['p_title']; ?></td>
-                <td><img src='../<?php echo $product_detail['p_img']; ?>' width="60px" height="60px"></td>
+                <td><img src='../../<?php echo $product_detail['p_img']; ?>' width="60px" height="60px"></td>
                 <td><?php echo $product_detail['p_variation']." ".$product_detail['unit']; ?></td>
                 <td><?php echo $product_detail['reorder_level'] ?? 'N/A'; ?></td>
                 <td><?php echo $product_detail['emergency_level'] ?? 'N/A'; ?></td>

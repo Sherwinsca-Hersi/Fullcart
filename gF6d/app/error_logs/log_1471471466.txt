@@ -1,4 +1,0 @@
-[2025-01-22 09:50:09] Sign up user insert
-[2025-01-22 09:50:09] You have Successfully Signed Up
-[2025-01-22 10:01:36] User Login Details
-[2025-01-22 10:01:36] Invalid Mobile no or Password

@@ -1,7 +1,0 @@
-Order 700 Products Error : 0 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":1,"p_title":"Surf Excel Easy Wash","p_discount":"2.0","p_img":"product\/Surf Excel Easy Wash Powder.png","p_price":84,"p_type":"500 g","platform":"1"}
-Order 700 Products Error : 1 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":1,"p_title":"Surf Excel Easy Wash","p_discount":"2.0","p_img":"product\/Surf Excel Easy Wash Powder.png","p_price":166,"p_type":"1 kg","platform":"1"}
-Order 700 Products Error : 2 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":1,"p_title":"Surf Excel Quick Wash","p_discount":"2.0","p_img":"product\/Surf Excel Quick Wash Powder.png","p_price":128,"p_type":"500 g","platform":"1"}
-Order 700 Products Error : 3 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":1,"p_title":"Surf Excel Quick Wash","p_discount":"2.0","p_img":"product\/Surf Excel Quick Wash Powder.png","p_price":238,"p_type":"1 kg","platform":"1"}
-Order 700 Products Error : 4 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":1,"p_title":"Yippee","p_discount":"0.0","p_img":"product\/Yippee.png","p_price":14,"p_type":"70 g","platform":"1"}
-Order 700 Products Error : 5 {"cos_id":"221001","o_id":700,"batch_no":"1","p_quantity":13,"p_title":"Yippee","p_discount":"0.0","p_img":"product\/Yippee Family Pack.png","p_price":53,"p_type":"280 g","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221001', '9', '23', '700', '1', '1')

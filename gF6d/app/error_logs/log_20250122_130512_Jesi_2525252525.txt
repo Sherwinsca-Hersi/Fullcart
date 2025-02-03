@@ -1,4 +1,0 @@
-Order 882 Products Error : 0 {"cos_id":"221003","o_id":882,"batch_no":"6DIWR4","p_quantity":1,"p_title":"School Bags","p_discount":"0","p_img":"product\/School_Bags_Blue_1736241238.jfif","p_price":350,"p_type":"Blue Single","platform":"1"}
-Order 882 Products Error : 1 {"cos_id":"221003","o_id":882,"batch_no":"16OWRN","p_quantity":1,"p_title":"Bottle With Temperature","p_discount":"0","p_img":"product\/Bottle_With_Temperature_Black_1736241176.jpg","p_price":100,"p_type":"Black Single","platform":"1"}
-Order 882 Products Error : 2 {"cos_id":"221003","o_id":882,"batch_no":"0MM14R","p_quantity":1,"p_title":"Kids Coffee Cup","p_discount":"0","p_img":"product\/Kids_Coffee_Cup_Single_1736570339.webp","p_price":96,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '198', '882', '1', '1')

@@ -1,2 +1,0 @@
-[2025-01-24 11:39:28] User Login Details
-[2025-01-24 11:39:28] Invalid Mobile no or Password

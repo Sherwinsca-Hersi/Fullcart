@@ -86,7 +86,7 @@
                 <?php
                 }else{
                     ?>
-                    <img src='../<?php echo $product_detail['p_img']; ?>' width="60px" height="60px">
+                    <img src='../../<?php echo $product_detail['p_img']; ?>' width="60px" height="60px">
                     <?php
                 }
                 ?>

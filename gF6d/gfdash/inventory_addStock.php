@@ -134,7 +134,7 @@
                             <input type="file" id="stock_bill" class="img_upload" name="stock_bill">
                         </div>
                         <div>
-                            <img id="previewImage" src="../<?php echo $stock_data['stock_bill'];?>"  width="100px"/>
+                            <img id="previewImage" src="../../<?php echo $stock_data['stock_bill'];?>"  width="100px"/>
                         </div>
                     </div>
                     <script>

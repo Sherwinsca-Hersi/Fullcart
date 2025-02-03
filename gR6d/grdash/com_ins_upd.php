@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = "defaultimgs/nullimg.png";
             }
             else{
-            $targetDir = "../banner/";
+            $targetDir = "../../banner/";
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $b_category_id);
             $imageFileType = strtolower(pathinfo($_FILES["b_img"]["name"], PATHINFO_EXTENSION));
 
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["b_img"]["tmp_name"], $targetFile);
 
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
             }
             try{
                 $fields="`cos_id`,`bg_img`, `active`, `c_id`,`created_by`,`platform`";
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             else{
-                $targetDir = "../banner/";
+                $targetDir = "../../banner/";
      
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $b_category_id);
             $imageFileType = strtolower(pathinfo($_FILES["b_img"]["name"], PATHINFO_EXTENSION));
@@ -113,9 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["b_img"]["tmp_name"], $targetFile);
 
-            // $targetFile=substr($targetFile,3);
+            // $targetFile=substr($targetFile,6);
                 if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
-                    $targetFile=substr($targetFile,3);
+                    $targetFile=substr($targetFile,6);
         
                     try{
                         $banner_update="UPDATE `e_dat_banner` SET `bg_img`='$targetFile', `active`='$b_status',`up_platform`='$platform',`updated_by`='$updated_by',`c_id`='$b_category_id' WHERE `cos_id`= '$cos_id' AND `id`='$banner_id'";
@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = "defaultimgs/nullimg.png";
         }
         else{
-            $targetDir = "../coupon/";
+            $targetDir = "../../coupon/";
      
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $coup_title);
             $imageFileType = strtolower(pathinfo($_FILES["coup_img"]["name"], PATHINFO_EXTENSION));
@@ -162,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["coup_img"]["tmp_name"], $targetFile);
 
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
         }
           try{
               $fields="`cos_id`,`c_img`,`c_desc`,`c_value`,`c_code`,`active`,`c_date`,`c_title`,`min_amt`,`created_by`, `platform`";
@@ -215,7 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
         }
         else{
-            $targetDir = "../coupon/";
+            $targetDir = "../../coupon/";
      
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $coup_title);
             $imageFileType = strtolower(pathinfo($_FILES["coup_img"]["name"], PATHINFO_EXTENSION));
@@ -224,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["coup_img"]["tmp_name"], $targetFile);
 
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
            
             if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
                 try{
@@ -302,7 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if(empty($_FILES["main_prod_img"]["name"])){
                 $targetFile = "defaultimgs/nullimg.png";
             } else {
-                $targetDir = "../product/";
+                $targetDir = "../../product/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
                 $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
                 $imageFileType = strtolower(pathinfo($_FILES["main_prod_img"]["name"], PATHINFO_EXTENSION));
@@ -311,7 +311,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
     
                 move_uploaded_file($_FILES["main_prod_img"]["tmp_name"], $targetFile);
-                $targetFile = substr($targetFile, 3);
+                $targetFile = substr($targetFile, 6);
             }
     
             $prod_query = $mysqli->query("SELECT count(*) as total FROM `e_product_details` WHERE p_title = '$p_title' AND p_variation='$p_variation' AND unit='$unit' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
@@ -371,7 +371,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //         if (empty($_FILES["main_prod_img"]["name"])) {
     //             $targetFile = "defaultimgs/nullimg.png";
     //         } else {
-    //             $targetDir = "../product/";
+    //             $targetDir = "../../product/";
     //             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
     //             $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
     //             $imageFileType = strtolower(pathinfo($_FILES["main_prod_img"]["name"], PATHINFO_EXTENSION));
@@ -380,7 +380,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //             $targetFile = $targetDir . $newFileName;
     
     //             move_uploaded_file($_FILES["main_prod_img"]["tmp_name"], $targetFile);
-    //             $maintargetFile = substr($targetFile, 3);
+    //             $maintargetFile = substr($targetFile, 6);
     
     //             $uploadedImages = [];
     
@@ -567,7 +567,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 		    }
             else{            
-                $targetDir = "../product/";
+                $targetDir = "../../product/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
                 $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
                 $imageFileType = strtolower(pathinfo($_FILES["main_prod_img"]["name"], PATHINFO_EXTENSION));
@@ -576,7 +576,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["main_prod_img"]["tmp_name"], $targetFile);
 
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             
                     try {
                         if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
@@ -651,7 +651,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //     $disallowedTypes = ['image/gif', 'image/avif'];
     
     //     if (isset($_FILES['main_prod_img']) && !empty($_FILES['main_prod_img']['name'])) {
-    //         $targetDir = "../product/";
+    //         $targetDir = "../../product/";
     //         $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
     //         $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
     //         $imageFileType = strtolower(pathinfo($_FILES["main_prod_img"]["name"], PATHINFO_EXTENSION));
@@ -666,7 +666,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //         }
     
     //         if (move_uploaded_file($_FILES["main_prod_img"]["tmp_name"], $targetFile)) {
-    //             $currentMainImage = substr($targetFile, 3);
+    //             $currentMainImage = substr($targetFile, 6);
     //         }
     //     }
     
@@ -690,7 +690,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //             }
     
     //             if (move_uploaded_file($fileTmpName, $targetFile)) {
-    //                 $uploadedImages[] = substr($targetFile, 3);
+    //                 $uploadedImages[] = substr($targetFile, 6);
     //             }
     //         }
     //     }
@@ -793,7 +793,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = "defaultimgs/nullimg.png";
         }
         else{
-            $targetDir = "../combo/";
+            $targetDir = "../../combo/";
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $combo_name);
             $imageFileType = strtolower(pathinfo($_FILES["combo_img"]["name"], PATHINFO_EXTENSION));
 
@@ -801,7 +801,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["combo_img"]["tmp_name"], $targetFile);
         }
-        $targetFile=substr($targetFile,3);
+        $targetFile=substr($targetFile,6);
         try{
             // echo $sku_id;
             $fields1="`cos_id`,`sku_id`,`c_img`,`title`,`offer_amt`,`from_qty`,`to_qty`,`bulk_price`,`created_by`,`platform`";
@@ -982,14 +982,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         }
         else{
-            $targetDir = "../combo/";
+            $targetDir = "../../combo/";
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $combo_name);
             $imageFileType = strtolower(pathinfo($_FILES["combo_img"]["name"], PATHINFO_EXTENSION));
 
             $newFileName = $sanitizedTitle . '_' . $sanitizedVariation . '_' . time() . '.' . $imageFileType;
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["combo_img"]["tmp_name"], $targetFile);
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
                 try{
                     $update_query1 = "UPDATE `e_data_collection` 
                     SET 
@@ -1119,7 +1119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $targetFile = "defaultimgs/nullimg.png";
                 }
                 else{
-                    $targetDir = "../stockBill/";
+                    $targetDir = "../../stockBill/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $invoice_no);
                 $imageFileType = strtolower(pathinfo($_FILES["stock_bill"]["name"], PATHINFO_EXTENSION));
     
@@ -1127,7 +1127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["stock_bill"]["tmp_name"], $targetFile);
     
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             $batchno_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` WHERE s_batch_no='$batch_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
             if($batchno_query['total'] > 0){
@@ -1262,7 +1262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // }
             }
             else{
-                $targetDir = "../stockBill/";
+                $targetDir = "../../stockBill/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $invoice_no);
                 $imageFileType = strtolower(pathinfo($_FILES["stock_bill"]["name"], PATHINFO_EXTENSION));
     
@@ -1273,7 +1273,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     die("File upload error: " . $_FILES["stock_bill"]["error"]);
                 }
     
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
 
             if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
                 $batchno_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` WHERE s_batch_no='$batch_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
@@ -1337,13 +1337,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if(empty($_FILES["stock_bill"]["name"])) {
                 $targetFile = "defaultimgs/nullimg.png";
             } else {
-                $targetDir = "../stockBill/";
+                $targetDir = "../../stockBill/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $invoiceNo[0]);
                 $imageFileType = strtolower(pathinfo($_FILES["stock_bill"]["name"], PATHINFO_EXTENSION));
                 $newFileName = $sanitizedTitle . '_' . time() . '.' . $imageFileType;
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["stock_bill"]["tmp_name"], $targetFile);
-                $targetFile = substr($targetFile, 3);
+                $targetFile = substr($targetFile, 6);
             }
             try {
 
@@ -1414,7 +1414,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = "defaultimgs/nullimg.png";
             }
             else{
-                $targetDir = "../category/";
+                $targetDir = "../../category/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $category_title);
                 $imageFileType = strtolower(pathinfo($_FILES["cat_img"]["name"], PATHINFO_EXTENSION));
     
@@ -1422,7 +1422,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["cat_img"]["tmp_name"], $targetFile);
     
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             $category_query = $mysqli->query("SELECT count(*) as total FROM `e_category_details` WHERE title='$category_title'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($category_query['total'] > 0){
@@ -1484,7 +1484,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // }
         }
         else{
-            $targetDir = "../category/";
+            $targetDir = "../../category/";
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $category_title);
             $imageFileType = strtolower(pathinfo($_FILES["cat_img"]["name"], PATHINFO_EXTENSION));
     
@@ -1492,7 +1492,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["cat_img"]["tmp_name"], $targetFile);
     
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
         }
         
         if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
@@ -1532,7 +1532,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = "defaultimgs/nullimg.png";
             }
             else{
-                $targetDir = "../subcategory/";
+                $targetDir = "../../subcategory/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $subcategory);
                 $imageFileType = strtolower(pathinfo($_FILES["subcat_img"]["name"], PATHINFO_EXTENSION));
         
@@ -1540,7 +1540,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["subcat_img"]["tmp_name"], $targetFile);
         
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             $subcategory_query = $mysqli->query("SELECT count(*) as total FROM `e_subcategory_details` WHERE c_id='$cat_id' AND title='$subcategory' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($subcategory_query['total'] > 0){
@@ -1602,7 +1602,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // }
             }
             else{
-                $targetDir = "../subcategory/";
+                $targetDir = "../../subcategory/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $subcategory);
                 $imageFileType = strtolower(pathinfo($_FILES["subcat_img"]["name"], PATHINFO_EXTENSION));
         
@@ -1610,7 +1610,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["subcat_img"]["tmp_name"], $targetFile);
         
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
                 // $subcategory_query = $mysqli->query("SELECT count(*) as total FROM `e_subcategory_details` WHERE  title='$subcategory' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
@@ -1708,7 +1708,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = "defaultimgs/nullimg.png";
             }
             else{
-                $targetDir = "../logo/";
+                $targetDir = "../../logo/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $business_name);
                 $imageFileType = strtolower(pathinfo($_FILES["add_logo_img"]["name"], PATHINFO_EXTENSION));
         
@@ -1716,7 +1716,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["add_logo_img"]["tmp_name"], $targetFile);
         
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             $address = $doorno . ", " . $street . "," . $area . "," . $city . "," . $state ."," . $country."-" . $pincode;
             if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
@@ -1796,7 +1796,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } 
         }
         else{
-            $targetDir = "../logo/";
+            $targetDir = "../../logo/";
             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $business_name);
             $imageFileType = strtolower(pathinfo($_FILES["logo_img"]["name"], PATHINFO_EXTENSION));
     
@@ -1804,7 +1804,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = $targetDir . $newFileName;
             move_uploaded_file($_FILES["logo_img"]["tmp_name"], $targetFile);
     
-            $targetFile=substr($targetFile,3);
+            $targetFile=substr($targetFile,6);
             if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
        
                 try{
@@ -2149,7 +2149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $targetFile = "defaultimgs/nullimg.png";
             }
             else{
-                $targetDir = "../expense/";
+                $targetDir = "../../expense/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $exp_title);
                 $imageFileType = strtolower(pathinfo($_FILES["exp_img"]["name"], PATHINFO_EXTENSION));
         
@@ -2157,7 +2157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["exp_img"]["tmp_name"], $targetFile);
         
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
             }
             try{
                 $fields="`cos_id`,`exp_img`,`exp_desc`,`exp_date`,`exp_title`,`exp_amount`,`created_by`,`platform`";
@@ -2205,7 +2205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } 
           }
           else{
-            $targetDir = "../expense/";
+            $targetDir = "../../expense/";
                 $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $exp_title);
                 $imageFileType = strtolower(pathinfo($_FILES["exp_img"]["name"], PATHINFO_EXTENSION));
         
@@ -2213,7 +2213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $targetFile = $targetDir . $newFileName;
                 move_uploaded_file($_FILES["exp_img"]["tmp_name"], $targetFile);
         
-                $targetFile=substr($targetFile,3);
+                $targetFile=substr($targetFile,6);
           }
       
           if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
@@ -2452,7 +2452,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               
           }
           else{
-              $targetDir = "../city/";
+              $targetDir = "../../city/";
        
               $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $coup_title);
               $imageFileType = strtolower(pathinfo($_FILES["city_img"]["name"], PATHINFO_EXTENSION));
@@ -2461,7 +2461,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $targetFile = $targetDir . $newFileName;
               move_uploaded_file($_FILES["city_img"]["tmp_name"], $targetFile);
   
-              $targetFile=substr($targetFile,3);
+              $targetFile=substr($targetFile,6);
              
               if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
                 try{

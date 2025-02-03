@@ -1,2 +1,0 @@
-Order 874 Products Error : 0 {"cos_id":"221003","o_id":874,"batch_no":"6FHQ5G","p_quantity":1,"p_title":"Travel Time Coffee  Cup","p_discount":"0","p_img":"product\/Travel_Time_Coffee__Cup_Single_1736570292.webp","p_price":90,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '874', '1', '1')

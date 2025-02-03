@@ -1,1 +1,0 @@
-Order details not inserted : {"ResponseCode":"500","Result":"false","ResponseMsg":"You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Manju'')' at line 1"}

@@ -68,7 +68,7 @@
                 <td><?php echo $i; ?></td>
                 <td><?php echo $unsold['sku_id']; ?></td>
                 <td><?php echo $unsold['p_title']; ?></td>
-                <td><img src='../<?php echo $unsold['p_img']; ?>' width="60px" height="60px"></td>
+                <td><img src='../../<?php echo $unsold['p_img']; ?>' width="60px" height="60px"></td>
                 <td><?php echo $unsold['p_variation']." ".$unsold['unit']; ?></td>
                 <td><?php echo $unsold['stock_qty']; ?></td>
                 <td><?php echo $unsold['aging_days']; ?></td>

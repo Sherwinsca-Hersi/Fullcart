@@ -111,7 +111,7 @@
                             }
                             else{
                                 ?>
-                                <img src='../<?php echo $stock_detail['stock_bill']; ?>' width="80px" height="60px"/>
+                                <img src='../../<?php echo $stock_detail['stock_bill']; ?>' width="80px" height="60px"/>
                                 <?php
                             }
                            

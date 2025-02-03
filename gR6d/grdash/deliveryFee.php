@@ -55,7 +55,7 @@
                     <tr class="<?php echo ($i % 2 === 0)? 'teven' : 'todd';?>" onclick="redirect(this, <?php echo $deliveryFee_detail['id'];?>)">
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $deliveryFee_detail['id']; ?>">&emsp;<?php echo $i;?></td>
                         <td><?php echo $deliveryFee_detail['title'];?></td>
-                        <td><img src="../<?php echo $deliveryFee_detail['c_img'];?>"  width="50px" height="50px"></td>
+                        <td><img src="../../<?php echo $deliveryFee_detail['c_img'];?>"  width="50px" height="50px"></td>
                         <td><?php echo $deliveryFee_detail['d_charge'];?></td>
                         <td><?php echo $deliveryFee_detail['min_amt'];?></td>
                         <td><?php echo $deliveryFee_detail['disc_alert_msg'];?></td>

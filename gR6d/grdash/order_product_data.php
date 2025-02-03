@@ -85,7 +85,7 @@
                                     <tr>
                                         <td><?php echo $op;?></td>
                                         <td><?php echo $order_data['p_title'].' ( '.$order_data['p_type'].' )';?></td>
-                                        <td><img src="../<?php echo $order_data['p_img'];?>" width="100px" height="fit-content;"/></td>
+                                        <td><img src="../../<?php echo $order_data['p_img'];?>" width="100px" height="fit-content;"/></td>
                                         <td><?php echo $order_data['p_quantity'];?></td>
                                         <td><?php echo $order_data['p_price'];?></td>
                                         <td><?php
@@ -110,7 +110,7 @@
 
                       <!-- <div class="order_details">
                         <div>
-                            <img src="../<?php echo $row['p_img'];?>"  width="100px" height="fit-content;"/>
+                            <img src="../../<?php echo $row['p_img'];?>"  width="100px" height="fit-content;"/>
                         </div>
                         <div>
                             <div  class="preview_data">

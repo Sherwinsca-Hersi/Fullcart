@@ -1,4 +1,0 @@
-[2025-01-24 11:42:14] User Login Details
-[2025-01-24 11:42:14] {"id":"180","name":"Suja","mobile":"8787878787","email_id":"abc@gmail.com","password":"1234","whatsapp":null,"r_date":"2025-01-10 09:17:45","c_code":"91","code":"225222","refer_code":null,"wallet":"0","type":"1"}
-[2025-01-24 11:42:14] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('180', '1', 'csUlv1_hRCOxKJK-KINkFw:APA91bHboL8-GEpSVijG4xXJsenQTMFTloUOXsiyKwsUzoC8lMZH22pCgssT5PAHmMk6RI-5qeWJXPwXBGO8PGdCJRx45SmKraMjvWVxXYKLIzILrnOaOCQ', '221003')
-[2025-01-24 11:42:14] Login Successful

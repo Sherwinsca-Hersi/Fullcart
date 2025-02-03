@@ -1,4 +1,0 @@
-[2025-01-23 15:18:03] Sign up user insert
-[2025-01-23 15:18:03] INSERT INTO e_user_details (cos_id, name, mobile, r_date, email_id, password, c_code, code, platform) 
-                                        VALUES ('221007', 'Manju', '9361200610', '2025-01-23 15:18:03', 'manju@gmail.com', '1234', '91', '749722', '1')
-[2025-01-23 15:18:03] You have Successfully Signed Up

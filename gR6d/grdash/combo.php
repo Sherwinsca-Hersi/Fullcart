@@ -78,7 +78,7 @@
                 <?php
                 }else{
                     ?>
-                    <img src="../<?php echo $combo_detail['c_img']; ?>" width="100">
+                    <img src="../../<?php echo $combo_detail['c_img']; ?>" width="100">
                     <?php
                 }
                 ?>

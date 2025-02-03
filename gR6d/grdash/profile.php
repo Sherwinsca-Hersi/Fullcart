@@ -75,7 +75,7 @@
                     <input type="hidden" name="profile_id" value="<?php echo $profile_detail['id'];?>">
                 </form></td>
                 <td><?php echo $profile_detail['business_name'] ?? 'N/A'; ?></td>
-                <td><img src='../<?php echo $profile_detail['logo_img']; ?>'  width="60px" height="60px"></td>
+                <td><img src='../../<?php echo $profile_detail['logo_img']; ?>'  width="60px" height="60px"></td>
                 <td><?php echo $profile_detail['mobile_1']; ?></td>
                 <td><?php echo $profile_detail['mobile_2'] ?? 'N/A'; ?></td>
                 <td><?php echo $profile_detail['email_id'] ?? 'N/A'; ?></td>

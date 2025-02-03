@@ -61,7 +61,7 @@
                                 <?php
                                     if(!($data['exp_img'] == NULL || '')){
                                 ?>
-                                    <img id="previewImage"  src="../<?php echo $data['exp_img']?>" width="100px"/>
+                                    <img id="previewImage"  src="../../<?php echo $data['exp_img']?>" width="100px"/>
                                 <?php 
                                 }?>
                             </div>

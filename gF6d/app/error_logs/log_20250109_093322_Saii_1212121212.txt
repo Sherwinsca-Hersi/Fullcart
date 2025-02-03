@@ -1,2 +1,0 @@
-Order 813 Products Error : 0 {"cos_id":"221003","o_id":813,"batch_no":"","p_quantity":2,"p_title":"Stainless Steel  Water Bottles","p_discount":"0","p_img":"product\/Stainless_Steel__Water_Bottles_300_1736328171.jfif","p_price":280,"p_type":"300 ml","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '178', '813', '1', '1')

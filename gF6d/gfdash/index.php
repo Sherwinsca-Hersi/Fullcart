@@ -31,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $cos_id = $result['cos_id'];
         $username = $result['username'];
         $store_type = $result['store_type'];
-        $role = 5;
+        $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like 'Admin' AND cos_id='$cos_id'")->fetch_assoc();
+        $_SESSION['role'] = $role['id']; 
+        $role = $_SESSION['role'];
     } 
     else if ($login_result && $login_result->num_rows > 1) {
         $result = $login_result->fetch_assoc();
@@ -57,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
     if ($auth_id != 0) {
         $_SESSION['mobile'] = $mobile;
+        $_SESSION['password'] = $password;
         $_SESSION['role'] = $role;
         $_SESSION['login_success'] = true;
         $_SESSION['auth_id'] = $auth_id;
@@ -117,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                             <input type="password" name="password" id="password" class="input_style" required>
                             <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                         </div>
-                        <a href="forgotPassword.php" class="forgot_pass">Forgot Password?</a>
+                        <!-- <a href="forgotPassword.php" class="forgot_pass">Forgot Password?</a> -->
                     </div>
                     <div class="form-div">
                         <input type="submit" class="login_btn" value="Login" name="login">

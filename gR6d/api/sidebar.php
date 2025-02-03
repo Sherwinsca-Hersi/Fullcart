@@ -1,26 +1,88 @@
+<?php 
+
+$result = $mysqli->query("SELECT id, role_title FROM `e_salesman_role` WHERE cos_id='$cos_id' GROUP BY id,role_title");
+
+$delivery_person = $packager = $inventory_clerk = $admin = $order_processor = $revenue_manager = $biller = $accountant = $hr = $customer_manager = null;
+
+while ($row = $result->fetch_assoc()) {
+    switch ($row['role_title']) {
+        case 'Delivery Person':
+            $delivery_person = $row['id'];
+            break;
+        case 'Packager':
+            $packager = $row['id'];
+            break;
+        case 'Inventory Clerk':
+            $inventory_clerk = $row['id'];
+            break;
+        case 'Admin':
+            $admin = $row['id'];
+            break;
+        case 'Order Processor':
+            $order_processor = $row['id'];
+            break;
+        case 'Revenue Manager':
+            $revenue_manager = $row['id'];
+            break;
+        case 'Biller':
+            $biller = $row['id'];
+            break;
+        case 'Accountant/Financier':
+            $accountant = $row['id'];
+            break;
+        case 'HR':
+            $hr = $row['id'];
+            break;
+        case 'Customer Manager':
+            $customer_manager = $row['id'];
+            break;
+    }
+}
+
+
+if(isset($_SESSION['mobile']) || isset($_SESSION['password'])){
+
+    $store_count=$mysqli->query("SELECT id, cos_id,username FROM `e_dat_admin` WHERE mobile=".$_SESSION['mobile']." AND password=".$_SESSION['password']."")->num_rows;
+}
+
+?>
+
+
+
+
 <div class="sidemenu">
     <div class="logobar">
-        <a href="dashboard.php" class="menu-link" data-toggle="submenu"><img src="..\<?php echo $imgname; ?>"></a>
+        <a href="dashboard.php" class="menu-link" data-toggle="submenu"><img src="..\..\<?php echo $imgname; ?>"></a>
     </div>
+    <?php
+    if($store_count==2){
+        ?>
+        <div class="menu-item">
+            <a href="../../gF6d/gfdash/chooseStore.php" class="menu-link">Home</a>
+        </div>
+    <?php
+    }
+    ?>
     <div class="menu-item">
         <a href="dashboard.php" class="menu-link" data-url="dashboard.php" id="dashboard-menu">Dashboard</a>
     </div>
     <?php
-    if($_SESSION['role']==3 || $_SESSION['role']==5 || $_SESSION['role']==6 || $_SESSION['role']==11){
+    if($_SESSION['role']==$packager || $_SESSION['role']==$delivery_person || $_SESSION['role']==$admin || 
+            $_SESSION['role']==$order_processor || $_SESSION['role']==$customer_manager){
         ?>
             <div class="menu-item">
                 <a href="orders.php" class="menu-link" data-url="orders.php">Orders</a>
             </div> 
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==7 || $_SESSION['role']==9){
+    if($_SESSION['role']==$admin|| $_SESSION['role']==$revenue_manager || $_SESSION['role']==$accountant){
     ?>
         <div class="menu-item">
             <a href="revenue.php" class="menu-link" data-url="revenue.php">Revenue</a>
         </div> 
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==4){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$inventory_clerk){
             ?>    
             <div class="menu-item">
                 <a  class="menu-link" data-toggle="submenu">Stock Overview <span class="arrow down"></span></a>
@@ -43,7 +105,7 @@
             </div>
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==10 || $_SESSION['role']==11){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$hr || $_SESSION['role']==$customer_manager){
         ?>    
             <div class="menu-item">
                 <a  class="menu-link" data-toggle="submenu">Customers <span class="arrow down"></span></a>
@@ -54,7 +116,7 @@
             </div>
     <?php 
     }
-    if($_SESSION['role']==5){
+    if($_SESSION['role']==$admin){
     ?>    
         <div class="menu-item">
             <a  class="menu-link" data-toggle="submenu">Vendors <span class="arrow down"></span></a>
@@ -65,7 +127,7 @@
         </div>
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==9 || $_SESSION['role']==10){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$accountant || $_SESSION['role']==$hr){
         ?> 
         <div class="menu-item">
             <a  class="menu-link" data-toggle="submenu">Employees/Roles <span class="arrow down"></span></a>
@@ -76,7 +138,7 @@
         </div> 
     <?php
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==7 || $_SESSION['role']==9){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$revenue_manager || $_SESSION['role']==$accountant){
     ?>     
         <div class="menu-item">
             <a class="menu-link" data-toggle="submenu">Bank Details <span class="arrow down"></span></a>
@@ -87,28 +149,28 @@
         </div>
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==9){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$accountant){
     ?>    
         <div class="menu-item">
             <a href="wallet.php" class="menu-link" data-url="wallet.php">Wallet</a>
         </div>
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==6 ||$_SESSION['role']==9){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$order_processor ||$_SESSION['role']==$accountant){
     ?>    
         <div class="menu-item">
             <a href="deliveryPerson.php" class="menu-link" data-url="deliveryPerson.php">Delivery Persons</a>
         </div>
     <?php 
     }
-    if($_SESSION['role']==5 || $_SESSION['role']==9 || $_SESSION['role']==10){
+    if($_SESSION['role']==$admin || $_SESSION['role']==$accountant || $_SESSION['role']==$hr){
         ?>  
             <div class="menu-item">
                 <a href="expense.php" class="menu-link" data-url="expense.php">Expenses</a>
             </div>
     <?php 
     }
-    if($_SESSION['role']==5){
+    if($_SESSION['role']==$admin){
     ?>   
         <div class="menu-item">
             <a href="banners.php" class="menu-link" data-url="banners.php">Banners</a>

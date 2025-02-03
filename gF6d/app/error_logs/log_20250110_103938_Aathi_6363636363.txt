@@ -1,4 +1,0 @@
-Order 866 Products Error : 0 {"cos_id":"221003","o_id":866,"batch_no":"KXFY56","p_quantity":1,"p_title":"Stainless Steel Bottles","p_discount":"0","p_img":"product\/Stainless_Steel_Bottles_Silver_1736241140.webp","p_price":200,"p_type":"Silver Single","platform":"1"}
-Order 866 Products Error : 1 {"cos_id":"221003","o_id":866,"batch_no":"XZAYLO","p_quantity":1,"p_title":"White Mugs","p_discount":"0","p_img":"product\/White_Mugs_White_1736240680.jpg","p_price":37,"p_type":"White 400 ml","platform":"1"}
-Order 866 Products Error : 2 {"cos_id":"221003","o_id":866,"batch_no":"N21UVW","p_quantity":1,"p_title":"Seival Fish Hook","p_discount":"0","p_img":"product\/Seival_Fish_Hook_Single_1736405109.webp","p_price":45,"p_type":"Single Pc","platform":"1"}
-INSERT INTO e_cupon_used (cos_id, cupon_id, user_id, order_id, times, platform) VALUES ('221003', '0', '181', '866', '1', '1')

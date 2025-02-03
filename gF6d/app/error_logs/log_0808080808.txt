@@ -1,4 +1,0 @@
-[2025-01-24 10:41:58] User Login Details
-[2025-01-24 10:41:58] {"id":"188","name":"Sai","mobile":"0808080808","email_id":"hapiapps24@gmail.com","password":"sai123","whatsapp":null,"r_date":"2025-01-21 17:28:21","c_code":"91","code":"623709","refer_code":null,"wallet":"0","type":"1"}
-[2025-01-24 10:41:58] INSERT INTO  e_notification (`u_id`, `platform`, `token`, `cos_id`) VALUES ('188', '1', 'f5AwF1HyQQu173_B0jwD57:APA91bFhSdLXBqtaZM-ak6SimnUG4rENYjfC1xHTDBKNylVtdlEN-rm0buece6q4j0LAvXdvBOhEtRm4Kaw4B5OTUwjCaPDqEAMPOf0RrqqxZjJg-_B5fjY', '221003')
-[2025-01-24 10:41:58] Login Successful

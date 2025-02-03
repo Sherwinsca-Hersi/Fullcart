@@ -180,7 +180,7 @@
                                 <?php
                                     if(!($data['p_img']==NULL || '')){
                                 ?>
-                                    <img id="previewImage"  src="../<?php echo $data['p_img'];?>" width="100px"/>
+                                    <img id="previewImage"  src="../../<?php echo $data['p_img'];?>" width="100px"/>
                             <?php
                             }
                             ?>

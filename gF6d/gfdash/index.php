@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $cos_id = $result['cos_id'];
         $username = $result['username'];
         $store_type = $result['store_type'];
-        $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like 'Admin' AND cos_id='$cos_id'")->fetch_assoc();
+        $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title = 'Admin' AND cos_id='$cos_id'")->fetch_assoc();
         $_SESSION['role'] = $role['id']; 
         $role = $_SESSION['role'];
     } 

@@ -14,7 +14,7 @@ if ($type) {
     if ($row = mysqli_fetch_assoc($result)) {
         $_SESSION['cos_id'] = $row["cos_id"]; 
 
-        $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like 'Admin' AND cos_id=".$row["cos_id"]."")->fetch_assoc();
+        $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title = 'Admin' AND cos_id=".$_SESSION['cos_id']."")->fetch_assoc();
         $_SESSION['role'] = $role['id']; 
 
         $_SESSION['mobile']=$mobile;

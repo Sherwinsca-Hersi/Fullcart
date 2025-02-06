@@ -79,7 +79,7 @@
                 <td><a href="inventory_addStock.php?productid=<?php echo $product_detail['id']; ?>" class="export_btn add_stock"><i class="fa fa-solid fa-plus" id="addStock"></i>&emsp;Add Stock</a></td>
                 <td><?php echo $product_detail['sku_id']; ?></td>
                 <td><?php echo $product_detail['p_title']; ?></td>
-                <td><img src='../<?php echo $product_detail['p_img']; ?>'  width="60px" height="60px"></td>
+                <td><img src='../../<?php echo $product_detail['p_img']; ?>'  width="60px" height="60px"></td>
                 <td>
                     <?php  
                     if($product_detail['cat_id']!=NULL){

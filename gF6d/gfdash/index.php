@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                     <div class="form-div">
                         <label for="mobile" class="form-label">Mobile</label>
                         <div>
-                            <input type="text" name="mobile" class="input_style" id="mobile" required>
+                            <input type="text" name="mobile" class="input_style" id="mobile" pattern="\d{10}" maxlength="10" required>
                         </div>
                     </div>
                     <div class="form-div">

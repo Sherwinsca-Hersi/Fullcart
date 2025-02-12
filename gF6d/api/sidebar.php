@@ -1,54 +1,61 @@
 <?php 
 
-$result = $mysqli->query("SELECT id, role_title FROM `e_salesman_role` WHERE cos_id='$cos_id' GROUP BY id,role_title");
+$result = $mysqli->query("SELECT id, role_title FROM `e_salesman_role` WHERE cos_id='$cos_id' GROUP BY id, role_title");
 
-$delivery_person = $packager = $inventory_clerk = $admin = $order_processor = $revenue_manager = $biller = $accountant = $hr = $customer_manager = null;
+// Initialize role variables
+$roles = [
+    'delivery person' => null,
+    'packager' => null,
+    'inventory clerk' => null,
+    'admin' => null,
+    'order processor' => null,
+    'revenue manager' => null,
+    'biller' => null,
+    'accountant/financier' => null,
+    'hr' => null,
+    'customer manager' => null
+];
 
+// Fetch roles dynamically
 while ($row = $result->fetch_assoc()) {
-    switch ($row['role_title']) {
-        case 'Delivery Person':
-            $delivery_person = $row['id'];
-            break;
-        case 'Packager':
-            $packager = $row['id'];
-            break;
-        case 'Inventory Clerk':
-            $inventory_clerk = $row['id'];
-            break;
-        case 'Admin':
-            $admin = $row['id'];
-            break;
-        case 'Order Processor':
-            $order_processor = $row['id'];
-            break;
-        case 'Revenue Manager':
-            $revenue_manager = $row['id'];
-            break;
-        case 'Biller':
-            $biller = $row['id'];
-            break;
-        case 'Accountant/Financier':
-            $accountant = $row['id'];
-            break;
-        case 'HR':
-            $hr = $row['id'];
-            break;
-        case 'Customer Manager':
-            $customer_manager = $row['id'];
-            break;
+    $role_title = strtolower(trim($row['role_title'])); // Normalize role title
+    // echo "Fetched Role Title: '" . $row['role_title'] . "' | Normalized: '" . $role_title . "' | ID: " . $row['id'] . "<br>";
+
+    if (array_key_exists($role_title, $roles)) {
+        $roles[$role_title] = $row['id'];
     }
 }
 
-if(isset($_SESSION['mobile']) || isset($_SESSION['password'])){
-    $store_count=$mysqli->query("SELECT id, cos_id,username FROM `e_dat_admin` WHERE mobile=".$_SESSION['mobile']." AND password=".$_SESSION['password']."")->num_rows;
+// Assign role IDs to individual variables
+$delivery_person   = $roles['delivery person'];
+$packager          = $roles['packager'];
+$inventory_clerk   = $roles['inventory clerk'];
+$admin             = $roles['admin']; // Admin role ID
+$order_processor   = $roles['order processor'];
+$revenue_manager   = $roles['revenue manager'];
+$biller           = $roles['biller'];
+$accountant       = $roles['accountant/financier'];
+$hr               = $roles['hr'];
+$customer_manager = $roles['customer manager'];
+
+if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
+    $mobile = $mysqli->real_escape_string($_SESSION['mobile']);
+    $password = $mysqli->real_escape_string($_SESSION['password']);
+    
+    $query = "SELECT id, cos_id, username FROM `e_dat_admin` WHERE mobile='$mobile' AND password='$password'";
+    $store_count = $mysqli->query($query)->num_rows;
 }
+
 ?>
+
+
 
 <div class="sidemenu">
     <div class="logobar">
         <a href="dashboard.php" class="menu-link" data-toggle="submenu"><img src="..\..\<?php echo $imgname; ?>"></a>
     </div>
     <?php
+
     if($store_count==2){
         ?>
         <div class="menu-item">
@@ -61,6 +68,7 @@ if(isset($_SESSION['mobile']) || isset($_SESSION['password'])){
         <a href="dashboard.php" class="menu-link" data-url="dashboard.php" id="dashboard-menu">Dashboard</a>
     </div>
     <?php
+
     if($_SESSION['role']==$delivery_person || $_SESSION['role']==$packager || $_SESSION['role']==$admin || 
     $_SESSION['role']==$order_processor || $_SESSION['role']==$customer_manager){
         ?>
@@ -319,7 +327,7 @@ function clearActiveMenuOnLogout() {
     localStorage.removeItem('activeSubmenu');
 }
 
-document.querySelector('.logout-link').addEventListener('click', function(event) {
+document.querySelector('.logout-link').addEventListener('click', function(event) { 
     event.preventDefault();
     clearActiveMenuOnLogout();
 });

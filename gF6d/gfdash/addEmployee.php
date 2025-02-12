@@ -77,6 +77,7 @@
                             <div class="pass_input">
                                 <input type="password"  class="input_style"  name="emp_password" value="<?php  echo $data['password'];?>" style="width:100%;" id="emp_password" placeholder="Enter Password"  maxlength="20" autocomplete="new-password" required>
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
+                                <input type="password" name="dummy" style="display:none" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="form-div">

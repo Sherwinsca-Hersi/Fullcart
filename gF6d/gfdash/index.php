@@ -111,13 +111,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                     <div class="form-div">
                         <label for="mobile" class="form-label">Mobile</label>
                         <div>
-                            <input type="text" name="mobile" class="input_style" id="mobile" pattern="\d{10}" maxlength="10" required>
+                            <input type="text" name="mobile" class="input_style" id="mobile" pattern="\d{10}" maxlength="10" required
+                                 value="<?php echo isset($_POST['mobile']) ? htmlspecialchars($_POST['mobile']) : ''; ?>" >
                         </div>
                     </div>
                     <div class="form-div">
                         <label for="password" class="form-label">Password</label>
                         <div class="pass_input" style="width:100%">
-                            <input type="password" name="password" id="password" class="input_style" required>
+                            <input type="password" name="password" id="password" class="input_style" autocomplete="new-password" required 
+                            value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>">
                             <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                         </div>
                         <!-- <a href="forgotPassword.php" class="forgot_pass">Forgot Password?</a> -->

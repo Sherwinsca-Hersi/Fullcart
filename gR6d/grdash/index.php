@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
                     <div class="form-div">
                         <label for="password" class="form-label">Password</label>
                         <div class="pass_input" style="width:100%">
-                            <input type="password" name="password" id="password" class="input_style" required>
+                            <input type="password" name="password" id="password" class="input_style" autocomplete="new-password" required>
                             <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                         </div>
                         <a href="forgotPassword.php" class="forgot_pass">Forgot Password?</a>

@@ -38,11 +38,14 @@ $accountant       = $roles['accountant/financier'];
 $hr               = $roles['hr'];
 $customer_manager = $roles['customer manager'];
 
-
-
-if(isset($_SESSION['mobile']) || isset($_SESSION['password'])){
-    $store_count=$mysqli->query("SELECT id, cos_id,username FROM `e_dat_admin` WHERE mobile=".$_SESSION['mobile']." AND password=".$_SESSION['password']."")->num_rows;
+if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
+    $mobile = $mysqli->real_escape_string($_SESSION['mobile']);
+    $password = $mysqli->real_escape_string($_SESSION['password']);
+    
+    $query = "SELECT id, cos_id, username FROM `e_dat_admin` WHERE mobile='$mobile' AND password='$password'";
+    $store_count = $mysqli->query($query)->num_rows;
 }
+
 ?>
 
 <div class="sidemenu">

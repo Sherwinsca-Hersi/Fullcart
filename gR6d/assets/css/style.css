@@ -755,6 +755,11 @@ label #cancel {
     height: 100px;
     margin-left: 5%;
 }
+.top_products_unavailable{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
 .top_products h4,.top_products h4{
     white-space: nowrap;
     font-weight: bold;

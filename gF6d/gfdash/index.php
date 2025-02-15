@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $role = $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title = 'Admin' AND cos_id='$cos_id'")->fetch_assoc();
         $_SESSION['role'] = $role['id']; 
         $role = $_SESSION['role'];
+        
     } 
     else if ($login_result && $login_result->num_rows > 1) {
         $result = $login_result->fetch_assoc();
@@ -65,17 +66,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $_SESSION['auth_id'] = $auth_id;
         $_SESSION['cos_id'] = $cos_id;
         $_SESSION['username'] = $username;
+        $_SESSION['storeType'] = $store_type;
 
     
         echo '<script>
-                localStorage.setItem("sessionActive", "true");
-                localStorage.setItem("mobile", "' . $mobile . '");
-                localStorage.setItem("role", "' . $role . '");
-                localStorage.setItem("authId", "' . $auth_id . '");
-                localStorage.setItem("username", "' . $username . '");
-                localStorage.setItem("activeMainMenu", "Dashboard");
-                window.location.href="dashboard.php";
-              </script>';
+            localStorage.setItem("sessionActive", "true");
+            localStorage.setItem("mobile", "' . $mobile . '");
+            localStorage.setItem("role", "' . $role . '");
+            localStorage.setItem("authId", "' . $auth_id . '");
+            localStorage.setItem("username", "' . $username . '");
+            localStorage.setItem("activeMainMenu", "Dashboard");
+            localStorage.setItem("storeType", "' . $store_type . '");
+
+            if (localStorage.getItem("storeType") == "1") {
+                window.location.href = "dashboard.php";
+            } else {
+                window.location.href = "../../gR6d/grdash/dashboard.php";
+            }
+        </script>';
         exit();
     } else {
         echo '<script>

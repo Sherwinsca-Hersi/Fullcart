@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //banner Insert
     if (isset($_POST["banner_add"])) {
         if (isset($_FILES['b_img'])) {
-            $b_status = trim($_POST['b_status'])??0;
+            $b_status = trim($_POST['b_status']) == '' || NULL ? 1 : trim($_POST['b_status']);
             // $b_category_id = $_POST['b_category'];
             $b_category_id=trim($_POST['category-id']);
             if(empty($_FILES["b_img"]["name"])){
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif(isset($_POST['banner_update'])){
         if (isset($_FILES['b_img'])) {
             $banner_id=trim($_POST['bannerid']);
-            $b_status = trim($_POST['b_status'])??0;
+            $b_status = trim($_POST['b_status']) == '' || NULL ? 1 : trim($_POST['b_status']);
             // $b_category_id = $_POST['b_category'];
             $b_category_id=trim($_POST['category-id']);
             if(empty($_FILES["b_img"]["name"])){
@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$coup_exp_date = trim($_POST['coup_exp_date']);
 		$coup_min_amount = trim($_POST['coup_min_amount']);
 		$coup_title = $mysqli->real_escape_string(trim($_POST['coup_title']));
-		$coup_status = trim($_POST['coup_status'])??0;
+		$coup_status = trim($_POST['coup_status'])== '' || NULL ? 1 : trim($_POST['coup_status']);
 		$coup_value = trim($_POST['coup_value']);
 		$coup_desc = $mysqli->real_escape_string(trim($_POST['coup_desc']));
         if(empty($_FILES["coup_img"]["name"])){
@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$coup_exp_date = trim($_POST['coup_exp_date']);
 		$coup_min_amount = trim($_POST['coup_min_amount']);
 		$coup_title = $mysqli->real_escape_string(trim($_POST['coup_title']));
-		$coup_status = trim($_POST['coup_status'])??0;
+		$coup_status = trim($_POST['coup_status'])== '' || NULL ? 1 : trim($_POST['coup_status']);
 		$coup_value = trim($_POST['coup_value']);
 		$coup_desc = $mysqli->real_escape_string(trim($_POST['coup_desc']));
         if(empty($_FILES["coup_img"]["name"])){
@@ -296,8 +296,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
             }
 
-            $p_status = trim($_POST['p_status'])??1;
-            $is_loose = trim($_POST['is_loose'])??0;
+            $p_status = trim($_POST['p_status'])== '' || NULL ? 1 : trim($_POST['p_status']);
+            $is_loose = trim($_POST['is_loose'])== '' || NULL ? 0 : trim($_POST['is_loose']);
     
             if(empty($_FILES["main_prod_img"]["name"])){
                 $targetFile = "defaultimgs/nullimg.png";
@@ -363,8 +363,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //     $glocation = trim($_POST['glocation'])??'';
     //     $reorder_level = $_POST['reorder_level'] != null ? trim($_POST['reorder_level']) : '20';
     //     $emergency_level = $_POST['emergency_level'] != null ? trim($_POST['emergency_level']) : '10';
-    //     $p_status = trim($_POST['p_status'])??0;
-    //     $is_loose = trim($_POST['is_loose'])??0;
+    //     $p_status = trim($_POST['p_status'])== '' || NULL ? 1 : trim($_POST['p_status']);
+    // $is_loose = trim($_POST['is_loose'])== '' || NULL ? 0 : trim($_POST['is_loose']);
 
 
     //     if (isset($_FILES['main_prod_img']) && !empty($_FILES['main_prod_img']['name'][0])) {
@@ -487,7 +487,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		    $barcode = trim($_POST['barcode'])??NULL;
             $pcategory = trim($_POST['category-id'])??'';
             $psub_category = trim($_POST['subcategory-id'])??'';
-            $is_loose = trim($_POST['is_loose'])??0;
+            $is_loose = trim($_POST['is_loose'])== '' || NULL ? 0 : trim($_POST['is_loose']);
 		    $p_variation = trim($_POST['p_variation']);
 		    $unit = trim($_POST['unit']);
             $brand = trim($_POST['brand']);
@@ -526,7 +526,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $flocation = trim($_POST['flocation']);
 		    $glocation = trim($_POST['glocation']);
-		    $p_status = trim($_POST['p_status']) ?? 1;
+            $p_status = trim($_POST['p_status'])== '' || NULL ? 1 : trim($_POST['p_status']);
         
 
 		    if(empty($_FILES["main_prod_img"]["name"])){
@@ -632,8 +632,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //     $emergency_level = $_POST['emergency_level'] != null ? trim($_POST['emergency_level']) : '10';
     //     $flocation = trim($_POST['flocation']);
     //     $glocation = trim($_POST['glocation']);
-    //     $p_status = trim($_POST['p_status']) ?? 0;
-    //     $is_loose = trim($_POST['is_loose']) ?? 0;
+    //     $p_status = trim($_POST['p_status'])== '' || NULL ? 1 : trim($_POST['p_status']);
+    // $is_loose = trim($_POST['is_loose'])== '' || NULL ? 0 : trim($_POST['is_loose']);
     
     //     $prod_query = $mysqli->query("SELECT p_img, imgs FROM `e_product_details` WHERE id = '$product_id'")->fetch_assoc();
     //     $currentMainImage = $prod_query['p_img'];
@@ -1408,7 +1408,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //category add
     elseif (isset($_POST["category_add"])) {
         if (isset($_FILES['cat_img'])) {
-          $cat_status = trim($_POST['cat_status'])??0;
+          $cat_status = trim($_POST['cat_status'])== '' || NULL ? 1 : trim($_POST['cat_status']);
           $category_title= trim($_POST['pcategory']);
             if(empty($_FILES["cat_img"]["name"])){
             $targetFile = "defaultimgs/nullimg.png";
@@ -1454,7 +1454,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif(isset($_POST['category_update'])){
         if(isset($_FILES["cat_img"])){
             $category_id=trim($_POST['categoryid']);
-        $cat_status = trim($_POST['cat_status'])??0;
+            $cat_status = trim($_POST['cat_status'])== '' || NULL ? 1 : trim($_POST['cat_status']);
         $category_title= trim($_POST['pcategory'])
         
         ;
@@ -1526,7 +1526,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_FILES['subcat_img'])) {
         //   $cat_id=$_POST['category'];
             $cat_id=trim($_POST['category-id']);
-          $subcat_status = trim($_POST['subcat_status'])??0;
+          $subcat_status = trim($_POST['subcat_status'])== '' || NULL ? 1 : trim($_POST['subcat_status']);
           $subcategory= trim($_POST['sub_category']);
             if(empty($_FILES["subcat_img"]["name"])){
                 $targetFile = "defaultimgs/nullimg.png";
@@ -1573,7 +1573,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($_FILES["subcat_img"]){
             $cat_id=trim($_POST['category-id']);
             $subcategory_id=trim($_POST['subcategoryid']);
-            $subcat_status = trim($_POST['subcat_status'])??0;
+            $subcat_status = trim($_POST['subcat_status'])== '' || NULL ? 1 : trim($_POST['subcat_status']);
             $subcategory= trim($_POST['sub_category']);
             if(empty($_FILES["subcat_img"]["name"])){
                 // $targetFile = "defaultimgs/nullimg.png";
@@ -1645,7 +1645,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $from_time = date("h:i A", strtotime($_POST['from_time']));
         $to_time= date("h:i A", strtotime($_POST['to_time']));
         $slot_limit= trim($_POST['slot_limit']);
-        $timeslot_status= trim($_POST['timeslot_status']);
+        $timeslot_status= trim($_POST['timeslot_status'])== '' || NULL ? 1 : trim($_POST['timeslot_status']);
         try{
             $fields="`cos_id`,`min_time`,`max_time`,`slot_limit`,`active`,`created_by`,`platform`";
             $values="'$cos_id','$from_time','$to_time','$slot_limit','$timeslot_status','$created_by','$platform'";
@@ -1671,7 +1671,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $from_time = date("h:i A", strtotime($_POST['from_time']));
         $to_time= date("h:i A", strtotime($_POST['to_time']));
         $slot_limit= trim($_POST['slot_limit']);
-        $timeslot_status= trim($_POST['timeslot_status']);
+        $timeslot_status= trim($_POST['timeslot_status'])== '' || NULL ? 1 : trim($_POST['timeslot_status']);
         try{
             $timeslot_update="UPDATE `e_dat_timeslot` SET `min_time`='$from_time', `max_time`='$to_time',`slot_limit`='$slot_limit',`active`='$timeslot_status',`updated_by`='$updated_by',`up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$timeslot_id'";
             $update_query=$mysqli->query($timeslot_update);
@@ -1748,16 +1748,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             else{
-                // $_SESSION['error_message'] = "img is not set"
-                // // echo $err_msg;
-                // header("Location: addProfile.php");
-                // exit();
+                $_SESSION['error_message'] = "Image File Format is Invalid";
+                // echo $err_msg;
+                header("Location: addProfile.php");
+                exit();
             }
         }else{
-            // $_SESSION['error_message'] = "Image Input is not set"
-            // // echo $err_msg;
-            // header("Location: addProfile.php");
-            // exit();
+            $_SESSION['error_message'] = "Please Choose the Image";
+            // echo $err_msg;
+            header("Location: addProfile.php");
+            exit();
         }
     }
     //profile update
@@ -1825,7 +1825,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } 
             }
             else{
-                $_SESSION['error_message'] = 'img is not set';
+                $_SESSION['error_message'] = 'Image File Format is Invalid';
                 header("Location: addProfile.php?profileid=$profile_id");
                 exit();
             }
@@ -1833,7 +1833,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     else{
-        $_SESSION['error_message'] = 'Image Input is not set';
+        $_SESSION['error_message'] = 'Please Choose tht Image';
         header("Location: addProfile.php?profileid=$profile_id");
         exit();
     }
@@ -1951,32 +1951,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     //delivery add
     elseif (isset($_POST["delivery_add"])) {
-            $d_name = $mysqli->real_escape_string(trim($_POST['d_name']));
-            $d_phone = trim($_POST['d_phone']);
-            $d_email = trim($_POST['d_email']);
-            $d_role = 2;
-            $d_join_date = trim($_POST['d_join_date']);
-            $d_password = trim($_POST['d_password']);
-            $d_salary = trim($_POST['d_salary']);
-            $d_bonus = trim($_POST['d_bonus'])=='' || NULL ? 0 :trim($_POST['d_bonus']);
-            $d_doorno = trim($_POST['d_doorno']);
-            $d_street = trim($_POST['d_street']);
-            $d_area = trim($_POST['d_area']);
-            $d_city = trim($_POST['d_city']);
-            $d_state = trim($_POST['d_state']);
-            $d_country = trim($_POST['d_country']);
-            $d_whatsapp = trim($_POST['d_whatsapp']);
-            $d_pincode= trim($_POST['d_pincode']);
+        $d_name = $mysqli->real_escape_string(trim($_POST['d_name']));
+        $d_phone = trim($_POST['d_phone']);
+        $d_email = trim($_POST['d_email']);
+        $delivery_person= $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' AND active != 2 AND cos_id='$cos_id'")->fetch_assoc();
+        $d_role = $delivery_person['id'];
+        $d_join_date = trim($_POST['d_join_date']);
+        $d_password = trim($_POST['d_password']);
+        $d_salary = trim($_POST['d_salary']);
+        $d_bonus = trim($_POST['d_bonus'])=='' || NULL ? 0 :trim($_POST['d_bonus']);
+        $d_doorno = trim($_POST['d_doorno']);
+        $d_street = trim($_POST['d_street']);
+        $d_area = trim($_POST['d_area']);
+        $d_city = trim($_POST['d_city']);
+        $d_state = trim($_POST['d_state']);
+        $d_country = trim($_POST['d_country']);
+        $d_whatsapp = trim($_POST['d_whatsapp']);
+        $d_pincode= trim($_POST['d_pincode']);
 
-            $address_parts = array($d_doorno, $d_street, $d_area, $d_city, $d_state, $d_country, $d_pincode);
+        $address_parts = array($d_doorno, $d_street, $d_area, $d_city, $d_state, $d_country, $d_pincode);
 
 
-            $address_parts = array_filter($address_parts, function($part) {
-            return !empty($part);
-                });
+        $address_parts = array_filter($address_parts, function($part) {
+        return !empty($part);
+            });
 
-            $d_address = implode(", ",$address_parts);
-
+        $d_address = implode(", ",$address_parts);
+        $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_salesman_details` 
+            WHERE `s_mobile` = '$d_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
+        if($mobile_query['total'] > 0){
+            $_SESSION['error_message'] = "Delivery Person with same mobile number already exists!";
+            header("Location: addDeliveryPerson.php");
+            exit();
+        } else { 
             try{
                 $fields="`cos_id`,`s_name`,`s_mobile`,`email`,`whatsapp`,`s_address`,`password`,`role`, `joining_date`, `salary`,`bonus`, `created_by`,`platform`";
                 $values="'$cos_id','$d_name','$d_phone','$d_email','$d_whatsapp','$d_address','$d_password','$d_role','$d_join_date','$d_salary','$d_bonus','$created_by','$platform'";              
@@ -1995,6 +2002,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: addDeliveryPerson.php");
                 exit();
             } 
+        }
     }
     //delivery update
     elseif(isset($_POST['delivery_update'])){
@@ -2002,7 +2010,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $d_name = $mysqli->real_escape_string(trim($_POST['d_name']));
         $d_phone = trim($_POST['d_phone']);
         $d_email = trim($_POST['d_email']);
-        $d_role = 2;
+        $delivery_person= $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' AND active != 2 AND cos_id='$cos_id'")->fetch_assoc();
+        $d_role = $delivery_person['id'];
         $d_join_date = trim($_POST['d_join_date']);
         $d_password = trim($_POST['d_password']);
         $d_salary = trim($_POST['d_salary']);
@@ -2329,7 +2338,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $account_no = trim($_POST['account_no']);
             $upi_id = trim($_POST['upi_id']);
             $ifsc_code=trim($_POST['ifsc_code']);
-            $app_status = trim($_POST['app_status']);
+            $app_status = trim($_POST['app_status'])== '' || NULL ? 1 : trim($_POST['app_status']);
 
             try{
                 $fields="`cos_id`,`account_holder`,`bank_name`,`account_no`,`upi_id`,`ifsc_code`,`app_status`,`created_by`,`platform`";
@@ -2357,7 +2366,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $account_no = trim($_POST['account_no']);
         $upi_id = trim($_POST['upi_id']);
         $ifsc_code=trim($_POST['ifsc_code']);
-        $app_status = trim($_POST['app_status']);
+        $app_status = trim($_POST['app_status'])== '' || NULL ? 1 : trim($_POST['app_status']);
 
         try{
             $bank_update="UPDATE `e_bank_details` SET `account_holder`='$account_holder', `bank_name`='$bank_name', `account_no`='$account_no', `upi_id`='$upi_id' ,`ifsc_code`='$ifsc_code' ,`app_status`='$app_status',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$bank_id'";
@@ -2404,7 +2413,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role_id = $_POST['roleid'];
         $role_title = $mysqli->real_escape_string(trim($_POST['role_title']));
         $role_desc=$mysqli->real_escape_string(trim($_POST['role_desc']));
-        $role_status = trim($_POST['role_status']);
+        $role_status = trim($_POST['role_status'])== '' || NULL ? 1 : trim($_POST['role_status']);
 
         try{
             $role_update="UPDATE `e_salesman_role` SET `role_title`='$role_title', `role_desc`='$role_desc',`active`='$role_status',
@@ -2488,7 +2497,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $order_id=trim($_POST['orderid']);
         $bank_trans_id=trim($_POST['bank_trans_id']);
         $upi_id=trim($_POST['upi_id']);
-        $recon_status=trim($_POST['recon_status']);
+        $recon_status=trim($_POST['recon_status']) =='' || NULL ? 0 : trim($_POST['recon_status']);
         try{
             $recon_update="UPDATE `e_normal_order_details` SET `bank_trans_id`='$bank_trans_id', `upi_id`='$upi_id', `recon_status`='$recon_status',`updated_by`='$updated_by',`up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$order_id'";
             $update_query=$mysqli->query($recon_update);
@@ -2505,7 +2514,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     //unit Insert
     elseif (isset($_POST["unit_add"])) {
-        $unit_status = $_POST['unit_status']??0;
+        $unit_status = trim($_POST['unit_status']) =='' || NULL ? 1 : trim($_POST['unit_status']);
         $unit= $_POST['unit'];
           try{    
             $fields="`cos_id`,`unit`,`active`, `platform`";
@@ -2527,7 +2536,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   elseif(isset($_POST['unit_update'])){
       $unit_id=$_POST['unitid'];
-      $unit=$_POST['unit'];
+      $unit_status = trim($_POST['unit_status']) =='' || NULL ? 1 : trim($_POST['unit_status']);
       $unit_status = $_POST['unit_status']??0;
       echo $unit;
      

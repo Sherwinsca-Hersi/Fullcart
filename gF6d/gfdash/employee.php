@@ -68,16 +68,15 @@
                         <td><?php  echo $employee_detail['s_address'] ==''|| NULL ? 'N/A' : $employee_detail['s_address'];?></td>
                         <?php
                             $role_id = $employee_detail['role'] ?? 0;
-
                             $role_query = "SELECT role_title FROM `e_salesman_role` WHERE id = '$role_id' AND active != 2 AND cos_id='$cos_id'";
 
                             $stmt = $mysqli->query($role_query);
 
                             if ($stmt && $stmt->num_rows > 0) {
-                                $role_data = $stmt->fetch_assoc();  // Fetch the result
-                                $role_title = $role_data['role_title'] ?? 'N/A';  // Default to 'N/A' if 'role_title' is null
+                                $role_data = $stmt->fetch_assoc();
+                                $role_title = $role_data['role_title'] ?? 'N/A';
                             } else {
-                                $role_title = 'N/A';  // If no record is found, set to 'N/A'
+                                $role_title = 'N/A'; 
                             }
                             $role_display = $role_title;
                         ?>

@@ -97,27 +97,27 @@
                             </div>
                         </div>
                         <div class="form-div">
-                            <label for="account_holder" class="form-label">Account Holder Name</label>
+                            <label for="account_holder" class="form-label">Account Holder Name<span class="star">*</span></label>
                             <div>
                                 <input type="text" name="account_holder"  class="input_style"  placeholder=" Enter Account Holder Name" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-div">
-                            <label for="account_no" class="form-label">Account Number</label>
+                            <label for="account_no" class="form-label">Account Number<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="account_no"  class="input_style"  placeholder=" Enter Account No" oninput="this.value = this.value.toUpperCase();" maxlength="18">
+                                <input type="text" name="account_no"  class="input_style"  placeholder=" Enter Account No" oninput="this.value = this.value.toUpperCase();" maxlength="18" required>
                             </div>
                         </div>
                     </div>
                     <div class="grid-col-2">
                     <div class="form-div">
-                            <label for="ifsc_code" class="form-label">IFSC Code</label>
+                            <label for="ifsc_code" class="form-label">IFSC Code<span class="star">*</span></label>
                             <div>
                                 <input type="text" name="ifsc_code"  class="input_style"  placeholder=" Enter IFSC Code" maxlength="11" required>
                             </div>
                         </div>
                     <div class="form-div">
-                            <label for="upi_id" class="form-label">UPI ID</label>
+                            <label for="upi_id" class="form-label">UPI ID<span class="star">*</span></label>
                             <div>
                                 <input type="text" name="upi_id"  class="input_style"  placeholder=" Enter UPI ID" maxlength="35" required>
                             </div>

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //banner Insert
     if (isset($_POST["banner_add"])) {
         if (isset($_FILES['b_img'])) {
-            $b_status = trim($_POST['b_status'])??0;
+            $b_status = trim($_POST['b_status']) == '' || NULL ? 1 : trim($_POST['b_status']);
             // $b_category_id = $_POST['b_category'];
             $b_category_id=trim($_POST['category-id']);
             if(empty($_FILES["b_img"]["name"])){
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif(isset($_POST['banner_update'])){
         if (isset($_FILES['b_img'])) {
             $banner_id=trim($_POST['bannerid']);
-            $b_status = trim($_POST['b_status'])??0;
+            $b_status = trim($_POST['b_status']) == '' || NULL ? 1 : trim($_POST['b_status']);
             // $b_category_id = $_POST['b_category'];
             $b_category_id=trim($_POST['category-id']);
             if(empty($_FILES["b_img"]["name"])){
@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$coup_exp_date = trim($_POST['coup_exp_date']);
 		$coup_min_amount = trim($_POST['coup_min_amount']);
 		$coup_title = $mysqli->real_escape_string(trim($_POST['coup_title']));
-		$coup_status = trim($_POST['coup_status'])??0;
+		$coup_status = trim($_POST['coup_status']) == '' || NULL ? 1 : trim($_POST['coup_status']);
 		$coup_value = trim($_POST['coup_value']);
 		$coup_desc = $mysqli->real_escape_string(trim($_POST['coup_desc']));
         if(empty($_FILES["coup_img"]["name"])){
@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$coup_exp_date = trim($_POST['coup_exp_date']);
 		$coup_min_amount = trim($_POST['coup_min_amount']);
 		$coup_title = $mysqli->real_escape_string(trim($_POST['coup_title']));
-		$coup_status = trim($_POST['coup_status'])??0;
+		$coup_status = trim($_POST['coup_status']) == '' || NULL ? 1 : trim($_POST['coup_status']);
 		$coup_value = trim($_POST['coup_value']);
 		$coup_desc = $mysqli->real_escape_string(trim($_POST['coup_desc']));
         if(empty($_FILES["coup_img"]["name"])){
@@ -324,8 +324,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $p_variation = trim($_POST['p_variation']) ?? '';
         $unit = trim($_POST['unit']) ?? '';
         $p_desc = trim($_POST['p_desc']) ?? '';
-        $p_status = trim($_POST['p_status']) ?? 0;
-        $imprint = trim($_POST['imprint']) ?? 0;
+        $p_status = trim($_POST['p_status'])  == '' || NULL ? 1 : trim($_POST['p_status']);
+        //  $imprint = trim($_POST['imprint']) ?? 0;
+        $imprint = trim($_POST['imprint']) == '' || NULL ? 0 : trim($_POST['imprint']);
     
         if (isset($_FILES['main_prod_img']) && !empty($_FILES['main_prod_img']['name'][0])) {
             if (empty($_FILES["main_prod_img"]["name"])) {
@@ -538,8 +539,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $p_variation = trim($_POST['p_variation']);
         $unit = trim($_POST['unit']);
         $p_desc = trim($_POST['p_desc']);
-        $p_status = trim($_POST['p_status']) ?? 0;
-        $imprint = trim($_POST['imprint']) ?? 0;
+        $p_status = trim($_POST['p_status'])  == '' || NULL ? 1 : trim($_POST['p_status']);
+        //  $imprint = trim($_POST['imprint']) ?? 0;
+        $imprint = trim($_POST['imprint']) == '' || NULL ? 0 : trim($_POST['imprint']);
     
         $prod_query = $mysqli->query("SELECT p_img, imgs FROM `e_product_details` WHERE id = '$product_id'")->fetch_assoc();
         $currentMainImage = $prod_query['p_img'];
@@ -1278,7 +1280,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //category add
     elseif (isset($_POST["category_add"])) {
         if (isset($_FILES['cat_img'])) {
-          $cat_status = trim($_POST['cat_status'])??0;
+          $cat_status = trim($_POST['cat_status'])=='' || NULL ? 1 : trim($_POST['cat_status']);
           $category_title= trim($_POST['pcategory']);
             if(empty($_FILES["cat_img"]["name"])){
             $targetFile = "defaultimgs/nullimg.png";
@@ -1324,7 +1326,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif(isset($_POST['category_update'])){
         if(isset($_FILES["cat_img"])){
             $category_id=trim($_POST['categoryid']);
-        $cat_status = trim($_POST['cat_status'])??0;
+            $cat_status = trim($_POST['cat_status'])=='' || NULL ? 1 : trim($_POST['cat_status']);
         $category_title= trim($_POST['pcategory'])
         
         ;
@@ -1396,7 +1398,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_FILES['subcat_img'])) {
         //   $cat_id=$_POST['category'];
             $cat_id=trim($_POST['category-id']);
-          $subcat_status = trim($_POST['subcat_status'])??0;
+          $subcat_status = trim($_POST['subcat_status'])=='' || NULL ? 1 : trim($_POST['subcat_status']);
           $subcategory= trim($_POST['sub_category']);
             if(empty($_FILES["subcat_img"]["name"])){
                 $targetFile = "defaultimgs/nullimg.png";
@@ -1443,7 +1445,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($_FILES["subcat_img"]){
             $cat_id=trim($_POST['category-id']);
             $subcategory_id=trim($_POST['subcategoryid']);
-            $subcat_status = trim($_POST['subcat_status'])??0;
+            $subcat_status = trim($_POST['subcat_status'])=='' || NULL ? 1 : trim($_POST['subcat_status']);
             $subcategory= trim($_POST['sub_category']);
             if(empty($_FILES["subcat_img"]["name"])){
                 // $targetFile = "defaultimgs/nullimg.png";
@@ -1515,7 +1517,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $from_time = date("h:i A", strtotime($_POST['from_time']));
         $to_time= date("h:i A", strtotime($_POST['to_time']));
         $slot_limit= trim($_POST['slot_limit']);
-        $timeslot_status= trim($_POST['timeslot_status']);
+        $timeslot_status= trim($_POST['timeslot_status'])=='' || NULL ? 1 : trim($_POST['timeslot_status']);
         try{
             $fields="`cos_id`,`min_time`,`max_time`,`slot_limit`,`active`,`created_by`,`platform`";
             $values="'$cos_id','$from_time','$to_time','$slot_limit','$timeslot_status','$created_by','$platform'";
@@ -1541,7 +1543,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $from_time = date("h:i A", strtotime($_POST['from_time']));
         $to_time= date("h:i A", strtotime($_POST['to_time']));
         $slot_limit= trim($_POST['slot_limit']);
-        $timeslot_status= trim($_POST['timeslot_status']);
+        $timeslot_status= trim($_POST['timeslot_status']) =='' || NULL ? 1 : trim($_POST['timeslot_status']);
         try{
             $timeslot_update="UPDATE `e_dat_timeslot` SET `min_time`='$from_time', `max_time`='$to_time',`slot_limit`='$slot_limit',`active`='$timeslot_status',`updated_by`='$updated_by',`up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$timeslot_id'";
             $update_query=$mysqli->query($timeslot_update);
@@ -1618,16 +1620,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             else{
-                // $_SESSION['error_message'] = "img is not set"
-                // // echo $err_msg;
-                // header("Location: addProfile.php");
-                // exit();
+                $_SESSION['error_message'] = "Image Format is not correct";
+                // echo $err_msg;
+                header("Location: addProfile.php");
+                exit();
             }
         }else{
-            // $_SESSION['error_message'] = "Image Input is not set"
-            // // echo $err_msg;
-            // header("Location: addProfile.php");
-            // exit();
+            $_SESSION['error_message'] = "Please Choose Image";
+            // echo $err_msg;
+            header("Location: addProfile.php");
+            exit();
         }
     }
     //profile update
@@ -1804,7 +1806,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return !empty($part);
         });
         
-        $emp_address = implode(", ", $emp_address_parts);        
+        $emp_address = implode(", ", $emp_address_parts);   
+            
         try{
             $employee_update="UPDATE `e_salesman_details` SET `s_name`='$emp_name', `s_mobile`='$emp_phone',`whatsapp`='$emp_whatsapp', `email`='$emp_email' ,`s_address`='$emp_address', `password`='$emp_password', `role`='$emp_role' ,`other_roles`='$roles' ,`joining_date`='$emp_join_date',`salary`='$emp_salary',`bonus`='$emp_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$employee_id'";
             $update_query=$mysqli->query($employee_update);
@@ -1827,7 +1830,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $d_name = $mysqli->real_escape_string(trim($_POST['d_name']));
             $d_phone = trim($_POST['d_phone']);
             $d_email = trim($_POST['d_email']);
-            $d_role = 2;
+            $delivery_person= $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' AND active != 2 AND cos_id='$cos_id'")->fetch_assoc();
+            $d_role = $delivery_person['id'];
             $d_join_date = trim($_POST['d_join_date']);
             $d_password = trim($_POST['d_password']);
             $d_salary = trim($_POST['d_salary']);
@@ -1849,25 +1853,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 });
 
             $d_address = implode(", ",$address_parts);
-
-            try{
-                $fields="`cos_id`,`s_name`,`s_mobile`,`email`,`whatsapp`,`s_address`,`password`,`role`, `joining_date`, `salary`,`bonus`, `created_by`,`platform`";
-                $values="'$cos_id','$d_name','$d_phone','$d_email','$d_whatsapp','$d_address','$d_password','$d_role','$d_join_date','$d_salary','$d_bonus','$created_by','$platform'";              
-                $d_insert="INSERT INTO  `e_salesman_details` ($fields) VALUES ($values)"; 
-                $insert_query=$mysqli->query($d_insert);
-                $_SESSION['success'] = "Delivery Person Details Added Successfully!";
-                header("Location: deliveryPerson.php");
-                exit();
-            }
-            catch (mysqli_sql_exception $exception) {
-                mysqli_rollback($mysqli);
-                $insert_query = false;
-                $err_msg=$exception->getMessage();
-                $_SESSION['error_message'] = $err_msg;
-                // echo $err_msg;
+            $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_salesman_details` 
+                WHERE `s_mobile` = '$d_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
+            if($mobile_query['total'] > 0){
+                $_SESSION['error_message'] = "Delivery Person with same mobile number already exists!";
                 header("Location: addDeliveryPerson.php");
                 exit();
-            } 
+            } else { 
+                try{
+                    $fields="`cos_id`,`s_name`,`s_mobile`,`email`,`whatsapp`,`s_address`,`password`,`role`, `joining_date`, `salary`,`bonus`, `created_by`,`platform`";
+                    $values="'$cos_id','$d_name','$d_phone','$d_email','$d_whatsapp','$d_address','$d_password','$d_role','$d_join_date','$d_salary','$d_bonus','$created_by','$platform'";              
+                    $d_insert="INSERT INTO  `e_salesman_details` ($fields) VALUES ($values)"; 
+                    $insert_query=$mysqli->query($d_insert);
+                    $_SESSION['success'] = "Delivery Person Details Added Successfully!";
+                    header("Location: deliveryPerson.php");
+                    exit();
+                }
+                catch (mysqli_sql_exception $exception) {
+                    mysqli_rollback($mysqli);
+                    $insert_query = false;
+                    $err_msg=$exception->getMessage();
+                    $_SESSION['error_message'] = $err_msg;
+                    // echo $err_msg;
+                    header("Location: addDeliveryPerson.php");
+                    exit();
+                } 
+            }
     }
     //delivery update
     elseif(isset($_POST['delivery_update'])){
@@ -1875,7 +1886,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $d_name = $mysqli->real_escape_string(trim($_POST['d_name']));
         $d_phone = trim($_POST['d_phone']);
         $d_email = trim($_POST['d_email']);
-        $d_role = 2;
+        $delivery_person= $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' AND active != 2 AND cos_id='$cos_id'")->fetch_assoc();
+        $d_role = $delivery_person['id'];
         $d_join_date = trim($_POST['d_join_date']);
         $d_password = trim($_POST['d_password']);
         $d_salary = trim($_POST['d_salary']);
@@ -1890,13 +1902,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $d_pincode= trim($_POST['d_pincode']);
 
         $address_parts = array($d_doorno, $d_street, $d_area, $d_city, $d_state, $d_country, $d_pincode);
-
-
-            $address_parts = array_filter($address_parts, function($part) {
-            return !empty($part);
-                });
-
-            $d_address = implode(", ",$address_parts);
+        $address_parts = array_filter($address_parts, function($part) {
+        return !empty($part);
+        });
+        $d_address = implode(", ",$address_parts);
         try{
             $delivery_update="UPDATE `e_salesman_details` SET `s_name`='$d_name', `s_mobile`='$d_phone', `email`='$d_email' ,`whatsapp`='$d_whatsapp',`s_address`='$d_address', `password`='$d_password', `role`='$d_role' ,`joining_date`='$d_join_date',`salary`='$d_salary',`bonus`='$d_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$delivery_id'";
             $update_query=$mysqli->query($delivery_update);
@@ -2202,7 +2211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $account_no = trim($_POST['account_no']);
             $upi_id = trim($_POST['upi_id']);
             $ifsc_code=trim($_POST['ifsc_code']);
-            $app_status = trim($_POST['app_status']);
+            $app_status = trim($_POST['app_status']) == '' || NULL ? 0 :  trim($_POST['app_status']);
 
             try{
                 $fields="`cos_id`,`account_holder`,`bank_name`,`account_no`,`upi_id`,`ifsc_code`,`app_status`,`created_by`,`platform`";
@@ -2230,7 +2239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $account_no = trim($_POST['account_no']);
         $upi_id = trim($_POST['upi_id']);
         $ifsc_code=trim($_POST['ifsc_code']);
-        $app_status = trim($_POST['app_status']);
+        $app_status = trim($_POST['app_status'])==''|| NULL ? 0 : trim($_POST['app_status']);
 
         try{
             $bank_update="UPDATE `e_bank_details` SET `account_holder`='$account_holder', `bank_name`='$bank_name', `account_no`='$account_no', `upi_id`='$upi_id' ,`ifsc_code`='$ifsc_code' ,`app_status`='$app_status',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$bank_id'";
@@ -2252,7 +2261,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      elseif (isset($_POST["role_add"])) { 
         $role_title = $mysqli->real_escape_string(trim($_POST['role_title']));
         $role_desc=$mysqli->real_escape_string(trim($_POST['role_desc']));
-        $role_status = trim($_POST['role_status']);
+        $role_status = trim($_POST['role_status'])== ''|| NULL ? 1 : trim($_POST['role_status']);
 
         try{
             $fields="`cos_id`,`role_title`,`role_desc`,`active`,`created_by`,`platform`";
@@ -2277,7 +2286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role_id = $_POST['roleid'];
         $role_title = $mysqli->real_escape_string(trim($_POST['role_title']));
         $role_desc=$mysqli->real_escape_string(trim($_POST['role_desc']));
-        $role_status = trim($_POST['role_status']);
+        $role_status = trim($_POST['role_status'])== ''|| NULL ? 1 : trim($_POST['role_status']);
 
         try{
             $role_update="UPDATE `e_salesman_role` SET `role_title`='$role_title', `role_desc`='$role_desc',`active`='$role_status',
@@ -2361,7 +2370,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $order_id=trim($_POST['orderid']);
         $bank_trans_id=trim($_POST['bank_trans_id']);
         $upi_id=trim($_POST['upi_id']);
-        $recon_status=trim($_POST['recon_status']);
+        $recon_status=trim($_POST['recon_status']) =='' || NULL ? 0 : trim($_POST['recon_status']);
         try{
             $recon_update="UPDATE `e_normal_order_details` SET `bank_trans_id`='$bank_trans_id', `upi_id`='$upi_id', `recon_status`='$recon_status',`updated_by`='$updated_by',`up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$order_id'";
             $update_query=$mysqli->query($recon_update);

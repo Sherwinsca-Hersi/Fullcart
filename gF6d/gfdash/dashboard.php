@@ -195,8 +195,16 @@ require '../api/sidebar.php';
                 <div class="grid_subcard">
                     <h4 class="sub_card_head">Low Stock</h4>
                     <div class="topselling_productList">
-
-                        <?php foreach ($low_stock_prod as $low_prod): ?>
+                        
+                        <?php 
+                        if($low_stock_prod==[]){
+                            ?>
+                            <div class="top_products_unavailable">
+                                <h4 class="low_stock_products">No Products Found</h4>
+                            </div> 
+                        <?php
+                        }
+                        foreach ($low_stock_prod as $low_prod): ?>
                             <div class="top_products">
                                 <h4 class="product_text"><?php echo $low_prod['p_title'] . ' <span>(' . $low_prod['p_variation'] . ' ' . $low_prod['unit'] . ')</span>'; ?></h4>
                                 <h4><?php echo $low_prod['qty_left']; ?>&nbsp;<span>Pcs</span></h4>
@@ -208,10 +216,18 @@ require '../api/sidebar.php';
                     <h4 class="sub_card_head">Out Of Stock</h4>
                     <div class="topselling_productList">
 
-                        <?php foreach ($out_stock_prod as $out_prod): ?>
+                        <?php 
+                        if($out_stock_prod==[]){
+                            ?>
+                            <div class="top_products_unavailable">
+                                <h4>No Products Found</h4>
+                            </div> 
+                        <?php
+                        }
+                        foreach ($out_stock_prod as $out_prod): ?>
                             <div class="top_products">
                                 <h4 class="product_text"><?php echo $out_prod['p_title'] . ' <span>(' . $out_prod['p_variation'] . ' ' . $out_prod['unit'] . ')</span>'; ?></h4>
-                                <h4><?php echo $out_prod['qty_left']; ?>&nbsp;<span>Pcs</span></h4>
+                                <h4><?php echo $out_prod['qty_left'] == '' || NULL ? 0 : $out_prod['qty_left']; ?>&nbsp;<span>Pcs</span></h4>
                             </div>
                         <?php endforeach; ?>
                     </div>

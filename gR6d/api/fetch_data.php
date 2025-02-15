@@ -151,9 +151,36 @@ while ($low_qty = $low_stock_products->fetch_assoc()) {
 
 //Out Of Stock Products
 
-$out_stock_products=$mysqli->query("SELECT p.p_title,p.p_variation,p.unit, q.qty_left,p.emergency_level
-FROM e_product_details AS p JOIN e_product_price AS q ON p.id = q.product_id AND q.cos_id = '$cos_id'
-WHERE  q.qty_left = 0 AND p.active = 1 AND q.active = 1 AND p.cos_id = '$cos_id' LIMIT 5");
+$out_stock_products=$mysqli->query("SELECT 
+    pd.id, 
+    pd.p_title, 
+    pd.p_variation, 
+    pd.unit, 
+    pd.sku_id, 
+    pd.reorder_level, 
+    pd.emergency_level, 
+    ps.s_product_id, 
+    ps.s_batch_no, 
+    ps.s_mrp, 
+    ps.in_price, 
+    ps.s_out_price, 
+    ps.s_expiry_date, 
+    ps.stock_bill, 
+    ps.qty, 
+    pp.qty_left,
+    ps.updated_ts, 
+    ps.created_ts
+FROM e_product_details pd 
+LEFT JOIN e_product_stock ps 
+    ON ps.s_product_id = pd.id 
+    AND ps.cos_id = pd.cos_id 
+    AND (ps.active IS NULL OR ps.active != 1)
+LEFT JOIN e_product_price pp 
+    ON pp.product_id = ps.s_product_id  
+    AND pp.cos_id = ps.cos_id
+WHERE pd.cos_id = '$cos_id' 
+AND (pp.qty_left = 0 OR pp.qty_left IS NULL)
+ORDER BY ps.s_id DESC LIMIT 5");
 
 $out_stock_prod = [];
 while ($out_qty = $out_stock_products->fetch_assoc()) {
@@ -381,21 +408,35 @@ while($missing_qty=$missing_stock_query->fetch_assoc()){
 //Out of Stock
 
 $out_stock_query=$mysqli->query("SELECT 
-    pd.id, pd.p_title, pd.p_variation, pd.unit, 
-    pd.sku_id, pd.reorder_level, pd.emergency_level, 
-    ps.s_product_id, ps.s_batch_no, ps.s_mrp, ps.in_price, 
-    ps.s_out_price, ps.s_expiry_date, ps.stock_bill, ps.qty, 
-    ps.updated_ts, ps.created_ts
-FROM 
-    e_product_details pd
-LEFT JOIN 
-    e_product_stock ps 
-    ON ps.s_product_id = pd.id
-WHERE 
-    pd.cos_id = '$cos_id'
-    AND (ps.s_product_id IS NULL OR ps.active != 1)
-ORDER BY 
-    ps.s_id DESC");
+    pd.id, 
+    pd.p_title, 
+    pd.p_variation, 
+    pd.unit, 
+    pd.sku_id, 
+    pd.reorder_level, 
+    pd.emergency_level, 
+    ps.s_product_id, 
+    ps.s_batch_no, 
+    ps.s_mrp, 
+    ps.in_price, 
+    ps.s_out_price, 
+    ps.s_expiry_date, 
+    ps.stock_bill, 
+    ps.qty, 
+    pp.qty_left,
+    ps.updated_ts, 
+    ps.created_ts
+FROM e_product_details pd 
+LEFT JOIN e_product_stock ps 
+    ON ps.s_product_id = pd.id 
+    AND ps.cos_id = pd.cos_id 
+    AND (ps.active IS NULL OR ps.active != 1)
+LEFT JOIN e_product_price pp 
+    ON pp.product_id = ps.s_product_id  
+    AND pp.cos_id = ps.cos_id
+WHERE pd.cos_id = '$cos_id' 
+AND (pp.qty_left = 0 OR pp.qty_left IS NULL)
+ORDER BY ps.s_id DESC");
 
 $outOfStock=[];
 while($out_of_stock_products=$out_stock_query->fetch_assoc()){
@@ -455,8 +496,17 @@ while ($role_table = $role_query->fetch_assoc()) {
 }
 
 //Delivery Person
+if(isset($cos_id)){
+    $delivery_person= $mysqli->query("SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' 
+    AND active != 2 AND cos_id='$cos_id'")->fetch_assoc();
+    // print_r($delivery_person);
+    // echo "SELECT id FROM `e_salesman_role` WHERE role_title like '%delivery%' AND active != 2 AND cos_id='$cos_id'";
+    $d_role = $delivery_person['id'] ?? '';
+}else{
+    $d_role='';
+}
 $delivery_query=$mysqli->query("SELECT id,s_name,email,s_mobile,whatsapp,s_address,joining_date,salary,bonus,password 
-FROM `e_salesman_details` WHERE role=2 AND active=1 AND cos_id = '$cos_id' ORDER BY id DESC");
+FROM `e_salesman_details` WHERE role='$d_role' AND active=1 AND cos_id = '$cos_id' ORDER BY id DESC");
 $delivery_details=[];
 while ($delivery_table = $delivery_query->fetch_assoc()) {
     $delivery_details[] = $delivery_table;

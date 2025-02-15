@@ -68,6 +68,7 @@
                         <td><?php  echo $employee_detail['s_address'] ==''|| NULL ? 'N/A' : $employee_detail['s_address'];?></td>
                         <?php
                             $role_id = $employee_detail['role'];
+                            
 
                             $role_query = "SELECT role_title FROM `e_salesman_role` WHERE id = '$role_id' AND active != 2 AND cos_id='$cos_id'";
                             $stmt = $mysqli->query($role_query)->fetch_assoc();

@@ -198,13 +198,28 @@ thead tr{
     position: absolute;
     top: 5px;
     right: 5px;
-    /* background-color: rgba(0, 0, 0, 0.6); */
     color: var(--font-color);
     border: none;
     border-radius: 50%;
-    padding: 5px;
+    padding: 8px 12px;
     cursor: pointer;
     font-size: 14px;
+    background-color: #ff4d4d;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button i {
+    color: white;
+    font-size: 16px; /* Adjust icon size */
+}
+
+.delete-button:hover {
+    background-color: #e60000; /* Darker red on hover */
+    transform: scale(1.1); /* Slight zoom effect */
+}
+
+.delete-button:active {
+    transform: scale(0.95); /* Slight press effect */
 }
 
 
@@ -740,6 +755,11 @@ label #cancel {
     grid-template-columns: 3fr 1fr;
     align-items: center;
     text-align: left;
+}
+.top_products_unavailable{
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
 .top_products img{
     width: 100px;

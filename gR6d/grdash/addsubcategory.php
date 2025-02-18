@@ -15,6 +15,12 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_subcategory'])){
+    $old_subcategory = $_SESSION['old_subcategory'] ?? [];
+
+    $subcat_img = $_SESSION['old_subcategory']['subcat_img'];
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -35,7 +41,7 @@
         <?php 
 			if(isset($_GET['subcategoryid']))
             {
-                $data = $mysqli->query("select `id`, `cos_id`, `c_id`, `title`, `c_img`, `active` from `e_subcategory_details` where cos_id = '$cos_id' and id=".$_GET['subcategoryid']."")->fetch_assoc();
+                $data = $mysqli->query("select * from `e_subcategory_details` where cos_id = '$cos_id' and id=".$_GET['subcategoryid']."")->fetch_assoc();
             ?>
             <form class="addproduct_form" method="post" action="com_ins_upd.php"  enctype="multipart/form-data" id="myForm" onsubmit="return validateForm()">
                 <div class="grid_col">
@@ -46,7 +52,7 @@
                                     <select name="category" class="input_style" placeholder="Enter Product Category" required autofocus>
                                         <option value=""  class="option_style" disabled selected>Select Product Category</option>
                                         <?php
-                                            $cat = $mysqli->query("select `id`, `cos_id`, `title`, `c_img`, `active` from e_category_details where cos_id = '$cos_id' and active=1");
+                                            $cat = $mysqli->query("select * from e_category_details where cos_id = '$cos_id' and active=1");
                                         while($row = $cat->fetch_assoc())
                                             {
 	                                        ?>
@@ -130,7 +136,7 @@
                                     <select name="category" class="input_style" placeholder="Enter Product Category" required>
                                         <option value=""  class="option_style" disabled selected>Select Product Category</option>
                                         <?php
-                                            $cat = $mysqli->query("select `id`, `cos_id`, `title`, `c_img`, `active` from e_category_details where cos_id = '$cos_id' and active=1");
+                                            $cat = $mysqli->query("select * from e_category_details where cos_id = '$cos_id' and active=1");
                                         while($row = $cat->fetch_assoc())
                                             {
 	                                        ?>
@@ -144,18 +150,18 @@
                             <div class="form-div">
                                 <label for="pcategory" class="form-label">Product Category<span class="star">*</span></label>
                                 <div class="search-container">
-                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" required>
+                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($old_subcategory['pcategory'] ?? '') ?>" required>
                                     <div id="dropdown" class="dropdown">
                                         <!-- Suggestions will be dynamically added here -->
                                     </div>
-                                    <input type="hidden" id="category-id" name="category-id">
+                                    <input type="hidden" id="category-id" name="category-id" value="<?= htmlspecialchars($old_subcategory['category-id'] ?? '') ?>">
                                         <!-- other form fields -->
                                 </div>
                             </div>
                             <div class="form-div">
                                 <label for="sub_category" class="form-label">Product Subcategory<span class="star">*</span></label>
                                 <div>
-                                    <input type="text" name="sub_category" class="input_style"  placeholder="Enter Subcategory Name" maxlength="80" required autofocus>
+                                    <input type="text" name="sub_category" class="input_style" value="<?= htmlspecialchars($old_subcategory['sub_category'] ?? '') ?>" placeholder="Enter Subcategory Name" maxlength="80" required autofocus>
                                 </div>
                             </div>
                     </div>
@@ -163,8 +169,8 @@
                             <div class="form-div">
                                 <label for="cat_status" class="form-label">Sub Category Status</label>
                                 <div class="radio_btn_div">
-                                    <input type="radio" name="subcat_status" class="input_style" value="1">Publish
-                                    <input type="radio" name="subcat_status" class="input_style" value="0">Unpublish
+                                    <input type="radio" name="subcat_status" class="input_style" value="1" <?= isset($old_subcategory['subcat_status']) && $old_subcategory['subcat_status'] == '1' ? 'checked' : '' ?>>Publish
+                                    <input type="radio" name="subcat_status" class="input_style" value="0" <?= isset($old_subcategory['subcat_status']) && $old_subcategory['subcat_status'] == '0' ? 'checked' : '' ?>>Unpublish
                                 </div>
                             </div>
                             <div class="img_input">
@@ -174,7 +180,7 @@
                         <input type="file" id="subcat_img" class="img_upload" name="subcat_img" required>
                     </div>
                     <div>
-                        <img id="previewImage" width="100px"/>
+                        <img id="previewImage" src="../../<?= !empty($subcat_img) ? $subcat_img : '' ?>" width="100px"/>
                     </div>
                 </div>
                                 <script>

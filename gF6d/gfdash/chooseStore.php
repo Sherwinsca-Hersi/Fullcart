@@ -16,20 +16,32 @@
             display: grid;
             justify-content: center;
             align-items:center;
+            padding: 3em;
         }
         .choose_btn_div{
             display: flex;
             justify-content: center;
             gap: 10em; 
             flex-wrap: wrap; 
+            cursor: pointer;
+            margin-top: 2em;
+        }
+        .choose_btn_div .grid_align:hover{
+            border-radius: 2em;
+            background-color:rgb(238, 214, 248);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            transform: scale(1.1);
         }
         .grid_align{
             display: grid;
             justify-content: center;
             gap: 3em;
+            padding-bottom: 1em;
         }
+    
+
         h1 { font-size: 5em; margin-top: 50px; color: #770FA0}
-        h2 { font-size: 3em; margin-top: 50px; color: #770FA0}
+        h2 { font-size: 2em; margin-top: 50px; color: #770FA0}
         .btn { padding: 15px 30px; font-size: 20px; margin: 20px; cursor: pointer; }
     </style>
     <?php
@@ -42,11 +54,11 @@
         <h1>FullComm</h1>
         <div class="choose_btn_div">
             <div class="grid_align">
-                <img src="../assets/images/gifting_store.png" onclick="selectStore('1')" alt="grocery-img" width="500px" height="500px">
+                <img src="../assets/images/gifting_store.png" onclick="selectStore('1')" alt="grocery-img" width="300px" height="300px">
                 <h2>Gifting Store</h2>
             </div>
             <div class="grid_align">
-                <img src="../assets/images/grocery_store.png" onclick="selectStore('2')" alt="gifting-img" width="500px" height="500px">
+                <img src="../assets/images/grocery_store.png" onclick="selectStore('2')" alt="gifting-img" width="300px" height="300px">
                 <h2>Grocery Store</h2>
             </div>
         </div>

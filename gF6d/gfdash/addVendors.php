@@ -15,6 +15,10 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_vendor'])){
+    $old_vendor = $_SESSION['old_vendor'] ?? [];
+    unset($_SESSION['old_vendor']);
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -272,37 +276,37 @@
                         <div class="form-div">
                             <label for="v_name" class="form-label"><?php echo $vendor; ?> Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="v_name"  class="input_style"  placeholder=" Enter <?php echo $vendor; ?> Name" maxlength="60" required autofocus>
+                                <input type="text" name="v_name" value="<?= htmlspecialchars($old_vendor['v_name'] ?? '') ?>"  class="input_style"  placeholder=" Enter <?php echo $vendor; ?> Name" maxlength="60" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="business_name" class="form-label">Business Name</label>
                             <div>
-                                <input type="text" name="business_name"  class="input_style" placeholder=" Enter Business Name" maxlength="60">
+                                <input type="text" name="business_name" value="<?= htmlspecialchars($old_vendor['business_name'] ?? '') ?>"  class="input_style" placeholder=" Enter Business Name" maxlength="60">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="contact_person" class="form-label">Contact Person<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="contact_person"  class="input_style"  placeholder=" Enter Contact Person" maxlength="60">
+                                <input type="text" name="contact_person" value="<?= htmlspecialchars($old_vendor['contact_person'] ?? '') ?>"  class="input_style"  placeholder=" Enter Contact Person" maxlength="60">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_mobile" class="form-label">Phone Number<span class="star">*</span></label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="v_mobile"  class="input_style"  placeholder="Enter Phone Number" maxlength="10" required>
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="v_mobile" value="<?= htmlspecialchars($old_vendor['v_mobile'] ?? '') ?>"  class="input_style"  placeholder="Enter Phone Number" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_whatsapp" class="form-label">whatsapp</label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="v_whatsapp"  class="input_style" placeholder="Enter Whatsapp" maxlength="10">
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="v_whatsapp" value="<?= htmlspecialchars($old_vendor['v_whatsapp'] ?? '') ?>"  class="input_style" placeholder="Enter Whatsapp" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="gst_no" class="form-label">GSTIN</label>
                             <div>
-                                <input type="text" name="gst_no"  class="input_style"  placeholder="Enter GSTIN" maxlength="15">
+                                <input type="text" name="gst_no" value="<?= htmlspecialchars($old_vendor['gst_no'] ?? '') ?>"  class="input_style"  placeholder="Enter GSTIN" maxlength="15">
                             </div>
                         </div>
                         
@@ -311,19 +315,19 @@
                         <div class="form-div">
                             <label for="v_doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="v_doorno" class="input_style"  placeholder="Enter Door No" maxlength="20">
+                                <input type="text" name="v_doorno"  value="<?= htmlspecialchars($old_vendor['v_doorno'] ?? '') ?>" class="input_style"  placeholder="Enter Door No" maxlength="20">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="v_street" id="v_street" class="input_style"  placeholder="Enter Street" maxlength="50">
+                                <input type="text" name="v_street" value="<?= htmlspecialchars($old_vendor['v_street'] ?? '') ?>" id="v_street" class="input_style"  placeholder="Enter Street" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="v_area" class="input_style" placeholder="Enter Area" maxlength="50">
+                                <input type="text" name="v_area" value="<?= htmlspecialchars($old_vendor['v_area'] ?? '') ?>" class="input_style" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -360,26 +364,26 @@
                         <div class="form-div">
                             <label for="v_pincode" class="form-label">Pincode</label>
                             <div>
-                                <input type="number"   oninput="fetchLocationData()"  name="v_pincode" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
+                                <input type="number"   oninput="fetchLocationData()"  name="v_pincode" value="<?= htmlspecialchars($old_vendor['v_pincode'] ?? '') ?>" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="v_city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="v_city" value="<?= htmlspecialchars($old_vendor['v_city'] ?? '') ?>" id="city" class="input_style" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="v_state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="v_state" value="<?= htmlspecialchars($old_vendor['v_state'] ?? '') ?>" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="v_country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="v_country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="v_country" value="<?= htmlspecialchars($old_vendor['v_country'] ?? '') ?>" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
                     </div>

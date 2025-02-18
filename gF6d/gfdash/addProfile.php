@@ -15,6 +15,14 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_profile'])){
+    $old_product_data = $_SESSION['old_profile'] ?? [];
+
+    $add_logo_img = $_SESSION['old_profile']['add_logo_img'];
+
+    unset($_SESSION['old_profile']);
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -74,13 +82,13 @@
                         <div class="form-div">
                             <label for="mobile1" class="form-label">Contact No 1</label>
                             <div>
-                                <input type="text" name="mobile1"  class="input_style"  value="<?php if(!($data['mobile_1']==NULL || '')){echo $data['mobile_1']; }?>" placeholder="Enter Contact 1" maxlength="20" required>
+                                <input type="text" name="mobile1"  class="input_style"  value="<?php if(!($data['mobile_1']==NULL || '')){echo $data['mobile_1']; }?>" placeholder="Enter Contact 1" maxlength="15" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="mobile2" class="form-label">Contact No 2</label>
                             <div>
-                                <input type="text" name="mobile2"  class="input_style"  value="<?php if(!($data['mobile_2']==NULL || '')){echo $data['mobile_2']; }?>" placeholder="Enter Contact 2" maxlength="20">
+                                <input type="text" name="mobile2"  class="input_style"  value="<?php if(!($data['mobile_2']==NULL || '')){echo $data['mobile_2']; }?>" placeholder="Enter Contact 2" maxlength="15">
                             </div>
                         </div>
                         <div class="form-div">
@@ -283,7 +291,7 @@
                     <input type="file" id="add_logo_img" class="img_upload" name="add_logo_img">
                 </div>
                 <div>
-                    <img id="previewImage" width="100px"/>
+                    <img id="previewImage"  src="../../<?= !empty($add_logo_img) ? $add_logo_img : '' ?>" width="100px"/>
                 </div>
             </div>
             <script>
@@ -302,37 +310,37 @@
                         <div class="form-div">
                             <label for="business_name" class="form-label">Business Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="business_name"  class="input_style" placeholder=" Enter Business Name" maxlength="100" required>
+                                <input type="text" name="business_name"  class="input_style" value="<?= htmlspecialchars($old_profile['business_name'] ?? '') ?>" placeholder=" Enter Business Name" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="mobile1" class="form-label">Contact No 1<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="mobile1"  class="input_style"  placeholder="Enter Contact 1" maxlength="20" required>
+                                <input type="text" name="mobile1"  class="input_style" value="<?= htmlspecialchars($old_profile['mobile1'] ?? '') ?>" placeholder="Enter Contact 1" maxlength="15" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="mobile2" class="form-label">Contact No 2</label>
                             <div>
-                                <input type="text" name="mobile2"  class="input_style"   placeholder="Enter Contact 2" maxlength="20" required>
+                                <input type="text" name="mobile2"  class="input_style" value="<?= htmlspecialchars($old_profile['mobile2'] ?? '') ?>"  placeholder="Enter Contact 2" maxlength="15" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="gst_no" class="form-label">GSTIN</label>
                             <div>
-                                <input type="text" name="gst_no"  class="input_style"   placeholder="Enter GSTIN" maxlength="15">
+                                <input type="text" name="gst_no" value="<?= htmlspecialchars($old_profile['gst_no'] ?? '') ?>" class="input_style"   placeholder="Enter GSTIN" maxlength="15">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="b_email" class="form-label">Email-ID</label>
                             <div>
-                                <input type="email" name="b_email"  class="input_style"   placeholder="Enter Email" maxlength="60">
+                                <input type="email" name="b_email" value="<?= htmlspecialchars($old_profile['b_email'] ?? '') ?>"  class="input_style"   placeholder="Enter Email" maxlength="60">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="doorno" class="input_style"  placeholder="Enter Door No" maxlength="20">
+                                <input type="text" name="doorno" class="input_style" value="<?= htmlspecialchars($old_profile['doorno'] ?? '') ?>"  placeholder="Enter Door No" maxlength="20">
                             </div>
                         </div>
                         
@@ -341,13 +349,13 @@
                         <div class="form-div">
                             <label for="street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="street" id="street" class="input_style" placeholder="Enter Street" maxlength="50">
+                                <input type="text" name="street" id="street" value="<?= htmlspecialchars($old_profile['street'] ?? '') ?>" class="input_style" placeholder="Enter Street" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="area" class="input_style" placeholder="Enter Area" maxlength="50">
+                                <input type="text" name="area" class="input_style" value="<?= htmlspecialchars($old_profile['area'] ?? '') ?>" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -384,26 +392,26 @@
                         <div class="form-div">
                             <label for="pincode" class="form-label">Pincode</label>
                             <div>
-                                <input type="number"   oninput="fetchLocationData()"  name="pincode" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
+                                <input type="number"   oninput="fetchLocationData()" value="<?= htmlspecialchars($old_profile['pincode'] ?? '') ?>" name="pincode" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="city" id="city" class="input_style" value="<?= htmlspecialchars($old_profile['city'] ?? '') ?>" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="state" class="input_style"  id="state" value="<?= htmlspecialchars($old_profile['state'] ?? '') ?>" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="country" class="input_style" id="country" value="<?= htmlspecialchars($old_profile['country'] ?? '') ?>" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,11 @@
 </head>
 <body>
 <?php 
+    if(isset($_SESSION['old_unit'])){
+        $old_unit = $_SESSION['old_unit'] ?? [];  
+        unset($_SESSION['old_unit']);
+    
+    }
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -87,7 +92,7 @@
                         <div class="form-div">
                             <label for="unit" class="form-label">Product Unit<sup>*</sup></label>
                             <div>
-                                <input type="text" name="unit" class="input_style" placeholder="Enter Unit" maxlength="50" autofocus required>
+                                <input type="text" name="unit" value="<?= htmlspecialchars($old_unit['unit'] ?? '') ?>" class="input_style" placeholder="Enter Unit" maxlength="50" autofocus required>
                             </div>
                         </div>
                         <!-- <div class="img_input">
@@ -114,8 +119,8 @@
                 <div class="form-div">
                             <label for="unit_status" class="form-label">Unit Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="unit_status" class="input_style" value="1">Published
-                                <input type="radio" name="unit_status" class="input_style" value="2">Unpublished
+                                <input type="radio" name="unit_status" class="input_style" value="1" <?= isset($old_unit['unit_status']) && $old_unit['unit_status'] == '1' ? 'checked' : '' ?>>Published
+                                <input type="radio" name="unit_status" class="input_style" value="2" <?= isset($old_unit['unit_status']) && $old_unit['unit_status'] == '0' ? 'checked' : '' ?>>Unpublished
                             </div>
                         </div>
                     </div>

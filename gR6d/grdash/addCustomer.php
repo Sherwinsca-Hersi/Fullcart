@@ -15,6 +15,11 @@
 </head>
 <body>
 <?php 
+    if(isset($_SESSION['old_customer'])){
+        $old_customer = $_SESSION['old_customer'] ?? [];
+        unset($_SESSION['old_customer']);
+    
+    }
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -152,38 +157,38 @@
                         <div class="form-div">
                             <label for="c_name" class="form-label">Customer Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="c_name"  class="input_style" placeholder=" Enter Customer Name" maxlength="50" required autofocus>
+                                <input type="text" name="c_name" value="<?= htmlspecialchars($old_customer['c_name'] ?? '') ?>"  class="input_style" placeholder=" Enter Customer Name" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_phone" class="form-label">Phone Number<span class="star">*</span></label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_phone"  class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_phone"  value="<?= htmlspecialchars($old_customer['c_phone'] ?? '') ?>" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_whatsapp" class="form-label">Whatsapp</label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_whatsapp"  class="input_style" placeholder="Enter Whatsapp No" maxlength="10">
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_whatsapp" value="<?= htmlspecialchars($old_customer['c_whatsapp'] ?? '') ?>" class="input_style" placeholder="Enter Whatsapp No" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_email" class="form-label">Email</label>
                             <div>
-                                <input type="email" name="c_email" class="input_style" placeholder="Enter Email" maxlength="50">
+                                <input type="email" name="c_email" value="<?= htmlspecialchars($old_customer['c_email'] ?? '') ?>" class="input_style" placeholder="Enter Email" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_password" class="form-label">Customer Password</label>
                             <div class="pass_input">
-                                <input type="password"  class="input_style"  name="c_password" placeholder="Enter Password" id="c_password" maxlength="20" autocomplete="new-password">
+                                <input type="password"  class="input_style"  name="c_password" value="<?= htmlspecialchars($old_customer['c_password'] ?? '') ?>" placeholder="Enter Password" id="c_password" maxlength="20" autocomplete="new-password">
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="c_doorno" class="input_style" placeholder="Enter Door No" maxlength="50">
+                                <input type="text" name="c_doorno" value="<?= htmlspecialchars($old_customer['c_doorno'] ?? '') ?>" class="input_style" placeholder="Enter Door No" maxlength="50">
                             </div>
                         </div>
                     </div>
@@ -191,38 +196,38 @@
                         <div class="form-div">
                             <label for="c_street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="c_street"  class="input_style" placeholder="Enter Street" maxlength="50">
+                                <input type="text" name="c_street" value="<?= htmlspecialchars($old_customer['c_street'] ?? '') ?>"  class="input_style" placeholder="Enter Street" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="c_area" class="input_style" placeholder="Enter Area" maxlength="50">
+                                <input type="text" name="c_area" value="<?= htmlspecialchars($old_customer['c_area'] ?? '') ?>" class="input_style" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_pincode" class="form-label">Pincode<span class="star">*</span></label>
                             <div>
-                                <input type="number"  name="c_pincode" id="pincode" oninput="fetchLocationData()" class="input_style" placeholder="Enter Pincode" maxlength="6" required>
+                                <input type="number"  name="c_pincode" value="<?= htmlspecialchars($old_customer['c_pincode'] ?? '') ?>" id="pincode" oninput="fetchLocationData()" class="input_style" placeholder="Enter Pincode" maxlength="6" required>
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="c_city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="c_city" value="<?= htmlspecialchars($old_customer['c_city'] ?? '') ?>" id="city" class="input_style" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="c_state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="c_state" value="<?= htmlspecialchars($old_customer['c_state'] ?? '') ?>" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="c_country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="c_country" value="<?= htmlspecialchars($old_customer['c_country'] ?? '') ?>" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
                     </div>

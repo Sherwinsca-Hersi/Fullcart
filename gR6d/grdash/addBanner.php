@@ -13,6 +13,15 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_banner'])){  
+$old = $_SESSION['old_banner'] ?? [];
+$b_category = $old['pcategory'] ?? '';
+$b_category_id = $old['category-id'] ?? '';
+$b_status = $old['b_status'] ?? '1';
+$b_img = $_SESSION['old_banner']['b_img']?? '';
+unset($_SESSION['old_banner']);
+}
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -104,13 +113,13 @@
                 <div class="grid_col">
                     <div class="grid-col-1">
                         <div class="form-div">
-                                <label for="pcategory" class="form-label">Product Category</label>
+                                <label for="pcategory" class="form-label">Banner Category</label>
                                 <div class="search-container">
-                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" required>
+                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($b_category) ?>" required>
                                     <div id="dropdown" class="dropdown">
                                         <!-- Suggestions will be dynamically added here -->
                                     </div>
-                                    <input type="hidden" id="category-id" name="category-id">
+                                    <input type="hidden" id="category-id" name="category-id" value="<?= htmlspecialchars($b_category_id) ?>">
                                         <!-- other form fields -->
                                 </div>
                         </div>
@@ -121,7 +130,7 @@
                                 <input type="file" id="b_img" class="img_upload" name="b_img" accept="image/*">
                             </div>
                             <div>
-                                <img id="previewImage"   width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($b_img) ? $b_img : '' ?>"   width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -139,8 +148,8 @@
                         <div class="form-div">
                             <label for="b_status" class="form-label">Banner Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="b_status" class="input_style" value="1">Publish
-                                <input type="radio" name="b_status" class="input_style" value="0">Unpublish
+                                <input type="radio" name="b_status" class="input_style" value="1" <?= ($b_status == '1') ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="b_status" class="input_style" value="0"  <?= ($b_status == '0') ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>

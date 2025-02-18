@@ -16,6 +16,10 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_timeslot'])){
+    $old_product_data = $_SESSION['old_timeslot'] ?? [];
+    unset($_SESSION['old_timeslot']);
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -84,13 +88,13 @@
                         <div class="form-div">
                             <label for="from_time" class="form-label">From<span class="star">*</span></label>
                             <div>
-                                <input type="time" id="from_time" name="from_time" onclick="this.showPicker()" required>   
+                                <input type="time" id="from_time" name="from_time" value="<?= htmlspecialchars($old_timeslot['from_time'] ?? '') ?>" onclick="this.showPicker()" required>   
                             </div>      
                         </div>
                         <div class="form-div">
                             <label for="slot_limit" class="form-label">Slot Limit</label>
                             <div>
-                                <input type="number" id="slot_limit" name="slot_limit" required> 
+                                <input type="number" id="slot_limit"  name="slot_limit" value="<?= htmlspecialchars($old_timeslot['slot_limit'] ?? '') ?>" required> 
                             </div>        
                         </div>
                     </div>
@@ -98,14 +102,14 @@
                         <div class="form-div">
                             <label for="to_time" class="form-label">To<span class="star">*</span></label>
                             <div>
-                                <input type="time" id="to_time" name="to_time" onclick="this.showPicker()" required> 
+                                <input type="time" id="to_time" name="to_time" onclick="this.showPicker()" value="<?= htmlspecialchars($old_timeslot['to_time'] ?? '') ?>" required> 
                             </div>        
                         </div>
                         <div class="form-div">
                             <label for="cat_status" class="form-label">Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="timeslot_status" class="input_style" value="1">Publish
-                                <input type="radio" name="timeslot_status" class="input_style" value="0">Unpublish
+                                <input type="radio" name="timeslot_status" class="input_style" value="1" <?= isset($old_timeslot['timeslot_status']) && $old_category['timeslot_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="timeslot_status" class="input_style" value="0" <?= isset($old_timeslot['timeslot_status']) && $old_category['timeslot_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>

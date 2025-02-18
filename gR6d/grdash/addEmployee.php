@@ -15,6 +15,11 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_employee'])){
+    $old_employee = $_SESSION['old_employee'] ?? [];
+
+    unset($_SESSION['old_employee']);
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -77,6 +82,7 @@
                             <div class="pass_input">
                                 <input type="password"  class="input_style"  name="emp_password" value="<?php  echo $data['password'];?>" style="width:100%;" id="emp_password" placeholder="Enter Password"  maxlength="20" autocomplete="new-password" required>
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
+                                <input type="password" name="dummy" style="display:none" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="form-div">
@@ -339,31 +345,31 @@
                         <div class="form-div">
                             <label for="ename" class="form-label">Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="emp_name"  class="input_style" placeholder=" Enter  Name" maxlength="100" required autofocus>
+                                <input type="text" name="emp_name" value="<?= htmlspecialchars($old_employee['emp_name'] ?? '') ?>" class="input_style" placeholder=" Enter  Name" maxlength="100" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_phone" class="form-label">Phone Number<span class="star">*</span></label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="emp_phone" id="emp_phone" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" value="<?= htmlspecialchars($old_employee['emp_phone'] ?? '') ?>"  name="emp_phone" id="emp_phone" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_whatsapp" class="form-label">Whatsapp</label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="emp_whatsapp" id="emp_whatsapp" class="input_style"  placeholder="Enter Whatsapp Number" maxlength="10">
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="emp_whatsapp"  value="<?= htmlspecialchars($old_employee['emp_whatsapp'] ?? '') ?>" id="emp_whatsapp" class="input_style"  placeholder="Enter Whatsapp Number" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_email" class="form-label">Email</label>
                             <div>
-                                <input type="email" name="emp_email" class="input_style" placeholder="Enter Email" maxlength="50">
+                                <input type="email" name="emp_email" class="input_style"  value="<?= htmlspecialchars($old_employee['emp_email'] ?? '') ?>" placeholder="Enter Email" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_password" class="form-label"> Password<span class="star">*</span></label>
                             <div class="pass_input">
-                                <input type="password"  class="input_style"  name="emp_password"  id="emp_password" placeholder="Enter Password" style="width:100%;"  maxlength="20" autocomplete="new-password" required>
+                                <input type="password"  class="input_style"  name="emp_password"   value="<?= htmlspecialchars($old_employee['emp_password'] ?? '') ?>" id="emp_password" placeholder="Enter Password" style="width:100%;"  maxlength="20" autocomplete="new-password" required>
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                             </div>
                            
@@ -371,7 +377,7 @@
                         <div class="form-div">
                             <label for="join_date" class="form-label">Joining Date<span class="star">*</span></label>
                             <div>
-                                <input type="date" name="emp_join_date" id="join_date" class="input_style"  max="<?php echo date('Y-m-d'); ?>" placeholder="Enter Joining Date" required>
+                                <input type="date" name="emp_join_date"  value="<?= htmlspecialchars($old_employee['emp_join_date'] ?? '') ?>" id="join_date" class="input_style"  max="<?php echo date('Y-m-d'); ?>" placeholder="Enter Joining Date" required>
                             </div>
                         </div>
                         <div class="form-div">
@@ -383,19 +389,28 @@
                                     $roles = $mysqli->query($role_query);
                                 ?>
                                    <select name="emp_role" class="input_style" required>
-                                        <option value="" class="option_style" disabled selected>Position</option>
-                                        <?php
-                                            if ($roles->num_rows > 0) {
-                                                while ($row = $roles->fetch_assoc()) {
-                                                    echo '<option value="' . $row['id'] . '">' . $row['role_title'] . '</option>';
-                                                }
-                                            } 
-                                            else {
-                                                echo '<option value="" disabled>No roles available</option>';
-                                            }
-                                            ?>
-    
-                                    </select>
+    <option value="" class="option_style" disabled selected>Position</option>
+    <?php
+        if ($roles->num_rows > 0) {
+            // Retrieve the previously selected role from the session
+            $selected_role = htmlspecialchars($old_employee['emp_role'] ?? '');
+
+            while ($row = $roles->fetch_assoc()) {
+                $role_id = $row['id'];
+                $role_title = htmlspecialchars($row['role_title']);
+
+                // Check if the role is the selected one
+                $isSelected = ($role_id == $selected_role) ? 'selected' : '';
+
+                // Output the option element
+                echo '<option value="' . $role_id . '" ' . $isSelected . '>' . $role_title . '</option>';
+            }
+        } 
+        else {
+            echo '<option value="" disabled>No roles available</option>';
+        }
+    ?>
+</select>
                             </div>
                         </div>
                         <div class="form-div">
@@ -409,10 +424,19 @@
 
                                      $roles = $mysqli->query($role_query);
 
-                                    while ($row = $roles->fetch_assoc()) {
-                                        echo '<input type="checkbox" name="role[]" class="input_style" value="' . $row['id'] . '">' . htmlspecialchars($row['role_title']) . '<br>';
+                                     // Retrieve selected roles from session, ensuring it's an array
+                                     $selected_roles = isset($old_employee['role']) ? (array) $old_employee['role'] : [];
+                                 
+                                     while ($row = $roles->fetch_assoc()) {
+                                         $role_id = $row['id'];
+                                         $role_title = htmlspecialchars($row['role_title']);
+                                         
+                                         // Check if the current role ID exists in the session's selected roles
+                                         $isChecked = in_array($role_id, $selected_roles) ? 'checked' : '';
+                                 
+                                         echo '<input type="checkbox" name="role[]" class="input_style" value="' . $role_id . '" ' . $isChecked . '> ' . $role_title . '<br>';
                                     }
-                                    ?>
+                                 ?>
                                 </div>
                             </div>
                         </div>
@@ -421,44 +445,44 @@
                         <div class="form-div">
                             <label for="emp_doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="emp_doorno" class="input_style" placeholder="Enter Door No" maxlength="40">
+                                <input type="text" name="emp_doorno" class="input_style" value="<?= htmlspecialchars($old_employee['emp_doorno'] ?? '') ?>" placeholder="Enter Door No" maxlength="40">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="emp_street" id="emp_street" class="input_style" placeholder="Enter Street" maxlength="40">
+                                <input type="text" name="emp_street" id="emp_street" class="input_style" value="<?= htmlspecialchars($old_employee['emp_street'] ?? '') ?>" placeholder="Enter Street" maxlength="40">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="emp_area" class="input_style" placeholder="Enter Area" maxlength="40">
+                                <input type="text" name="emp_area"  value="<?= htmlspecialchars($old_employee['emp_area'] ?? '') ?>" class="input_style" placeholder="Enter Area" maxlength="40">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_pincode" class="form-label">Pincode</label>
                             <div>
-                                <input type="number"   oninput="fetchLocationData()"  name="emp_pincode" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
+                                <input type="number"   oninput="fetchLocationData()"  name="emp_pincode"  value="<?= htmlspecialchars($old_employee['emp_pincode'] ?? '') ?>" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="emp_city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="emp_city"  value="<?= htmlspecialchars($old_employee['emp_city'] ?? '') ?>" id="city" class="input_style" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="emp_state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="emp_state"  value="<?= htmlspecialchars($old_employee['emp_state'] ?? '') ?>" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="emp_country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="emp_country" class="input_style" id="country"  value="<?= htmlspecialchars($old_employee['emp_country'] ?? '') ?>" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -495,14 +519,14 @@
                         <div class="form-div">
                             <label for="emp_salary" class="form-label">Salary<span class="star">*</span></label>
                             <div>
-                                <input type="number" name="emp_salary" id="emp_salary" class="input_style" placeholder="Enter Salary" maxlength="10" required>
+                                <input type="number" name="emp_salary"  value="<?= htmlspecialchars($old_employee['emp_salary'] ?? '') ?>" id="emp_salary" class="input_style" placeholder="Enter Salary" maxlength="10" required>
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emp_bonus" class="form-label">Bonus</label>
                             <div>
-                                <input type="number" name="emp_bonus" id="emp_bonus" class="input_style"  placeholder="Enter Bonus">
+                                <input type="number" name="emp_bonus"  value="<?= htmlspecialchars($old_employee['emp_bonus'] ?? '') ?>" id="emp_bonus" class="input_style"  placeholder="Enter Bonus">
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>

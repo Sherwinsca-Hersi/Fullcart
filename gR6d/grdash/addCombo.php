@@ -13,6 +13,13 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_combo'])){
+    $old_combo = $_SESSION['old_combo'] ?? [];
+    $combo_img=$_SESSION['old_combo']['combo_img'];
+    $bulkPricing=$_SESSION['old_combo']['bulkPricing'];
+    $comboProducts=$_SESSION['old_combo']['comboProducts'];
+    unset($_SESSION['old_combo']);
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -308,7 +315,46 @@
                         <h3><?php echo $combo;?> Bulk Price</h3>
                         <div class="bulk_price_div">
                             <div  id="bulk_price">
-                                <div class="grid-col-3" id="cloneBulkPrice">
+                                <?php
+                                if(!empty($bulkPricing)){
+                                    foreach ($bulkPricing as $index => $bulk) {
+                                    ?>
+                                    <div class="grid-col-3" id="cloneBulkPrice">
+                                    <div class="form-div">
+                                        <label for="f_quant_<?= $index; ?>" class="form-label">From Qty<span class="star">*</span></label>
+                                        <div>
+                                            <input type="number" name="f_quant[<?= $index; ?>]" id="f_quant_<?= $index; ?>" class="input_style"
+                                                value="<?= htmlspecialchars($bulk['from_qty'] ?? '') ?>"
+                                                placeholder="Enter Quantity" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-div">
+                                        <label for="t_quant_<?= $index; ?>" class="form-label">To Qty<span class="star">*</span></label>
+                                        <div>
+                                            <input type="number" name="t_quant[<?= $index; ?>]" id="t_quant_<?= $index; ?>" class="input_style"
+                                                value="<?= htmlspecialchars($bulk['to_qty'] ?? '') ?>"
+                                                placeholder="Enter Quantity" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-div">
+                                        <label for="price_<?= $index; ?>" class="form-label">Price<span class="star">*</span></label>
+                                        <div>
+                                            <input type="number" name="price[<?= $index; ?>]" id="Outprice_<?= $index; ?>" class="input_style"
+                                            value="<?= htmlspecialchars($bulk['price'] ?? '') ?>"
+                                            placeholder="Enter Price" maxlength="15" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-div">
+                                        <div class="del_button">
+                                            <img src="../assets/images/delete_icon.png" alt="delete-icon" class="deleteButton">
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <?php
+                                    }
+                                }else{
+                                    ?>
+                                    <div class="grid-col-3" id="cloneBulkPrice">
                                     <div class="form-div">
                                         <label for="f_quant" class="form-label">From Qty<span class="star">*</span></label>
                                         <div>
@@ -332,7 +378,10 @@
                                             <img src="../assets/images/delete_icon.png" alt="delete-icon" class="deleteButton">
                                         </div>
                                     </div>
-                                </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
                             <div>
                                 <button type="button" class="add_btn" id="addBulkPrice"><i class="fa fa-solid fa-plus"></i>&emsp;Add Bulk Pricing</button>
@@ -346,7 +395,46 @@
                         </div>
                         <div class="combo_product_div">
                             <div class="combo_product" id="combo_product">
-                                <div class="grid-col-4" id="cloneComboProduct">
+                                <?php
+                                    if(!empty($comboProducts)){
+                                        foreach ($comboProducts as $index => $combo){
+                                        ?>
+                                        <div class="grid-col-4" id="cloneComboProduct">
+                                            <div class="form-div">
+                                            <label for="pname_<?= $index ?>" class="form-label">Product Name <span class="star">*</span></label>
+                                            <div class="search-container">
+                                                <input type="text" placeholder="Search..." class="input_style search-box" name="pname[<?= $index ?>]" value="<?= htmlspecialchars($combo['product_name']) ?>" required>
+                                                <div id="dropdown_<?= $index ?>" class="dropdown">
+                                                    <!-- Suggestions will be dynamically added here -->
+                                                </div>
+                                                <input type="hidden" id="product-id_<?= $index ?>" name="product-id[<?= $index ?>]" class="product-id">
+                                            </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <label for="quantity_<?= $index ?>" class="form-label">Quantity<span class="star">*</span></label>
+                                                <div>
+                                                    <input type="number" name="quantity[<?= $index ?>]" id="quantity_<?= $index ?>" class="input_style" value="<?= htmlspecialchars($combo['quantity']) ?>" placeholder="Enter Quantity" maxlength="10" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <label for="Outprice_<?= $index ?>" class="form-label">Price<span class="star">*</span></label>
+                                                <div>
+                                                    <input type="number" name="Outprice[<?= $index ?>]" id="Outprice_<?= $index ?>" class="input_style outprice" value="<?= htmlspecialchars($combo['outprice']) ?>" placeholder="Enter Price" maxlength="10" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <div class="del_button">
+                                                    <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <?php
+                                        }
+                                    }else{
+                                        
+                                        ?>
+                                        <div class="grid-col-4" id="cloneComboProduct">
                                     <div class="form-div">
                                         <label for="pname" class="form-label">Product Name <span class="star">*</span></label>
                                         <div class="search-container">
@@ -376,6 +464,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    }
+                                ?>
                             </div>
                         </div>   
                         <div class="add_btnDiv">

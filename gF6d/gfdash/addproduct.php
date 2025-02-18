@@ -12,11 +12,28 @@
     ?>
     <!--iziToast-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-
-
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_product_data'])){
+    $old_product_data = $_SESSION['old_product_data'] ?? [];
+
+    $main_prod_img=$_SESSION['old_product_data']['main_prod_img'];
+
+    $prod_img = $_SESSION['old_product_data']['prod_img'];
+
+    $imagePaths = explode('|', $prod_img);
+}
+?>
+
+<script>
+    const imagePaths = <?php echo json_encode($imagePaths); ?>;
+    console.log(imagePaths);
+</script>
+
+<?php 
+unset($_SESSION['old_product_data']);
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -214,7 +231,7 @@ function displayImagePreview(src, isExisting = false, fileIndex = null) {
     }
 
     const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    deleteButton.innerHTML = '<i class="fa fa-trash-alt"></i>';
     deleteButton.classList.add('delete-button');
 
     deleteButton.addEventListener('click', function() {
@@ -260,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const existingFiles = existingImagePaths.split('|');
 
         existingFiles.forEach(filePath => {
-            const fullPath = '../' + filePath;
+            const fullPath = '../../' + filePath;
             displayImagePreview(fullPath, true);
         });
     }
@@ -325,19 +342,19 @@ form.addEventListener('submit', function(event) {
                         <div class="form-div">
                             <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="p_title" class="input_style" placeholder=" Enter Product Name" maxlength="80" required autofocus>
+                                <input type="text" name="p_title" class="input_style" value="<?= htmlspecialchars($old_product_data['p_title'] ?? '') ?>" placeholder=" Enter Product Name" maxlength="80" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="sku_id" class="form-label">Model No</label>
                             <div>
-                                <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No" maxlength="10">
+                                <input type="text" name="sku_id" value="<?= htmlspecialchars($old_product_data['sku_id'] ?? '') ?>" class="input_style" placeholder="Enter Model No" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="hsn_code" class="form-label">HSN Code</label>
                             <div>
-                                <input type="text" name="hsn_code"  class="input_style" placeholder="Enter HSN Code" maxlength="10">
+                                <input type="text" name="hsn_code" value="<?= htmlspecialchars($old_product_data['hsn_code'] ?? '') ?>" class="input_style" placeholder="Enter HSN Code" maxlength="10">
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -360,11 +377,11 @@ form.addEventListener('submit', function(event) {
                         <div class="form-div">
                             <label for="pcategory" class="form-label">Product Category<span class="star">*</span></label>
                             <div class="search-container">
-                                <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" required>
+                                <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($old_product_data['pcategory'] ?? '') ?>" required>
                                 <div id="dropdown" class="dropdown">
                                     <!-- Suggestions will be dynamically added here -->
                                 </div>
-                                <input type="hidden" id="category-id" name="category-id">
+                                <input type="hidden" id="category-id" name="category-id" value="<?= htmlspecialchars($old_product_data['category-id'] ?? '') ?>">
                                     <!-- other form fields -->
                             </div>
                         </div>
@@ -388,29 +405,29 @@ form.addEventListener('submit', function(event) {
                         <div class="form-div">
                             <label for="psubcategory" class="form-label">Product Subcategory <span class="star">*</span></label>
                             <div class="search-container">
-                                <input type="text" placeholder="Search Subcategories..." class="input_style search-box" name="psubcategory" required>
+                                <input type="text" placeholder="Search Subcategories..." class="input_style search-box" name="psubcategory" value="<?= htmlspecialchars($old_product_data['psubcategory'] ?? '') ?>" required>
                                 <div id="dropdown-subcategory" class="dropdown">
                                     <!-- Subcategory suggestions will be dynamically added here -->
                                 </div>
-                                <input type="hidden" id="subcategory-id" name="subcategory-id">
+                                <input type="hidden" id="subcategory-id" name="subcategory-id" value="<?= htmlspecialchars($old_product_data['subcategory-id'] ?? '') ?>">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="pVariation" class="form-label">Variation<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="p_variation" class="input_style" placeholder="Enter Variation" required>
+                                <input type="text" name="p_variation" class="input_style" placeholder="Enter Variation" value="<?= htmlspecialchars($old_product_data['p_variation'] ?? '') ?>" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="unit" class="form-label">Unit<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="unit" class="input_style" placeholder="Enter Unit" required>
+                                <input type="text" name="unit" class="input_style" placeholder="Enter Unit" value="<?= htmlspecialchars($old_product_data['unit'] ?? '') ?>" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="p_desc" class="form-label">Product Description</label>
                             <div>
-                                <textarea rows="5" cols="10" class="input_style" name="p_desc"></textarea>
+                                <textarea rows="5" cols="10" class="input_style" name="p_desc"><?= htmlspecialchars($old_product_data['p_desc'] ?? '') ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -419,7 +436,7 @@ form.addEventListener('submit', function(event) {
                             <label for="barcode" class="form-label">Barcode<span class="star">*</span></label>
                             <div>
                                 <div class="barcode_input">
-                                    <input type="text" name="barcode" id="barcode" class="input_style" placeholder="Barcode" maxlength="12" required>
+                                    <input type="text" name="barcode" id="barcode" class="input_style" value="<?= htmlspecialchars($old_product_data['barcode'] ?? '') ?>" placeholder="Barcode" maxlength="12" required>
                                     <button type="button" class="barcode_btn" id="generateBarcode"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                 </div>
                                 
@@ -450,15 +467,15 @@ form.addEventListener('submit', function(event) {
                         <div class="form-div">
                             <label for="imprint" class="form-label">Imprinting</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="imprint" id="imprint" class="input_style" value="1">Enable
-                                <input type="radio" name="imprint" id="imprint" class="input_style" value="0">Disable
+                                <input type="radio" name="imprint" id="imprint" class="input_style" value="1" <?= isset($old_product_data['imprint']) && $old_product_data['imprint'] == '1' ? 'checked' : '' ?>>Enable
+                                <input type="radio" name="imprint" id="imprint" class="input_style" value="0" <?= isset($old_product_data['imprint']) && $old_product_data['imprint'] == '0' ? 'checked' : '' ?>>Disable
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="publish" class="form-label">Publish</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="p_status" id="publish" class="input_style" value="1">Publish
-                                <input type="radio" name="p_status" id="publish" class="input_style" value="0">Unpublish
+                                <input type="radio" name="p_status" id="publish" class="input_style" value="1" <?= isset($old_product_data['p_status']) && $old_product_data['p_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="p_status" id="publish" class="input_style" value="0" <?= isset($old_product_data['p_status']) && $old_product_data['p_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                         
@@ -469,7 +486,7 @@ form.addEventListener('submit', function(event) {
                                 <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img">
                             </div>
                             <div>
-                                <img id="previewImage"  width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($main_prod_img) ? $main_prod_img : '' ?>" width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -492,6 +509,34 @@ form.addEventListener('submit', function(event) {
                                 <input type="file" id="prod_img" class="img_upload" name="prod_img[]" multiple>
                             </div>
                             <div id="previewContainer" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+                            <script>
+    const previewContainer = document.getElementById('previewContainer');
+    
+    imagePaths.forEach(function(imagePath) {
+        
+        const imageDiv = document.createElement('div');
+        imageDiv.classList.add('image-preview');
+        
+        const imgElement = document.createElement('img');
+        console.log(imagePath);
+        imgElement.src = `../../${imagePath}`;
+        imgElement.classList.add('preview-image');
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'X';
+        deleteButton.classList.add('delete-button');
+
+        deleteButton.addEventListener('click', function() {
+
+            previewContainer.removeChild(imageDiv);
+        });
+
+        imageDiv.appendChild(imgElement);
+        imageDiv.appendChild(deleteButton);
+
+        previewContainer.appendChild(imageDiv);
+    });
+</script>
                         </div>
 
                         <script>
@@ -519,7 +564,7 @@ form.addEventListener('submit', function(event) {
 
             // Create the delete button
             const deleteButton = document.createElement('button');
-            deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+            deleteButton.innerHTML = 'X';
             deleteButton.classList.add('delete-button');
 
             // Add functionality to delete the previewed image

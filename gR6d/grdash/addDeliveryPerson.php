@@ -13,6 +13,11 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_delivery'])){
+    $old_category = $_SESSION['old_delivery'] ?? [];
+    unset($_SESSION['old_delivery']);
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -297,52 +302,52 @@
                         <div class="form-div">
                             <label for="dname" class="form-label">Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="d_name"  class="input_style" placeholder=" Enter Name" maxlength="50" required autofocus>
+                                <input type="text" name="d_name" value="<?= htmlspecialchars($old_delivery['d_name'] ?? '') ?>"  class="input_style" placeholder=" Enter Name" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_phone" class="form-label">Phone Number<span class="star">*</span></label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="d_phone" id="d_phone" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="d_phone" value="<?= htmlspecialchars($old_delivery['d_phone'] ?? '') ?>" id="d_phone" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_whatsapp" class="form-label">Whatsapp</label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="d_whatsapp" id="d_whatsapp" class="input_style"  placeholder="Enter Whatsapp" maxlength="10">
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" name="d_whatsapp" value="<?= htmlspecialchars($old_delivery['d_whatsapp'] ?? '') ?>" id="d_whatsapp" class="input_style"  placeholder="Enter Whatsapp" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_email" class="form-label">Email</label>
                             <div>
-                                <input type="email" name="d_email" class="input_style" placeholder="Enter Email" maxlength="50">
+                                <input type="email" name="d_email" value="<?= htmlspecialchars($old_delivery['d_email'] ?? '') ?>" class="input_style" placeholder="Enter Email" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_pass" class="form-label"> Password<span class="star">*</span></label>
                             <div class="pass_input">
-                                <input type="password"  class="input_style"  name="d_password" style="width:100%;" id="d_password" placeholder="Enter Password"  maxlength="20" autocomplete="new-password" required>
+                                <input type="password"  class="input_style"  name="d_password" value="<?= htmlspecialchars($old_delivery['d_password'] ?? '') ?>" style="width:100%;" id="d_password" placeholder="Enter Password"  maxlength="20" autocomplete="new-password" required>
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="join_date" class="form-label">Joining Date<span class="star">*</span></label>
                             <div>
-                                <input type="date" name="d_join_date" id="join_date" class="input_style"  max="<?php echo date('Y-m-d'); ?>" placeholder="Enter Joining Date" required>
+                                <input type="date" name="d_join_date" value="<?= htmlspecialchars($old_delivery['d_join_date'] ?? '') ?>" id="join_date" class="input_style"  max="<?php echo date('Y-m-d'); ?>" placeholder="Enter Joining Date" required>
                             </div>
                         </div>
                         
                         <div class="form-div">
                             <label for="d_salary" class="form-label">Salary<span class="star">*</span></label>
                             <div>
-                                <input type="number" name="d_salary" id="d_salary" class="input_style" placeholder="Enter Salary" maxlength="10" required>
+                                <input type="number" name="d_salary" value="<?= htmlspecialchars($old_delivery['d_salary'] ?? '') ?>" id="d_salary" class="input_style" placeholder="Enter Salary" maxlength="10" required>
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_bonus" class="form-label">Bonus</label>
                             <div>
-                                <input type="number" name="d_bonus" id="d_bonus" class="input_style" value="" placeholder="Enter Bonus" maxlength="10">
+                                <input type="number" name="d_bonus" value="<?= htmlspecialchars($old_delivery['d_bonus'] ?? '') ?>" id="d_bonus" class="input_style" value="" placeholder="Enter Bonus" maxlength="10">
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
@@ -351,20 +356,20 @@
                         <div class="form-div">
                             <label for="d_doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="d_doorno" class="input_style" placeholder="Enter Door No" maxlength="20">
+                                <input type="text" name="d_doorno" value="<?= htmlspecialchars($old_delivery['d_doorno'] ?? '') ?>" class="input_style" placeholder="Enter Door No" maxlength="20">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="d_street" id="d_street" class="input_style" placeholder="Enter Street" maxlength="50">
+                                <input type="text" name="d_street" id="d_street" value="<?= htmlspecialchars($old_delivery['d_street'] ?? '') ?>" class="input_style" placeholder="Enter Street" maxlength="50">
                             </div>
                         </div>
                         
                         <div class="form-div">
                             <label for="d_area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="d_area" class="input_style" placeholder="Enter Area" maxlength="50">
+                                <input type="text" name="d_area" value="<?= htmlspecialchars($old_delivery['d_area'] ?? '') ?>" class="input_style" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -406,26 +411,26 @@
                         <div class="form-div">
                             <label for="d_pincode" class="form-label">Pincode</label>
                             <div>
-                                <input type="number"   oninput="fetchLocationData()"  name="d_pincode" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
+                                <input type="number"   oninput="fetchLocationData()"  name="d_pincode" value="<?= htmlspecialchars($old_delivery['d_pincode'] ?? '') ?>" id="pincode" class="input_style"  placeholder="Enter Pincode" maxlength="6">
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="d_city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="d_city" value="<?= htmlspecialchars($old_delivery['d_city'] ?? '') ?>" id="city" class="input_style" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="d_state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="d_state" value="<?= htmlspecialchars($old_delivery['d_state'] ?? '') ?>"class="input_style"  id="state" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="d_country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="d_country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="d_country" value="<?= htmlspecialchars($old_delivery['d_country'] ?? '') ?>" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
                     </div>

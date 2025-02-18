@@ -17,6 +17,14 @@
 </head>
 <body>
 <?php 
+
+if(isset($_SESSION['old_product_data'])){
+    $old_product_data = $_SESSION['old_product_data'] ?? [];
+    $prod_img=$_SESSION['old_product_data']['main_prod_img'];
+    unset($_SESSION['old_product_data']);
+}
+
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -207,53 +215,53 @@
                         <div class="form-div">
                             <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="p_title" class="input_style" placeholder=" Enter Product Name" maxlength="80" required autofocus>
+                                <input type="text" name="p_title" class="input_style" value="<?= htmlspecialchars($old_product_data['p_title'] ?? '') ?>" placeholder=" Enter Product Name" maxlength="80" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="sku_id" class="form-label">SKU</label>
                             <div>
-                                <input type="text" name="sku_id"  class="input_style" placeholder="Enter SKU ID" maxlength="10">
+                                <input type="text" name="sku_id"  class="input_style" value="<?= htmlspecialchars($old_product_data['sku_id'] ?? '') ?>" placeholder="Enter SKU ID" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="brand" class="form-label">Brand</label>
                             <div>
-                                <input type="text" name="brand"  class="input_style" placeholder="Enter Brand" maxlength="50">
+                                <input type="text" name="brand"  class="input_style" value="<?= htmlspecialchars($old_product_data['brand'] ?? '') ?>" placeholder="Enter Brand" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="pcategory" class="form-label">Product Category<span class="star">*</span></label>
                             <div class="search-container">
-                                <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" required>
+                                <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($old_product_data['pcategory'] ?? '') ?>" required>
                                 <div id="dropdown" class="dropdown">
                                     <!-- Suggestions will be dynamically added here -->
                                 </div>
-                                <input type="hidden" id="category-id" name="category-id">
+                                <input type="hidden" id="category-id" name="category-id" value="<?= htmlspecialchars($old_product_data['category-id'] ?? '') ?>">
                                     <!-- other form fields -->
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="psubcategory" class="form-label">Product Subcategory <span class="star">*</span></label>
                             <div class="search-container">
-                                <input type="text" placeholder="Search Subcategories..." class="input_style search-box" name="psubcategory" required>
+                                <input type="text" placeholder="Search Subcategories..." class="input_style search-box" name="psubcategory" value="<?= htmlspecialchars($old_product_data['psubcategory'] ?? '') ?>" required>
                                 <div id="dropdown-subcategory" class="dropdown">
                                     <!-- Subcategory suggestions will be dynamically added here -->
                                 </div>
-                                <input type="hidden" id="subcategory-id" name="subcategory-id">
+                                <input type="hidden" id="subcategory-id" name="subcategory-id" value="<?= htmlspecialchars($old_product_data['subcategory-id'] ?? '') ?>">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="is_loose" class="form-label">Is the product is in loose ?</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="is_loose" id="is_loose" class="input_style" value="1">Yes
-                                <input type="radio" name="is_loose" id="is_loose" class="input_style" value="0">No
+                                <input type="radio" name="is_loose" id="is_loose" class="input_style" value="1" <?= isset($old_product_data['is_loose']) && $old_product_data['is_loose'] == '1' ? 'checked' : '' ?>>Yes
+                                <input type="radio" name="is_loose" id="is_loose" class="input_style" value="0" <?= isset($old_product_data['is_loose']) && $old_product_data['is_loose'] == '0' ? 'checked' : '' ?>>No
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="pVariation" class="form-label">Variation<span class="star">*</span>(eg: 50,100,500)</label>
                             <div>
-                                <input type="text" name="p_variation"  id="variation" class="input_style" placeholder="Enter Variation" required>
+                                <input type="text" name="p_variation"  id="variation" value="<?= htmlspecialchars($old_product_data['p_variation'] ?? '') ?>" class="input_style" placeholder="Enter Variation" required>
                             </div>
                         </div>
                         <div class="form-div">
@@ -268,7 +276,9 @@
                                             <option value="" disabled selected>Select Unit</option>
                                             <?php
                                             while ($row = $unit_query->fetch_assoc()) {
-                                                echo "<option value='" . htmlspecialchars($row['unit']) . "' class='option_style'>" . htmlspecialchars($row['unit']) . "</option>";
+                                                $selected_unit =  htmlspecialchars($old_product_data['unit']) ?? '';
+                                                $isSelected = ($row['unit'] === $selected_unit) ? 'selected' : '';
+                                                echo "<option value='" . htmlspecialchars($row['unit']) . "' class='option_style' $isSelected>" . htmlspecialchars($row['unit']) . "</option>";
                                             }
                                             ?>
                                         </select>
@@ -284,7 +294,7 @@
                         <div class="form-div">
                             <label for="p_desc" class="form-label">Product Description</label>
                             <div>
-                                <textarea rows="5" cols="10" class="input_style" name="p_desc"></textarea>
+                                <textarea rows="5" cols="10" class="input_style" name="p_desc"><?= htmlspecialchars($old_product_data['p_desc'] ?? '') ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -293,7 +303,7 @@
                             <label for="barcode" class="form-label">Barcode<span class="star">*</span></label>
                             <div>
                                 <div class="barcode_input">
-                                    <input type="text" name="barcode" id="barcode" class="input_style" placeholder="Barcode" maxlength="12" required>
+                                    <input type="text" name="barcode" id="barcode" class="input_style" value="<?= htmlspecialchars($old_product_data['barcode'] ?? '') ?>"  placeholder="Barcode" maxlength="12" required>
                                     <button type="button" class="barcode_btn" id="generateBarcode"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -301,25 +311,25 @@
                         <div class="form-div">
                             <label for="flocation" class="form-label">Floor Location</label>
                             <div>
-                                <input type="text" name="flocation" id="flocation" class="input_style" placeholder="Enter Floor Location">
+                                <input type="text" name="flocation" id="flocation" value="<?= htmlspecialchars($old_product_data['flocation'] ?? '') ?>" class="input_style" placeholder="Enter Floor Location">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="glocation" class="form-label">Godown Location</label>
                             <div>
-                                <input type="text" name="glocation" id="glocation" class="input_style" placeholder="Enter Godown Location">
+                                <input type="text" name="glocation" id="glocation" value="<?= htmlspecialchars($old_product_data['glocation'] ?? '') ?>"  class="input_style" placeholder="Enter Godown Location">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="emergency_level" class="form-label emergency_level_label">Emergency Level</label>
                             <div>
-                                <input type="number" name="emergency_level" id="emergency_level" class="input_style" placeholder="Enter Emergency Level" maxlength="10">
+                                <input type="number" name="emergency_level" id="emergency_level" value="<?= htmlspecialchars($old_product_data['emergency_level'] ?? '') ?>"  class="input_style" placeholder="Enter Emergency Level" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="reorder_level" class="form-label reorder_level_label">Reorder Level</label>
                             <div>
-                                <input type="number" name="reorder_level" id="reorder_level" class="input_style" placeholder="Enter Reorder Level" maxlength="10">
+                                <input type="number" name="reorder_level" id="reorder_level" value="<?= htmlspecialchars($old_product_data['reorder_level'] ?? '') ?>" class="input_style" placeholder="Enter Reorder Level" maxlength="10">
                             </div>
                         </div>
                         <div class="img_input">
@@ -329,7 +339,7 @@
                                 <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img">
                             </div>
                             <div>
-                                <img id="previewImage"  width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($prod_img) ? $prod_img : '' ?>"  width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -345,8 +355,8 @@
                         <div class="form-div">
                             <label for="publish" class="form-label">Publish</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="p_status" id="publish" class="input_style" value="1">Publish
-                                <input type="radio" name="p_status" id="publish" class="input_style" value="0">Unpublish
+                                <input type="radio" name="p_status" id="publish" class="input_style" value="1" <?= isset($old_product_data['is_loose']) && $old_product_data['is_loose'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="p_status" id="publish" class="input_style" value="0" <?= isset($old_product_data['is_loose']) && $old_product_data['is_loose'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                 </div>

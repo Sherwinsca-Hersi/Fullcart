@@ -17,6 +17,15 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_category'])){
+    $old_category = $_SESSION['old_category'] ?? [];
+
+    $cat_img = $_SESSION['old_category']['cat_img'];
+
+    unset($_SESSION['old_category']);
+
+}
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -100,7 +109,7 @@
                         <div class="form-div">
                             <label for="pcategory" class="form-label">Product Category<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="pcategory" class="input_style" placeholder="Enter Category Name" maxlength="50" required autofocus>
+                                <input type="text" name="pcategory" class="input_style" value="<?= htmlspecialchars($old_category['pcategory'] ?? '') ?>" placeholder="Enter Category Name" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="img_input">
@@ -110,7 +119,7 @@
                         <input type="file" id="cat_img" class="img_upload" name="cat_img" accept="image/*" required>
                     </div>
                     <div>
-                        <img id="previewImage"  width="100px"/>
+                        <img id="previewImage" src="../../<?= !empty($cat_img) ? $cat_img : '' ?>" width="100px"/>
                     </div>
                 </div>
                 
@@ -129,8 +138,8 @@
                         <div class="form-div">
                             <label for="cat_status" class="form-label">Category Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="cat_status" class="input_style" value="1">Published
-                                <input type="radio" name="cat_status" class="input_style" value="0">Unpublished
+                                <input type="radio" name="cat_status" class="input_style" value="1" <?= isset($old_category['cat_status']) && $old_category['cat_status'] == '1' ? 'checked' : '' ?>>Published
+                                <input type="radio" name="cat_status" class="input_style" value="0" <?= isset($old_category['cat_status']) && $old_category['cat_status'] == '0' ? 'checked' : '' ?>>Unpublished
                             </div>
                         </div>
                     </div>

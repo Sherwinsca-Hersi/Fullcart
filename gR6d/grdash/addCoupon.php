@@ -13,6 +13,19 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_coupon'])){
+    $old = $_SESSION['old_coupon'] ?? [];
+$coup_code = $old['coup_code'] ?? '';
+$coup_exp_date = $old['coup_exp_date'] ?? '';
+$coup_min_amount = $old['coup_min_amount'] ?? '';
+$coup_title = $old['coup_title'] ?? '';
+$coup_value = $old['coup_value'] ?? '';
+$coup_desc = $old['coup_desc'] ?? '';
+$coup_status = $old['coup_status'] ?? '';
+$coup_img = $_SESSION['old_coupon']['coup_img']?? '';
+unset($_SESSION['old_coupon']);
+}
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -125,37 +138,44 @@
             <form class="addcoupon_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data" autocomplete="off">
                 <div class="grid_col">
                     <div class="grid-col-1">
-                        
+                    <!-- $coup_code = $old['coup_code'] ?? '';
+$coup_exp_date = $old['coup_exp_date'] ?? '';
+$coup_min_amount = $old['coup_min_amount'] ?? '';
+$coup_title = $old['coup_title'] ?? '';
+$coup_value = $old['coup_value'] ?? '';
+$coup_desc = $old['coup_desc'] ?? '';
+$coup_status = $old['coup_status'] ?? '';
+$coup_img = $_SESSION['old_coupon']['coup_img']?? ''; -->
                         <div class="form-div">
                             <label for="c_title" class="form-label">Coupon Title<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="coup_title"  class="input_style" placeholder="Enter Coupon Title" maxlength="50" required autofocus>
+                                <input type="text" name="coup_title"  class="input_style"  value="<?= htmlspecialchars($coup_title) ?>" placeholder="Enter Coupon Title" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_code" class="form-label">Coupon Code<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="coup_code"  class="input_style" placeholder="Enter Coupon Code" maxlength="10" required>
+                                <input type="text" name="coup_code"  class="input_style" value="<?= htmlspecialchars($coup_code) ?>" placeholder="Enter Coupon Code" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_min_amount" class="form-label">Coupon Min Order Amount<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="coup_min_amount" id="coup_min_amount" class="input_style" placeholder="Enter Coupon Min Amount" maxlength="10" required>
+                                <input type="text" name="coup_min_amount" id="coup_min_amount" value="<?= htmlspecialchars($coup_min_amount) ?>" class="input_style" placeholder="Enter Coupon Min Amount" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_value" class="form-label">Coupon Value<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="coup_value"  class="input_style" placeholder="Enter Coupon Value" maxlength="10" id="coup_value" required>
+                                <input type="text" name="coup_value"  class="input_style"  value="<?= htmlspecialchars($coup_value)?>" placeholder="Enter Coupon Value" maxlength="10" id="coup_value" required>
                                 <small id="price-error">Coupon Value must be less than Minimum OrderAmount</small>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="publish" class="form-label">Coupon Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="coup_status"  class="input_style" value="1">Publish
-                                <input type="radio" name=coup_status  class="input_style" value="0">Unpublish
+                                <input type="radio" name="coup_status"  class="input_style" value="1" <?= ($coup_status == '1') ? 'checked' : '' ?>>Publish
+                                <input type="radio" name=coup_status  class="input_style" value="0" <?= ($coup_status == '0') ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>
@@ -163,13 +183,13 @@
                         <div class="form-div">
                             <label for="cexp_date" class="form-label">Expiry Date<span class="star">*</span></label>
                             <div>
-                                <input type="date" class="input_style" name="coup_exp_date" placeholder="Enter Coupon Expiry Date" required>
+                                <input type="date" class="input_style" name="coup_exp_date" placeholder="Enter Coupon Expiry Date" value="<?= htmlspecialchars($coup_exp_date)?>" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_desc" class="form-label">Coupon Description</label>
                             <div>
-                                <textarea rows="6" cols="30" name="coup_desc"  class="input_style" placeholder="Enter Coupon Description" maxlength="100"></textarea> 
+                                <textarea rows="6" cols="30" name="coup_desc"  class="input_style" placeholder="Enter Coupon Description" maxlength="100"><?= htmlspecialchars($coup_desc)?></textarea> 
                             </div>
                         </div>
                         <div class="img_input">
@@ -179,7 +199,7 @@
                                 <input type="file" id="coup_img" class="img_upload" name="coup_img">
                             </div>
                             <div>
-                                <img id="previewImage" width="100px"/>
+                                <img id="previewImage"  src="../../<?= !empty($coup_img) ? $coup_img : '' ?>"  width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -222,6 +242,14 @@
         <?php
             require_once "logoutpopup.php";
         ?>
+    </div>
+    <div class="popup" id="popup">
+        <h4>All unsaved changes will be lost.</h4>
+        <div class="popup_btns">
+            <button class="price_btn">Price</button>
+            <button class="stock_btn">Stock</button>
+            <button class="popup_cancel" id="cancel_btn">Cancel</button>
+        </div>
     </div>
     <script>
 

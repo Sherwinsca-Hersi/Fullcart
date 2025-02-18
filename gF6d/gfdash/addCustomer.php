@@ -15,6 +15,11 @@
 </head>
 <body>
 <?php 
+    if(isset($_SESSION['old_customer'])){
+        $old_customer = $_SESSION['old_customer'] ?? [];
+        unset($_SESSION['old_customer']);
+    
+    }
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -35,17 +40,14 @@
         <?php 
 			if(isset($_GET['customerid']))
 			{
-                $data = $mysqli->query("SELECT  `id`, `name`, `mobile`, `email_id`, `password`, `whatsapp`,`wallet` FROM `e_user_details`  WHERE cos_id = '$cos_id' 
-                                        and id=".$_GET['customerid']."")->fetch_assoc();
+                $data = $mysqli->query("SELECT  `id`, `name`, `mobile`, `email_id`, `password`, `whatsapp`,`wallet` FROM `e_user_details`  WHERE 
+                                         id=".$_GET['customerid']." AND cos_id = '$cos_id' ")->fetch_assoc();
 
-                $cust_address=$mysqli->query("SELECT  `id`, `user_id`, `area`,
-                                        `pincode`, `address_line_1`,`landmark`,  `name`, `mobile`, `city`, `state`, `address_line_2`, 
-                                        `country` FROM `e_address_details`  WHERE cos_id = '$cos_id' 
-                                        AND user_id=".$_GET['customerid']." AND `mobile` = '{$data['mobile']}' 
-                            AND `name` = '{$data['name']}' 
-                            AND `active` = '1'
-                            GROUP BY `name`, `mobile` 
-                            ORDER BY `created_ts` LIMIT 1")->fetch_assoc();    
+                $cust_address=$mysqli->query("SELECT  `id`, `user_id`, `area`,`pincode`, `address_line_1`,`landmark`,  
+                                        `name`, `mobile`, `city`, `state`, `address_line_2`,  `country` FROM `e_address_details` 
+                                         WHERE user_id=".$_GET['customerid']." AND `mobile` = '{$data['mobile']}' 
+                                        AND `name` = '{$data['name']}' AND `active` = '1' AND cos_id = '$cos_id' 
+                                        GROUP BY `name`, `mobile` ORDER BY `created_ts` LIMIT 1")->fetch_assoc();    
 			?>
             <form method="post" action="com_ins_upd.php" autocomplete="off" id="myForm" onsubmit="return validateForm()">
             <!-- <div class="c_pic">
@@ -111,46 +113,8 @@
                                 <input type="text" name="c_area" class="input_style" value="<?php echo $cust_address['area'] ?? ''; ?>" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
-                        <!-- <div class="form-div">
-                    <label for="c_city" class="form-label">City</label>
-                    <div>
-                        <select name="c_city" class="input_style">
-                            <option value="" disabled selected>City</option>
-                            <?php foreach ($cities as $city): ?>
-                                <option value='<?php echo $city; ?>' <?php echo ($city == ($cust_address['city'] ?? '')) ? 'selected' : ''; ?>><?php echo $city; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="c_state" class="form-label">State</label>
-                    <div>
-                        <select name="c_state" class="input_style">
-                            <option value="" disabled selected>State</option>
-                            <option value="TamilNadu" <?php echo ($city == ($cust_address['state'] ?? '')) ? 'selected' : ''; ?>>TamilNadu</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="c_country" class="form-label">Country</label>
-                    <div>
-                        <select name="c_country" class="input_style">
-                            <option value="" disabled selected>Country</option>
-                            <option value="India" <?php echo ($city == ($cust_address['country'] ?? '')) ? 'selected' : ''; ?>>India</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="c_pincode" class="form-label">Pincode</label>
-                    <div>
-                        <input type="number" name="c_pincode" class="input_style" 
-                               oninput="this.value=this.value.slice(0,6)" 
-                               value="<?php echo $cust_address['pincode'] ?? ''; ?>" 
-                               placeholder="Enter Pincode" maxlength="6" required>
-                    </div>
-                </div> -->
 
-                <div class="form-div">
+                        <div class="form-div">
                             <label for="c_pincode" class="form-label">Pincode<span class="star">*</span></label>
                             <div>
                                 <input type="number"  name="c_pincode" id="pincode" oninput="fetchLocationData()" value="<?php echo $cust_address['pincode'] ?? ''; ?>"  class="input_style" placeholder="Enter Pincode" maxlength="6" required>
@@ -188,51 +152,43 @@
         else{
         ?>
             <form method="post" action="com_ins_upd.php" autocomplete="off" id="myForm" onsubmit="return validateForm()">
-            <!-- <div class="c_pic">
-                <div class="file_upload">
-                    <i class="fa-4x fa fa-user" aria-hidden="true"></i>
-                    <span>Search Image to Upload</span>
-                    <input type="file" id="prod_img" class="img_upload">
-                </div>
-                <span>Choose Image</span>
-            </div> -->
             <div class="grid_col">
                     <div class="grid-col-1">
                         <div class="form-div">
                             <label for="c_name" class="form-label">Customer Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="c_name"  class="input_style" placeholder=" Enter Customer Name" maxlength="50" required autofocus>
+                                <input type="text" name="c_name" value="<?= htmlspecialchars($old_customer['c_name'] ?? '') ?>"  class="input_style" placeholder=" Enter Customer Name" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_phone" class="form-label">Phone Number<span class="star">*</span></label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_phone"  class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_phone"  value="<?= htmlspecialchars($old_customer['c_phone'] ?? '') ?>" class="input_style" placeholder="Enter Phone Number" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_whatsapp" class="form-label">Whatsapp</label>
                             <div>
-                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_whatsapp"  class="input_style" placeholder="Enter Whatsapp No" maxlength="10">
+                                <input type="number" oninput="this.value=this.value.slice(0,10)" oninput="this.value=this.value.slice(0,10)" name="c_whatsapp" value="<?= htmlspecialchars($old_customer['c_whatsapp'] ?? '') ?>" class="input_style" placeholder="Enter Whatsapp No" maxlength="10">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_email" class="form-label">Email</label>
                             <div>
-                                <input type="email" name="c_email" class="input_style" placeholder="Enter Email" maxlength="50">
+                                <input type="email" name="c_email" value="<?= htmlspecialchars($old_customer['c_email'] ?? '') ?>" class="input_style" placeholder="Enter Email" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_password" class="form-label">Customer Password</label>
                             <div class="pass_input">
-                                <input type="password"  class="input_style"  name="c_password" placeholder="Enter Password" id="c_password" maxlength="20" autocomplete="new-password">
+                                <input type="password"  class="input_style"  name="c_password" value="<?= htmlspecialchars($old_customer['c_password'] ?? '') ?>" placeholder="Enter Password" id="c_password" maxlength="20" autocomplete="new-password">
                                 <span class="eye_icon" onclick="togglePassword()"><i class="fa fa-solid fa-eye-slash"></i></span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_doorno" class="form-label">Door No</label>
                             <div>
-                                <input type="text" name="c_doorno" class="input_style" placeholder="Enter Door No" maxlength="50">
+                                <input type="text" name="c_doorno" value="<?= htmlspecialchars($old_customer['c_doorno'] ?? '') ?>" class="input_style" placeholder="Enter Door No" maxlength="50">
                             </div>
                         </div>
                     </div>
@@ -240,72 +196,40 @@
                         <div class="form-div">
                             <label for="c_street" class="form-label">Street</label>
                             <div>
-                                <input type="text" name="c_street"  class="input_style" placeholder="Enter Street" maxlength="50">
+                                <input type="text" name="c_street" value="<?= htmlspecialchars($old_customer['c_street'] ?? '') ?>"  class="input_style" placeholder="Enter Street" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_area" class="form-label">Area</label>
                             <div>
-                                <input type="text" name="c_area" class="input_style" placeholder="Enter Area" maxlength="50">
+                                <input type="text" name="c_area" value="<?= htmlspecialchars($old_customer['c_area'] ?? '') ?>" class="input_style" placeholder="Enter Area" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_pincode" class="form-label">Pincode<span class="star">*</span></label>
                             <div>
-                                <input type="number"  name="c_pincode" id="pincode" oninput="fetchLocationData()" class="input_style" placeholder="Enter Pincode" maxlength="6" required>
+                                <input type="number"  name="c_pincode" value="<?= htmlspecialchars($old_customer['c_pincode'] ?? '') ?>" id="pincode" oninput="fetchLocationData()" class="input_style" placeholder="Enter Pincode" maxlength="6" required>
                                 <h6 class="price-error" id="suggestion_box"></h6>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_city" class="form-label">City</label>
                             <div>
-                                <input type="text" name="c_city" id="city" class="input_style" placeholder="Enter City" maxlength="50">
+                                <input type="text" name="c_city" value="<?= htmlspecialchars($old_customer['c_city'] ?? '') ?>" id="city" class="input_style" placeholder="Enter City" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_state" class="form-label">State</label>
                             <div>
-                                <input type="text" name="c_state" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
+                                <input type="text" name="c_state" value="<?= htmlspecialchars($old_customer['c_state'] ?? '') ?>" class="input_style"  id="state" placeholder="Enter State" maxlength="50">
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="c_country" class="form-label">Country</label>
                             <div>
-                                <input type="text" name="c_country" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
+                                <input type="text" name="c_country" value="<?= htmlspecialchars($old_customer['c_country'] ?? '') ?>" class="input_style" id="country" placeholder="Enter Country" maxlength="50">
                             </div>
                         </div>
-                        
-                        <!-- <div class="form-div">
-                            <label for="c_city" class="form-label">City<span class="star">*</span></label>
-                            <div>
-                                <select name="c_city" id="c_city" class="input_style" required>
-                                    <option value=""  class="option_style" disabled selected>City</option>
-                                    <?php
-                                    foreach($cities as $city):?>
-									    <option value='<?php echo $city;?>' class="option_style"><?php echo $city;?></option>
-                                    <?php endforeach;?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="c_state" class="form-label">State<span class="star">*</span></label>
-                            <div>
-                                <select name="c_state" id="c_state" class="input_style" required>
-                                    <option value=""  class="option_style" disabled selected>State</option>
-									<option value="TamilNadu"  class="option_style">TamilNadu</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="c_country" class="form-label">Country<span class="star">*</span></label>
-                            <div>
-                                <select name="c_country" id="c_country" class="input_style" required>
-                                    <option value=""  class="option_style" disabled selected>Country</option>
-									<option value="India"  class="option_style">India</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        
                     </div>
             </div>
             <div class="add_btnDiv">

@@ -13,6 +13,17 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['form_data'])){
+    $bank_name = $_SESSION['form_data']['bank_name'] ?? '';
+$account_holder = $_SESSION['form_data']['account_holder'] ?? '';
+$account_no = $_SESSION['form_data']['account_no'] ?? '';
+$upi_id = $_SESSION['form_data']['upi_id'] ?? '';
+$ifsc_code = $_SESSION['form_data']['ifsc_code'] ?? '';
+$app_status = $_SESSION['form_data']['app_status'] ?? '';
+
+unset($_SESSION['form_data']);
+}
+
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -93,19 +104,19 @@
                         <div class="form-div">
                             <label for="bank_name" class="form-label">Bank Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="bank_name"  class="input_style" placeholder=" Enter Bank Name" maxlength="100" required>
+                                <input type="text" name="bank_name"  class="input_style" placeholder=" Enter Bank Name" value="<?= htmlspecialchars($bank_name) ?>" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="account_holder" class="form-label">Account Holder Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="account_holder"  class="input_style"  placeholder=" Enter Account Holder Name" maxlength="100" required>
+                                <input type="text" name="account_holder"  class="input_style" value="<?= htmlspecialchars($account_holder) ?>"  placeholder=" Enter Account Holder Name" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="account_no" class="form-label">Account Number<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="account_no"  class="input_style"  placeholder=" Enter Account No" oninput="this.value = this.value.toUpperCase();" maxlength="18" required>
+                                <input type="text" name="account_no"  class="input_style" value="<?= htmlspecialchars($account_no) ?>"  placeholder=" Enter Account No" oninput="this.value = this.value.toUpperCase();" maxlength="18" required>
                             </div>
                         </div>
                     </div>
@@ -113,20 +124,20 @@
                     <div class="form-div">
                             <label for="ifsc_code" class="form-label">IFSC Code<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="ifsc_code"  class="input_style"  placeholder=" Enter IFSC Code" maxlength="11" required>
+                                <input type="text" name="ifsc_code"  class="input_style" value="<?= htmlspecialchars($ifsc_code) ?>" placeholder=" Enter IFSC Code" maxlength="11" required>
                             </div>
                         </div>
                     <div class="form-div">
                             <label for="upi_id" class="form-label">UPI ID<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="upi_id"  class="input_style"  placeholder=" Enter UPI ID" maxlength="35" required>
+                                <input type="text" name="upi_id"  class="input_style" value="<?= htmlspecialchars($upi_id) ?>"  placeholder=" Enter UPI ID" maxlength="35" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="app_status" class="form-label">Active Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="app_status" id="app_status" class="input_style" value="1">Active
-                                <input type="radio" name="app_status" id="app_status" class="input_style" value="0">In-Active
+                                <input type="radio" name="app_status" id="app_status" class="input_style"  <?= ($app_status == '1') ? 'checked' : '' ?> value="1">Active
+                                <input type="radio" name="app_status" id="app_status" class="input_style" value="0" <?= ($app_status == '0') ? 'checked' : '' ?>>In-Active
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,14 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_expense'])){
+    $old_category = $_SESSION['old_expense'] ?? [];
+
+    $exp_img = $_SESSION['old_expense']['exp_img'];
+
+    unset($_SESSION['old_expense']);
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -33,7 +41,7 @@
         <?php 
 			if(isset($_GET['expenseid']))
 			{
-				$data = $mysqli->query("select  `exp_id`, `cos_id`, `exp_title`, `exp_desc`, `exp_amount`, `exp_date`, `exp_img`, `active` from `e_expense_details`  where cos_id = '$cos_id' and exp_id=".$_GET['expenseid']."")->fetch_assoc();
+				$data = $mysqli->query("select * from `e_expense_details`  where cos_id = '$cos_id' and exp_id=".$_GET['expenseid']."")->fetch_assoc();
 			?>
             <form class="addcoupon_form" method="post" action="com_ins_upd.php" enctype="multipart/form-data" autocomplete="off" id="myForm" onsubmit="return validateForm()">
                 <div class="grid_col">
@@ -107,13 +115,13 @@
                     <div class="form-div">
                             <label for="exp_title" class="form-label">Expense Title<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="exp_title"  class="input_style"  placeholder="Enter Expense Title" maxlength="100" required autofocus>
+                                <input type="text" name="exp_title" value="<?= htmlspecialchars($old_expense['exp_title'] ?? '') ?>" class="input_style"  placeholder="Enter Expense Title" maxlength="100" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="exp_date" class="form-label">Expense Date<span class="star">*</span></label>
                             <div>
-                                <input type="date" class="input_style" name="exp_date"   placeholder="Enter Expense Date" required>
+                                <input type="date" class="input_style" name="exp_date"  value="<?= htmlspecialchars($old_expense['exp_date'] ?? '') ?>"  placeholder="Enter Expense Date" required>
                             </div>
                         </div>
                         <div class="img_input">
@@ -123,7 +131,7 @@
                                 <input type="file" id="exp_img" class="exp_upload" name="exp_img">
                             </div>
                             <div>
-                                <img id="previewImage"  width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($exp_img) ? $exp_img : '' ?>" width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -141,13 +149,13 @@
                         <div class="form-div">
                             <label for="exp_amount" class="form-label">Expense Amount<span class="star">*</span></label>
                             <div>
-                                <input type="number" name="exp_amount" class="input_style"  maxlength="10" placeholder="Enter Expense Amount" required>
+                                <input type="number" name="exp_amount"   value="<?= htmlspecialchars($old_expense['exp_amount'] ?? '') ?>"  class="input_style"   maxlength="10" placeholder="Enter Expense Amount" required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="exp_desc" class="form-label">Expense Description</label>
                             <div>
-                                <textarea rows="6" cols="30" name="exp_desc"  class="input_style"  placeholder="Enter Expense Description" maxlength="100"></textarea> 
+                                <textarea rows="6" cols="30" name="exp_desc"  class="input_style"  placeholder="Enter Expense Description" maxlength="100"><?= htmlspecialchars($old_expense['exp_desc'] ?? '') ?></textarea> 
                             </div>
                         </div>
                         

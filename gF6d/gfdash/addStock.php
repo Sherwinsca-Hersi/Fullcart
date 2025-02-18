@@ -10,6 +10,14 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_stock'])){
+    $old_stock = $_SESSION['old_stock'] ?? [];
+
+    $stock_bill = $_SESSION['old_stock']['stock_bill'];
+
+    unset($_SESSION['old_stock']);
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -27,6 +35,7 @@
             
             <div class="product_details">
                 <?php 
+                echo "SELECT p_title FROM `e_product_details` WHERE cos_id='$cos_id' AND active=1 AND id=".$_GET['productid']." GROUP BY id";
                 $product_name=$mysqli->query("SELECT p_title FROM `e_product_details` WHERE cos_id='$cos_id' AND active=1 AND id=".$_GET['productid']." GROUP BY id")->fetch_assoc();
                 ?>
                 <h2><?php echo $product_name['p_title'];?></h2>
@@ -43,13 +52,13 @@
                         <div class="form-div">
                             <label for="batch_no" class="form-label">Batch No<sup>*</sup></label>
                             <div>
-                                <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" maxlength="10" autofocus required>
+                                <input type="text" name="batch_no" value="<?= htmlspecialchars($old_stock['batch_no'] ?? '') ?>" class="input_style" placeholder="Enter Batch No" maxlength="10" autofocus required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="tstock" class="form-label">Stock Count<sup>*</sup></label>
                             <div>
-                                <input type="number" name="tstock" id="tstock" class="input_style" placeholder="Enter Stock Count" required>
+                                <input type="number" name="tstock" value="<?= htmlspecialchars($old_stock['t_stock'] ?? '') ?>" id="tstock" class="input_style" placeholder="Enter Stock Count" required>
                             </div>
                         </div>
                         <!-- <div class="form-div">
@@ -63,19 +72,26 @@
                             <label for="supplier_id" class="form-label"><?php echo $vendor;?> Name<sup>*</sup></label>
                             <div>
                             <select name="supplier_id" class="input_style">
-                                    <option value=""  class="option_style" disabled selected>Select <?php echo $vendor;?></option>
-                                    <?php
-                                     $vendor = $mysqli->query("select * from e_vendor_details where cos_id = '$cos_id' and active=1");
-                                    while($row = $vendor->fetch_assoc())
-                                    {
-	                                ?>
-                                        <option value="<?php echo $row['v_id'];?>" <?php if($row['v_id']==$data['supplier_id']){
-                                            echo "selected";
-                                        } ?>><?php echo $row['v_name'];?></option>
-	                                <?php 
-                                    }	
-									?>
-                                </select>
+    <option value="" class="option_style" disabled selected>Select <?php echo htmlspecialchars($vendor); ?></option>
+    <?php
+        // Fetch vendor details
+        $vendor = $mysqli->query("SELECT * FROM e_vendor_details WHERE cos_id = '$cos_id' AND active = 1");
+
+        // Retrieve the previously selected supplier from session or form data
+        $selected_supplier = htmlspecialchars($data['supplier_id'] ?? '');
+
+        while ($row = $vendor->fetch_assoc()) {
+            $vendor_id = $row['v_id'];
+            $vendor_name = htmlspecialchars($row['v_name']);
+
+            // Check if this vendor is the selected one
+            $isSelected = ($vendor_id == $selected_supplier) ? 'selected' : '';
+
+            // Output the option element
+            echo '<option value="' . $vendor_id . '" ' . $isSelected . '>' . $vendor_name . '</option>';
+        }
+    ?>
+</select>
                             </div>
                         </div>
                         <div class="form-div">
@@ -84,7 +100,7 @@
                         <div class="form-div">
                             <label for="invoice_no" class="form-label">Invoice No</label>
                             <div>
-                                <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No">
+                                <input type="text" name="invoice_no" value="<?= htmlspecialchars($old_stock['invoice_no'] ?? '') ?>" class="input_style" placeholder="Enter Invoive No">
                                 <!-- <span class="rupees_symbol">₹</span> -->
                             </div>
                         </div>
@@ -93,21 +109,21 @@
                         <div class="form-div">
                             <label for="mrp" class="form-label">MRP</label>
                             <div>
-                                <input type="number" name="mrp" id="mrp" class="input_style" placeholder="Enter MRP" value="<?php echo $data['s_mrp'];?>">
+                                <input type="number" name="mrp" value="<?= htmlspecialchars($old_stock['mrp'] ?? '') ?>"  id="mrp" class="input_style" placeholder="Enter MRP" value="<?php echo $data['s_mrp'];?>">
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="inprice" class="form-label">In-Price</label>
                             <div>
-                                <input type="number" name="in_price" class="input_style" placeholder="Enter In-Price"  id="inprice" value="<?php echo $data['in_price'];?>">
+                                <input type="number" name="in_price" value="<?= htmlspecialchars($old_stock['in_price'] ?? '') ?>"  class="input_style" placeholder="Enter In-Price"  id="inprice" value="<?php echo $data['in_price'];?>">
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="outprice" class="form-label">Price</label>
                             <div>
-                                <input type="number" name="out_price" class="input_style" placeholder="Enter Price" value="<?php echo $data['s_out_price'];?>" id="outprice">
+                                <input type="number" name="out_price" value="<?= htmlspecialchars($old_stock['out_price'] ?? '') ?>"  class="input_style" placeholder="Enter Price" value="<?php echo $data['s_out_price'];?>" id="outprice">
                                 <span class="rupees_symbol">₹</span>
                             </div>
                         </div>
@@ -118,7 +134,7 @@
                                 <input type="file" id="stock_bill" class="img_upload" name="stock_bill">
                             </div>
                             <div>
-                                <img id="previewImage"  src="" width="100px"/>
+                                <img id="previewImage"  src="../../<?= !empty($stock_bill) ? $stock_bill : '' ?>" width="100px"/>
                             </div>
                         </div>
                         <script>

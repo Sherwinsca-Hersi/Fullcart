@@ -1376,47 +1376,95 @@ localStorage.setItem('salesselectedTab', 'online_order');
 ?>
 
 <script>
-    // Get references to the buttons
-    const orderButtons = document.querySelectorAll('.order_btn');
-    const selectedButtons = [selectedBtn1, selectedBtn2, selectedBtn3, selectedBtn4, selectedBtn5, selectedBtn6];
+    // // Get references to the buttons
+    // const orderButtons = document.querySelectorAll('.order_btn');
+    // const selectedButtons = [selectedBtn1, selectedBtn2, selectedBtn3, selectedBtn4, selectedBtn5, selectedBtn6];
 
-    // Retrieve the last selected button from localStorage, if available
-    let lastSelectedButton = localStorage.getItem('selectedBtn');
+    // // Retrieve the last selected button from localStorage, if available
+    // let lastSelectedButton = localStorage.getItem('selectedBtn');
 
-    // If a button was previously selected, highlight it; otherwise, highlight the default button (selectedBtn1)
-    let buttonToHighlight = lastSelectedButton
-        ? document.querySelector(`.order_btn[name=${lastSelectedButton}]`)
-        : document.querySelector('.order_btn[name="pending"]'); // Assuming "pending" is the default button's name
+    // // If a button was previously selected, highlight it; otherwise, highlight the default button (selectedBtn1)
+    // let buttonToHighlight = lastSelectedButton
+    //     ? document.querySelector(`.order_btn[name=${lastSelectedButton}]`)
+    //     : document.querySelector('.order_btn[name="pending"]'); // Assuming "pending" is the default button's name
 
-    // Apply highlight style to the buttonToHighlight
+    // // Apply highlight style to the buttonToHighlight
+    // if (buttonToHighlight) {
+    //     buttonToHighlight.style.backgroundColor = 'var(--theme-color)';
+    //     buttonToHighlight.style.color = 'white';
+    // }
+
+    // // Add click event listeners to each order button
+    // orderButtons.forEach(item => {
+    //     item.addEventListener('click', event => {
+    //         // Reset the styles for all buttons
+    //         orderButtons.forEach(otherItem => {
+    //             otherItem.style.backgroundColor = 'var(--card-title-color)';
+    //             otherItem.style.color = ''; // Reset color
+    //         });
+
+    //         // Apply the highlight style to the clicked button
+    //         const clickedButton = event.currentTarget;
+    //         clickedButton.style.backgroundColor = 'var(--theme-color)';
+    //         clickedButton.style.color = 'white';
+
+    //         // Update selected button values and save the selection to localStorage
+    //         const selectedName = clickedButton.name;
+    //         selectedButtons.forEach(btn => btn.value = selectedName);
+    //         localStorage.setItem('selectedBtn', selectedName);
+
+    //         // Submit the form to display data related to the selected button
+    //         document.querySelector('form').submit();
+    //     });
+    // });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const orderButtons = document.querySelectorAll(".order_btn");
+    const selectedButtons = document.querySelectorAll(".selected_btn");
+
+    // Retrieve the current status from localStorage (default to "pending" if not set)
+    let currentStatus = localStorage.getItem("currentStatus") || "pending"; 
+
+    // First, reset all button styles to avoid multiple highlights
+    orderButtons.forEach((btn) => {
+        btn.style.backgroundColor = "var(--card-title-color)";
+        btn.style.color = ""; // Reset color
+    });
+
+    // Find and highlight the correct button based on currentStatus
+    let buttonToHighlight = document.querySelector(`.order_btn[name="${currentStatus}"]`);
+    
     if (buttonToHighlight) {
-        buttonToHighlight.style.backgroundColor = 'var(--theme-color)';
-        buttonToHighlight.style.color = 'white';
+        buttonToHighlight.style.backgroundColor = "var(--theme-color)";
+        buttonToHighlight.style.color = "white";
     }
 
     // Add click event listeners to each order button
-    orderButtons.forEach(item => {
-        item.addEventListener('click', event => {
-            // Reset the styles for all buttons
-            orderButtons.forEach(otherItem => {
-                otherItem.style.backgroundColor = 'var(--card-title-color)';
-                otherItem.style.color = ''; // Reset color
+    orderButtons.forEach((item) => {
+        item.addEventListener("click", (event) => {
+            // Reset styles for all buttons
+            orderButtons.forEach((otherItem) => {
+                otherItem.style.backgroundColor = "var(--card-title-color)";
+                otherItem.style.color = ""; // Reset color
             });
 
-            // Apply the highlight style to the clicked button
+            // Apply highlight style to clicked button
             const clickedButton = event.currentTarget;
-            clickedButton.style.backgroundColor = 'var(--theme-color)';
-            clickedButton.style.color = 'white';
+            clickedButton.style.backgroundColor = "var(--theme-color)";
+            clickedButton.style.color = "white";
 
-            // Update selected button values and save the selection to localStorage
-            const selectedName = clickedButton.name;
-            selectedButtons.forEach(btn => btn.value = selectedName);
-            localStorage.setItem('selectedBtn', selectedName);
+            // Get selected button status and update localStorage
+            const selectedStatus = clickedButton.name;
+            selectedButtons.forEach((btn) => (btn.value = selectedStatus));
+            localStorage.setItem("currentStatus", selectedStatus);
 
-            // Submit the form to display data related to the selected button
-            document.querySelector('form').submit();
+            // Submit form
+            document.querySelector("form").submit();
         });
     });
+});
+
 </script>
 
 

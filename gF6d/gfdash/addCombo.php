@@ -13,6 +13,13 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_combo'])){
+    $old_combo = $_SESSION['old_combo'] ?? [];
+    $combo_img=$_SESSION['old_combo']['combo_img'];
+    $bulkPricing=$_SESSION['old_combo']['bulkPricing'];
+    $comboProducts=$_SESSION['old_combo']['comboProducts'];
+    unset($_SESSION['old_combo']);
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -34,28 +41,28 @@
 			if(isset($_GET['comboid']))
 			{
 				$data = $mysqli->query("SELECT * FROM `e_data_collection` as dc join `e_product_collection_map` as pc on dc.id=pc.c_id and dc.cos_id='$cos_id' and dc.active=1 WHERE dc.cos_id = pc.cos_id and dc.id=".$_GET['comboid']."")->fetch_assoc();
-			?>
-            <form class="combo_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()"  enctype="multipart/form-data" autocomplete="off">
-                <div class="grid_col">
-                    <div class="grid-col-1">
-                        <div class="form-div">
+			    ?>
+                    <form class="combo_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()"  enctype="multipart/form-data" autocomplete="off">
+                        <div class="grid_col">
+                            <div class="grid-col-1">
+                            <div class="form-div">
                             <label for="combo_name" class="form-label"><?php echo $combo;?> Product Name</label>
                             <div>
                                 <input type="text" name="combo_name" class="input_style" value="<?php if(!($data['title']==NULL || '')) {echo $data['title']; }?>" placeholder=" Enter <?php echo $combo;?> Product Name"  maxlength="60" required>
                             </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="sku_id" class="form-label">Model No</label>
-                            <div>
-                                <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No"  value="<?php if(!($data['sku_id']==NULL || '')) {echo $data['sku_id']; }?>"  maxlength="10" required>
                             </div>
-                        </div>
-                        <div class="img_input">
-                            <div class="file_upload">
-                                <i class="fa-3x fa fa-search" aria-hidden="true"></i>
-                                <span>Upload Image</span>
-                                <input type="file" id="combo_img" class="img_upload" name="combo_img">
+                            <div class="form-div">
+                                <label for="sku_id" class="form-label">Model No</label>
+                                <div>
+                                    <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No"  value="<?php if(!($data['sku_id']==NULL || '')) {echo $data['sku_id']; }?>"  maxlength="10" required>
+                                </div>
                             </div>
+                            <div class="img_input">
+                                <div class="file_upload">
+                                    <i class="fa-3x fa fa-search" aria-hidden="true"></i>
+                                    <span>Upload Image</span>
+                                    <input type="file" id="combo_img" class="img_upload" name="combo_img">
+                                </div>
                             <div>
                                 <?php
                                     if(!($data['c_img']==NULL || '')) {
@@ -65,8 +72,7 @@
                                     }
                                 ?>
                             </div>
-                        </div>
-                        <script>
+                            <script>
                             document.getElementById('combo_img').addEventListener('change', function(event){
                                 const file = event.target.files[0];
                                 const reader = new FileReader();
@@ -75,442 +81,481 @@
                                 };
                                 reader.readAsDataURL(file);
                             });
-                        </script>
-                        <!-- <div class="form-div">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <div>
-                                <input type="text" name="quantity"  class="input_style" placeholder="quantity"   maxlength="20">
+                            </script>
+                            </div> 
+                            <div class="addSub_head">
+                                <div class="combo_head_flex">
+                                    <h3><?php echo $combo;?> Bulk Price</h3>
+                                </div>
+                                <div class="bulk_price_div">
+                                    <div id="bulk_price">   
+                                        <?php
+                                        if ($data['from_qty']=='') {
+                                        ?>
+                                        <div class="grid-col-3" id="cloneBulkPrice">
+                                        <div class="form-div">
+                                            <label for="f_quant" class="form-label">From Qty</label>
+                                            <div>
+                                                <input type="number" name="f_quant[]" id="f_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
+                                            </div>
+                                        </div>
+                                        <div class="form-div">
+                                            <label for="t_quant" class="form-label">To Qty</label>
+                                            <div>
+                                                <input type="number" name="t_quant[]" id="t_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
+                                            </div>
+                                        </div>
+                                        <div class="form-div">
+                                            <label for="price" class="form-label">Price</label>
+                                            <div>
+                                                <input type="number" name="price[]" id="Outprice" class="input_style" placeholder="Enter Price" maxlength="15">
+                                            </div>
+                                        </div>
+                                        <div class="form-div">
+                                            <div class="del_button">
+                                                <img src="../assets/images/delete_icon.png"  alt="delete-icon-img" class="deleteButton">
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <?php
+                                        } 
+                                        else {
+                                        $from_qtys = explode(",", $data['from_qty']); 
+                                        $to_qtys = explode(",", $data['to_qty']);     
+                                        $prices = explode(",", $data['bulk_price']);       
+                                        foreach ($from_qtys as $index => $fqty):
+                                            $to_qty = isset($to_qtys[$index]) ? $to_qtys[$index] : '';
+                                            $bulk_price = isset($prices[$index]) ? $prices[$index] : '';
+                                        ?>
+                                        <div class="grid-col-3" id="cloneBulkPrice">
+                                            <div class="form-div">
+                                                <label for="f_quant" class="form-label">From Qty</label>
+                                                <div>
+                                                    <input type="number" name="f_quant[]" value="<?php if(!($fqty==NULL || '')) { echo $fqty; } ?>" id="f_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <label for="t_quant" class="form-label">To Qty</label>
+                                                <div>
+                                                    <input type="number" name="t_quant[]" value="<?php if(!($to_qty==NULL || '')) { echo $to_qty;} ?>" id="t_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <label for="price" class="form-label">Price</label>
+                                                <div>
+                                                    <input type="number" name="price[]" value="<?php if(!($bulk_price==NULL || '')) { echo $bulk_price;} ?>" id="Outprice" class="input_style" placeholder="Enter Price" maxlength="15">
+                                                </div>
+                                            </div>
+                                            <div class="form-div">
+                                                <div class="del_button">
+                                                    <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                        endforeach;
+                                        }
+                                        ?>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="add_btn" id="addBulkPrice"><i class="fa fa-solid fa-plus"></i>&emsp;Add Bulk Pricing</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div> -->
-                    </div>
-                    <div class="addSub_head">
-                        <div class="combo_head_flex">
-                            <h3><?php echo $combo;?> Bulk Price</h3>
-                        </div>
-                        <div class="bulk_price_div">
-    <div id="bulk_price">
-        <?php
-        if ($data['from_qty']=='') {
-            ?>
-            <div class="grid-col-3" id="cloneBulkPrice">
-                <div class="form-div">
-                    <label for="f_quant" class="form-label">From Qty</label>
-                    <div>
-                        <input type="number" name="f_quant[]" id="f_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="t_quant" class="form-label">To Qty</label>
-                    <div>
-                        <input type="number" name="t_quant[]" id="t_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="price" class="form-label">Price</label>
-                    <div>
-                        <input type="number" name="price[]" id="Outprice" class="input_style" placeholder="Enter Price" maxlength="15">
-                    </div>
-                </div>
-                <div class="form-div">
-                    <div class="del_button">
-                        <img src="../assets/images/delete_icon.png"  alt="delete-icon-img" class="deleteButton">
-                    </div>
-                </div>
-            </div>
-            <?php
-        } else {
-                $from_qtys = explode(",", $data['from_qty']); 
-                $to_qtys = explode(",", $data['to_qty']);     
-                $prices = explode(",", $data['bulk_price']);       
-            foreach ($from_qtys as $index => $fqty):
-                $to_qty = isset($to_qtys[$index]) ? $to_qtys[$index] : '';
-                $bulk_price = isset($prices[$index]) ? $prices[$index] : '';
-                ?>
-                <div class="grid-col-3" id="cloneBulkPrice">
-                    <div class="form-div">
-                        <label for="f_quant" class="form-label">From Qty</label>
-                        <div>
-                            <input type="number" name="f_quant[]" value="<?php if(!($fqty==NULL || '')) { echo $fqty; } ?>" id="f_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <label for="t_quant" class="form-label">To Qty</label>
-                        <div>
-                            <input type="number" name="t_quant[]" value="<?php if(!($to_qty==NULL || '')) { echo $to_qty;} ?>" id="t_quant" class="input_style" placeholder="Enter Quantity" maxlength="10">
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <label for="price" class="form-label">Price</label>
-                        <div>
-                            <input type="number" name="price[]" value="<?php if(!($bulk_price==NULL || '')) { echo $bulk_price;} ?>" id="Outprice" class="input_style" placeholder="Enter Price" maxlength="15">
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <div class="del_button">
-                            <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
-                        </div>
-                    </div>
-                </div>
-                <?php
-            endforeach;
-        }
-        ?>
-    </div>
-    <div>
-        <button type="button" class="add_btn" id="addBulkPrice"><i class="fa fa-solid fa-plus"></i>&emsp;Add Bulk Pricing</button>
-    </div>
-</div>
-                    </div>
-                    <div class="addSub_head2">
-                        <div class="combo_head_flex">
-                            <h3><?php echo $combo;?> Products</h3>
-                            <p>Total Price of Products in the <?php echo $combo;?><span id="totalOutprice" class="tot_outprice"></span></p>
-                        </div>
-                        <div class="combo_product_div">
-    <div class="combo_product" id="combo_product">
-        <?php
-        // Fetch combo product data
-        $combo_product_query = $mysqli->query(
-            "SELECT id, prod_id, qty, offer_amt, c_id 
-             FROM `e_product_collection_map` 
-             WHERE active=1 AND c_id=" . $_GET['comboid'] . " AND cos_id='$cos_id'"
-        );
-        $combo_product = [];
+                            <div class="addSub_head2">
+                                <div class="combo_head_flex">
+                                    <h3><?php echo $combo;?> Products</h3>
+                                    <p>Total Price of Products in the <?php echo $combo;?><span id="totalOutprice" class="tot_outprice"></span></p>
+                                </div>
+                                <div class="combo_product_div">
+                                    <div class="combo_product" id="combo_product">
+                                        <?php
+                                        // Fetch combo product data
+                                        $combo_product_query = $mysqli->query(
+                                            "SELECT id, prod_id, qty, offer_amt, c_id 
+                                            FROM `e_product_collection_map` 
+                                            WHERE active=1 AND c_id=" . $_GET['comboid'] . " AND cos_id='$cos_id'"
+                                        );
+                                        $combo_product = [];
         
-        while ($combo_product_table = $combo_product_query->fetch_assoc()) {
-            $combo_product[] = $combo_product_table;
-        }
+                                        while ($combo_product_table = $combo_product_query->fetch_assoc()) {
+                                            $combo_product[] = $combo_product_table;
+                                        }
 
-        // Check if $combo_product is empty
-        if (empty($combo_product)) {
-            // If no products exist, create an empty set of fields
-            ?>
-            <div class="grid-col-4" id="cloneComboProduct">
-                <!-- <div class="form-div">
-                    <label for="pname" class="form-label">Product Name</label>
-                    <div>
-                        <select name="pname[]" class="input_style" id="product" required>
-                            <option value="" disabled selected>Select Product Name</option>
-                            <?php
-                            // Fetch product options
-                            $product = $mysqli->query(
-                                "SELECT id, p_title, p_variation, unit 
-                                 FROM `e_product_details` AS pd 
-                                 JOIN `e_product_stock` AS ps 
-                                 ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
-                                 WHERE pd.active=ps.active AND ps.cos_id = pd.cos_id"
-                            );
-                            while ($row = $product->fetch_assoc()) {
-                                ?>
-                                <option value="<?php echo $row['id']; ?>">
-                                    <?php echo $row['p_title'] . " " . $row['p_variation'] . " " . $row['unit']; ?>
-                                </option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div> -->
-                <div class="form-div">
-    <label for="pname" class="form-label">Product Name</label>
-    <!-- <div> -->
-        <div class="search-container">
-            <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required>
-            <div id="dropdown" class="dropdown">
-                <!-- Suggestions will be dynamically added here -->
-            </div>
-            <input type="hidden" id="product-id" name="product-id[]" class="product-id">
-            <!-- other form fields -->
-        </div>
-    <!-- </div> -->
-</div>
-                <div class="form-div">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <div>
-                        <input type="number" name="quantity[]" id="quantity" class="input_style" placeholder="Enter Quantity" value="" maxlength="10" required>
-                    </div>
-                </div>
-                <div class="form-div">
-                    <label for="Outprice" class="form-label">Price</label>
-                    <div>
-                        <input type="number" name="Outprice[]" id="Outprice" class="input_style" placeholder="Enter Price" value="" maxlength="15" required>
-                    </div>
-                </div>
-                <div class="form-div">
-                    <div class="del_button">
-                        <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
-                    </div>
-                </div>
-                <div class="form-div">
-                    <div>
-                        <input type="hidden" name="cp_id[]" id="cp_id" value="">
-                    </div>
-                </div>
-            </div>
-            <?php
-        } else {
-            // If there are combo products, loop through and display them
-            foreach ($combo_product as $combo_prod) {
-                ?>
-                <div class="grid-col-4" id="cloneComboProduct">
-                    <!-- <div class="form-div">
-                        <label for="pname" class="form-label">Product Name</label>
-                        <div>
-                            <select name="pname[]" class="input_style" id="product" required>
-                                <option value="" disabled>Select Product Name</option>
-                                <?php
-                                $product = $mysqli->query(
-                                    "SELECT id, p_title, p_variation, unit 
-                                     FROM `e_product_details` AS pd 
-                                     JOIN `e_product_stock` AS ps 
-                                     ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
-                                     WHERE pd.active=ps.active AND ps.cos_id = pd.cos_id"
-                                );
-                                while ($row = $product->fetch_assoc()) {
-                                    ?>
-                                    <option value="<?php echo $row['id']; ?>" 
-                                        <?php if ($combo_prod['prod_id'] == $row['id']) { echo 'selected'; } ?>>
-                                        <?php echo $row['p_title'] . " " . $row['p_variation'] . " " . $row['unit']; ?>
-                                    </option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
+                                        // Check if $combo_product is empty
+                                        if (empty($combo_product)) {
+                                            // If no products exist, create an empty set of fields
+                                            ?>
+                                                <div class="grid-col-4" id="cloneComboProduct">
+                                                    <!-- <div class="form-div">
+                                                        <label for="pname" class="form-label">Product Name</label>
+                                                        <div>
+                                                        <select name="pname[]" class="input_style" id="product" required>
+                                                            <option value="" disabled selected>Select Product Name</option>
+                                                            <?php
+                                                                // Fetch product options
+                                                                $product = $mysqli->query(
+                                                                    "SELECT id, p_title, p_variation, unit 
+                                                                    FROM `e_product_details` AS pd 
+                                                                    JOIN `e_product_stock` AS ps 
+                                                                    ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
+                                                                    WHERE pd.active=ps.active AND ps.cos_id = pd.cos_id"
+                                                                );
+                                                                while ($row = $product->fetch_assoc()) {
+                                                                ?>
+                                                                <option value="<?php echo $row['id']; ?>">
+                                                                    <?php echo $row['p_title'] . " " . $row['p_variation'] . " " . $row['unit']; ?>
+                                                                </option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="form-div">
+                                                        <label for="pname" class="form-label">Product Name</label>
+                                                        <!-- <div> -->
+                                                        <div class="search-container">
+                                                            <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required>
+                                                            <div id="dropdown" class="dropdown">
+                                                                <!-- Suggestions will be dynamically added here -->
+                                                            </div>
+                                                            <input type="hidden" id="product-id" name="product-id[]" class="product-id">
+                                                            <!-- other form fields -->
+                                                        </div>
+                                                        <!-- </div> -->
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <label for="quantity" class="form-label">Quantity</label>
+                                                        <div>
+                                                            <input type="number" name="quantity[]" id="quantity" class="input_style" placeholder="Enter Quantity" value="" maxlength="10" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <label for="Outprice" class="form-label">Price</label>
+                                                        <div>
+                                                            <input type="number" name="Outprice[]" id="Outprice" class="input_style" placeholder="Enter Price" value="" maxlength="15" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <div class="del_button">
+                                                            <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <div>
+                                                            <input type="hidden" name="cp_id[]" id="cp_id" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                        }
+                                        else {
+                                                // If there are combo products, loop through and display them
+                                                foreach ($combo_product as $combo_prod) {
+                                                    ?>
+                                                    <div class="grid-col-4" id="cloneComboProduct">
+                                                        <!-- <div class="form-div">
+                                                            <label for="pname" class="form-label">Product Name</label>
+                                                            <div>
+                                                                <select name="pname[]" class="input_style" id="product" required>
+                                                                    <option value="" disabled>Select Product Name</option>
+                                                                    <?php
+                                                                        $product = $mysqli->query(
+                                                                            "SELECT id, p_title, p_variation, unit 
+                                                                                FROM `e_product_details` AS pd 
+                                                                                JOIN `e_product_stock` AS ps 
+                                                                                ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
+                                                                                WHERE pd.active=ps.active AND ps.cos_id = pd.cos_id"
+                                                                            );
+                                                                            while ($row = $product->fetch_assoc()) {
+                                                                                ?>
+                                                                                <option value="<?php echo $row['id']; ?>" 
+                                                                                    <?php if ($combo_prod['prod_id'] == $row['id']) { echo 'selected'; } ?>>
+                                                                                    <?php echo $row['p_title'] . " " . $row['p_variation'] . " " . $row['unit']; ?>
+                                                                                </option>
+                                                                                <?php
+                                                                            }
+                                                                     ?>
+                                                                </select>
+                                                            </div>
+                                                        </div> -->
+                                                        <?php
+                                                            $product = $mysqli->query(
+                                                                "SELECT id, p_title, p_variation, unit 
+                                                                FROM `e_product_details` AS pd 
+                                                                JOIN `e_product_stock` AS ps 
+                                                                ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
+                                                                WHERE pd.id=".$combo_prod['prod_id']." AND pd.id=ps.s_product_id AND pd.active=ps.active AND ps.cos_id = pd.cos_id"
+                                                                )->fetch_assoc();
+                                                            ?>
+                                                        <div class="form-div">
+                                                            <label for="pname" class="form-label">Product Name</label>
+                                                            <!-- <div> -->
+                                                                <div class="search-container">
+                                                                    <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required value="<?php if(!(($product['p_title'] || $product['p_variation'] || $product['unit'])==NULL || '')){ echo htmlspecialchars($product['p_title'])." ".htmlspecialchars($product['p_variation'])." ".htmlspecialchars($product['unit']); }?>">
+                                                                    <div id="dropdown" class="dropdown">
+                                                                        <!-- Suggestions will be dynamically added here -->
+                                                                    </div>
+                                                                    <input type="hidden" id="product-id" name="product-id[]" class="product-id" value="<?php if(!($product['id']==NULL || '')){echo htmlspecialchars($product['id']);} ?>">
+                                                                        <!-- other form fields -->
+                                                                </div>
+                                                            <!-- </div> -->
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <label for="quantity" class="form-label">Quantity</label>
+                                                            <div>
+                                                                <input type="number" name="quantity[]" id="quantity" class="input_style" value="<?php if(!($combo_prod['qty']==NULL || '')){ echo $combo_prod['qty']; }?>" maxlength="10" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <label for="Outprice" class="form-label">Price</label>
+                                                            <div>
+                                                                <input type="number" name="Outprice[]" id="Outprice" class="input_style  outprice" value="<?php if(!($combo_prod['offer_amt']==NULL || '')){  echo $combo_prod['offer_amt']; }?>" maxlength="15" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <div class="del_button">
+                                                                <img src="../assets/images/delete_icon.png" alt="combo-img" class="deleteButton" data-prod-id="<?php echo $combo_prod['prod_id']; ?>" data-combo-id="<?php echo $_GET['comboid']; ?>" alt="delete-icon-img">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <div>
+                                                                <input type="hidden" name="cp_id[]" id="cp_id" value="<?php if(!($combo_prod['id']==NULL || '')){echo $combo_prod['id'];} ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="add_btnDiv">
+                                    <button  type="button" class="add_btn combo_add_btn"  id="addProduct"><i class="fa fa-solid fa-plus"></i>&emsp;Add Product</button>
+                                </div>
+                            </div>
                         </div>
-                    </div> -->
-                    <?php
-                    $product = $mysqli->query(
-                                    "SELECT id, p_title, p_variation, unit 
-                                     FROM `e_product_details` AS pd 
-                                     JOIN `e_product_stock` AS ps 
-                                     ON ps.s_product_id=pd.id AND ps.active=1 AND ps.cos_id='$cos_id' 
-                                     WHERE pd.id=".$combo_prod['prod_id']." AND pd.id=ps.s_product_id AND pd.active=ps.active AND ps.cos_id = pd.cos_id"
-                                )->fetch_assoc();
-                                ?>
-                    <div class="form-div">
-    <label for="pname" class="form-label">Product Name</label>
-    <!-- <div> -->
-        <div class="search-container">
-            <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required value="<?php if(!(($product['p_title'] || $product['p_variation'] || $product['unit'])==NULL || '')){ echo htmlspecialchars($product['p_title'])." ".htmlspecialchars($product['p_variation'])." ".htmlspecialchars($product['unit']); }?>">
-            <div id="dropdown" class="dropdown">
-                <!-- Suggestions will be dynamically added here -->
-            </div>
-            <input type="hidden" id="product-id" name="product-id[]" class="product-id" value="<?php if(!($product['id']==NULL || '')){echo htmlspecialchars($product['id']);} ?>">
-            <!-- other form fields -->
-        </div>
-    <!-- </div> -->
-</div>
-                    <div class="form-div">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <div>
-                            <input type="number" name="quantity[]" id="quantity" class="input_style" value="<?php if(!($combo_prod['qty']==NULL || '')){ echo $combo_prod['qty']; }?>" maxlength="10" required>
+                        <?php 
+                        $combo_asproduct_query=$mysqli->query("SELECT id FROM `e_product_details` 
+                        WHERE p_title='".$data['title']."' AND  type='2' AND sku_id='".$data['sku_id']."'
+                        AND cos_id='$cos_id'")->fetch_assoc();
+                        $comboProdId=$combo_asproduct_query['id']??'';
+                        ?>  
+                        <div class="add_btnDiv">
+                            <input type="hidden" name="combo_prod_id" value="<?php echo $comboProdId; ?>">
+                            <input type="hidden" name="comboid" value="<?php echo isset($_GET['comboid']) ? htmlspecialchars($_GET['comboid']) : ''; ?>">
+                            <input type="submit" value="Update <?php echo $combo;?>" class="add_btn" name="combo_update">
                         </div>
-                    </div>
-                    <div class="form-div">
-                        <label for="Outprice" class="form-label">Price</label>
-                        <div>
-                            <input type="number" name="Outprice[]" id="Outprice" class="input_style  outprice" value="<?php if(!($combo_prod['offer_amt']==NULL || '')){  echo $combo_prod['offer_amt']; }?>" maxlength="15" required>
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <div class="del_button">
-                            <img src="../assets/images/delete_icon.png" alt="combo-img" class="deleteButton" data-prod-id="<?php echo $combo_prod['prod_id']; ?>" data-combo-id="<?php echo $_GET['comboid']; ?>" alt="delete-icon-img">
-                        </div>
-                    </div>
-                    <div class="form-div">
-                        <div>
-                            <input type="hidden" name="cp_id[]" id="cp_id" value="<?php if(!($combo_prod['id']==NULL || '')){echo $combo_prod['id'];} ?>">
-                        </div>
-                    </div>
-                </div>
+                    </form>
                 <?php
             }
-        }
-        ?>
-    </div>
-</div>
-                        <div class="add_btnDiv">
-                            <button  type="button" class="add_btn combo_add_btn"  id="addProduct"><i class="fa fa-solid fa-plus"></i>&emsp;Add Product</button>
-                        </div>
-                </div>
-                </div>
-                <?php 
-                    $combo_asproduct_query=$mysqli->query("SELECT id FROM `e_product_details` 
-                    WHERE p_title='".$data['title']."' AND  type='2' AND sku_id='".$data['sku_id']."'
-                    AND cos_id='$cos_id'")->fetch_assoc();
-                    $comboProdId=$combo_asproduct_query['id']??'';
-                ?>  
-                <div class="add_btnDiv">
-                    <input type="hidden" name="combo_prod_id" value="<?php echo $comboProdId; ?>">
-                    <input type="hidden" name="comboid" value="<?php echo isset($_GET['comboid']) ? htmlspecialchars($_GET['comboid']) : ''; ?>">
-                    <input type="submit" value="Update <?php echo $combo;?>" class="add_btn" name="combo_update">
-                </div>
-            </form>
-            <?php } else{?>
-            <form class="combo_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data" autocomplete="off">
-                <div class="grid_col">
-                    <div class="grid-col-1">
-                        <div class="form-div">
-                            <label for="combo_name" class="form-label"><?php echo $combo;?> Product Name<span class="star">*</span></label>
-                            <div>
-                                <input type="text" name="combo_name" class="input_style" placeholder=" Enter <?php echo $combo;?> Product Name"  maxlength="60" autofocus required>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="sku_id" class="form-label">Model No<span class="star">*</span></label>
-                            <div>
-                                <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No"  maxlength="10" required>
-                            </div>
-                        </div>
-                        <div class="img_input">
-                            <div class="file_upload">
-                                <i class="fa-3x fa fa-search" aria-hidden="true"></i>
-                                <span>Upload Image</span>
-                                <input type="file" id="combo_img" class="img_upload" name="combo_img" required>
-                            </div>
-                            <div>
-                                <img id="previewImage"  width="100px"/>
-                            </div>
-                        </div>
-                        <script>
-                            document.getElementById('combo_img').addEventListener('change', function(event){
-                                const file = event.target.files[0];
-                                const reader = new FileReader();
-                                reader.onload = function(event){
-                                    document.getElementById('previewImage').src = event.target.result;
-                                };
-                                reader.readAsDataURL(file);
-                            });
-                        </script>
-                        <!-- <div class="form-div">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <div>
-                                <input type="text" name="quantity"  class="input_style" placeholder="quantity"   maxlength="20" required>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="addSub_head">
-                        <h3><?php echo $combo;?> Bulk Price</h3>
-                        <div class="bulk_price_div">
-                            <div  id="bulk_price">
-                                <div class="grid-col-3" id="cloneBulkPrice">
-                                    <div class="form-div">
-                                        <label for="f_quant" class="form-label">From Qty<span class="star">*</span></label>
-                                        <div>
-                                            <input type="number" name="f_quant[0]" id="f_quant" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
-                                        </div>
+            else{?>
+                    <form class="combo_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data" autocomplete="off">
+                        <div class="grid_col">
+                            <div class="grid-col-1">
+                                <div class="form-div">
+                                    <label for="combo_name" class="form-label"><?php echo $combo;?> Product Name<span class="star">*</span></label>
+                                    <div>
+                                        <input type="text" name="combo_name" class="input_style" value="<?= htmlspecialchars($old_combo['combo_name'] ?? '') ?>" placeholder=" Enter <?php echo $combo;?> Product Name"  maxlength="60" autofocus required>
                                     </div>
-                                    <div class="form-div">
-                                        <label for="t_quant" class="form-label">To Qty<span class="star">*</span></label>
-                                        <div>
-                                            <input type="number" name="t_quant[0]" id="t_quant" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
-                                        </div>
+                                </div>
+                                <div class="form-div">
+                                    <label for="sku_id" class="form-label">Model No<span class="star">*</span></label>
+                                    <div>
+                                        <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No" value="<?= htmlspecialchars($old_combo['sku_id'] ?? '') ?>"  maxlength="10" required>
                                     </div>
-                                    <div class="form-div">
-                                        <label for="price" class="form-label">Price<span class="star">*</span></label>
-                                        <div>
-                                            <input type="number" name="price[0]" id="Outprice" class="input_style" placeholder="Enter Price" maxlength="15" required>
-                                        </div>
+                                </div>
+                                <div class="img_input">
+                                    <div class="file_upload">
+                                        <i class="fa-3x fa fa-search" aria-hidden="true"></i>
+                                        <span>Upload Image</span>
+                                        <input type="file" id="combo_img" class="img_upload" name="combo_img" required>
                                     </div>
-                                    <div class="form-div">
-                                        <div class="del_button">
-                                            <img src="../assets/images/delete_icon.png" alt="delete-icon" class="deleteButton">
-                                        </div>
+                                    <div>
+                                        <img id="previewImage" src="../../<?= !empty($combo_img) ? $combo_img : '' ?>" width="100px"/>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('combo_img').addEventListener('change', function(event){
+                                        const file = event.target.files[0];
+                                        const reader = new FileReader();
+                                        reader.onload = function(event){
+                                            document.getElementById('previewImage').src = event.target.result;
+                                        };
+                                        reader.readAsDataURL(file);
+                                    });
+                                </script>
+                            </div>
+                            <div class="addSub_head">
+                                <h3><?php echo $combo;?> Bulk Price</h3>
+                                <div class="bulk_price_div">
+                                    <div  id="bulk_price">
+                                        <?php 
+                                            if (!empty($bulkPricing)) {
+                                                foreach ($bulkPricing as $index => $bulk) {
+                                        ?>
+                                                    <div class="grid-col-3" id="cloneBulkPrice">
+                                                        <div class="form-div">
+                                                            <label for="f_quant_<?= $index; ?>" class="form-label">From Qty<span class="star">*</span></label>
+                                                            <div>
+                                                                <input type="number" name="f_quant[<?= $index; ?>]" id="f_quant_<?= $index; ?>" class="input_style"
+                                                                    value="<?= htmlspecialchars($bulk['from_qty'] ?? '') ?>"
+                                                                    placeholder="Enter Quantity" maxlength="10" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <label for="t_quant_<?= $index; ?>" class="form-label">To Qty<span class="star">*</span></label>
+                                                            <div>
+                                                                <input type="number" name="t_quant[<?= $index; ?>]" id="t_quant_<?= $index; ?>" class="input_style"
+                                                                    value="<?= htmlspecialchars($bulk['to_qty'] ?? '') ?>"
+                                                                    placeholder="Enter Quantity" maxlength="10" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <label for="price_<?= $index; ?>" class="form-label">Price<span class="star">*</span></label>
+                                                            <div>
+                                                                <input type="number" name="price[<?= $index; ?>]" id="Outprice_<?= $index; ?>" class="input_style"
+                                                                value="<?= htmlspecialchars($bulk['price'] ?? '') ?>"
+                                                                placeholder="Enter Price" maxlength="15" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-div">
+                                                            <div class="del_button">
+                                                                <img src="../assets/images/delete_icon.png" alt="delete-icon" class="deleteButton">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        <?php
+                                                }
+                                            } else {
+                                            // Default empty row if no session data is found
+                                        ?>
+                                                <div class="grid-col-3" id="cloneBulkPrice">
+                                                    <div class="form-div">
+                                                        <label for="f_quant_0" class="form-label">From Qty<span class="star">*</span></label>
+                                                        <div>
+                                                            <input type="number" name="f_quant[0]" id="f_quant_0" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <label for="t_quant_0" class="form-label">To Qty<span class="star">*</span></label>
+                                                        <div>
+                                                            <input type="number" name="t_quant[0]" id="t_quant_0" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <label for="price_0" class="form-label">Price<span class="star">*</span></label>
+                                                        <div>
+                                                            <input type="number" name="price[0]" id="Outprice_0" class="input_style" placeholder="Enter Price" maxlength="15" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-div">
+                                                        <div class="del_button">
+                                                            <img src="../assets/images/delete_icon.png" alt="delete-icon" class="deleteButton">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                
+                                        <?php
+                                            }
+                                        ?>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="add_btn" id="addBulkPrice"><i class="fa fa-solid fa-plus"></i>&emsp;Add Bulk Pricing</button>
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <button type="button" class="add_btn" id="addBulkPrice"><i class="fa fa-solid fa-plus"></i>&emsp;Add Bulk Pricing</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="addSub_head2">
-                        <div class="combo_head_flex">
-                            <h3><?php echo $combo;?> Products</h3>
-                            <p>Total Price of Products in the <?php echo $combo;?><span id="totalOutprice" class="tot_outprice">₹ 0.00</span></p>
-                        </div>
-                        <div class="combo_product_div">
-                            <div class="combo_product" id="combo_product">
-                                <div class="grid-col-4" id="cloneComboProduct">
-                                    <!-- <div class="form-div">
-                                        <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
-                                        <div>
-                                            <select name="pname[0]" class="input_style" placeholder="Enter Product Name"  required>
-                                                <option value=""  class="option_style" disabled selected>Select Product Name</option>
-                                                <?php
-                                                    $product = $mysqli->query("select id,p_title,p_variation,unit FROM `e_product_details` as pd join  `e_product_stock` as ps on ps.s_product_id=pd.id and ps.active=1 and ps.cos_id='$cos_id' where ps.cos_id = pd.cos_id and pd.active=ps.active");
-                                                    while($row = $product->fetch_assoc())
-                                                {
-	                                            ?>
-	                                                <option value="<?php echo $row['id'];?>"><?php echo $row['p_title']." ".$row['p_variation']." ".$row['unit'];?></option>
-	                                            <?php 
-                                                }	
-									            ?>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <div class="form-div">
-    <label for="pname" class="form-label">Product Name <span class="star">*</span></label>
-    <!-- <div> -->
-        <div class="search-container">
-            <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required>
-            <div id="dropdown" class="dropdown">
-                <!-- Suggestions will be dynamically added here -->
-            </div>
-            <input type="hidden" id="product-id" name="product-id[]" class="product-id">
-            <!-- other form fields -->
-        </div>
-    <!-- </div> -->
-</div>
-<!-- <script>
-        function updateURL() {
-            var selectedValue = document.getElementById('product').value;
-            var newURL = window.location.origin + window.location.pathname + '?productid=' + selectedValue;
-            window.location.href = newURL;
-        }
-        function retainSelectedValue() {
-            var params = new URLSearchParams(window.location.search);
-            var selectedValue = params.get('productid');
-            if (selectedValue) {
-                document.getElementById('product').value = selectedValue;
-            }
-        }
-
-        // Call retainSelectedValue on page load
-        window.onload = retainSelectedValue;
-    </script> -->
-    
-                                    <div class="form-div">
-                                        <label for="quantity" class="form-label">Quantity<span class="star">*</span></label>
-                                        <div>
-                                            <input type="number" name="quantity[0]" id="quantity" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
-                                        </div>
+                            <div class="addSub_head2">
+                                <div class="combo_head_flex">
+                                    <h3><?php echo $combo;?> Products</h3>
+                                    <p>Total Price of Products in the <?php echo $combo;?><span id="totalOutprice" class="tot_outprice">₹ 0.00</span></p>
+                                </div>
+                                <div class="combo_product_div">
+                                    <div class="combo_product" id="combo_product">
+                                        <?php 
+                                        if (!empty($comboProducts)){
+                                            foreach ($comboProducts as $index => $combo){
+                                                ?>
+                                                <div class="grid-col-4" id="cloneComboProduct">
+                                                <div class="form-div">
+                                                    <label for="pname_<?= $index ?>" class="form-label">Product Name <span class="star">*</span></label>
+                                                    <div class="search-container">
+                                                        <input type="text" placeholder="Search..." class="input_style search-box" name="pname[<?= $index ?>]" value="<?= htmlspecialchars($combo['product_name']) ?>" required>
+                                                        <div id="dropdown_<?= $index ?>" class="dropdown">
+                                                            <!-- Suggestions will be dynamically added here -->
+                                                        </div>
+                                                        <input type="hidden" id="product-id_<?= $index ?>" name="product-id[<?= $index ?>]" class="product-id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <label for="quantity_<?= $index ?>" class="form-label">Quantity<span class="star">*</span></label>
+                                                    <div>
+                                                        <input type="number" name="quantity[<?= $index ?>]" id="quantity_<?= $index ?>" class="input_style" value="<?= htmlspecialchars($combo['quantity']) ?>" placeholder="Enter Quantity" maxlength="10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <label for="Outprice_<?= $index ?>" class="form-label">Price<span class="star">*</span></label>
+                                                    <div>
+                                                        <input type="number" name="Outprice[<?= $index ?>]" id="Outprice_<?= $index ?>" class="input_style outprice" value="<?= htmlspecialchars($combo['outprice']) ?>" placeholder="Enter Price" maxlength="10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <div class="del_button">
+                                                        <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <?php 
+                                            } 
+                                        }else{?>
+                                            <!-- Default empty row -->
+                                            <div class="grid-col-4" id="cloneComboProduct">
+                                                <div class="form-div">
+                                                    <label for="pname_0" class="form-label">Product Name <span class="star">*</span></label>
+                                                    <div class="search-container">
+                                                        <input type="text" placeholder="Search..." class="input_style search-box" name="pname[0]" required>
+                                                        <div id="dropdown_0" class="dropdown">
+                                                             <!-- Suggestions will be dynamically added here -->
+                                                        </div>
+                                                        <input type="hidden" id="product-id_0" name="product-id[0]" class="product-id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <label for="quantity_0" class="form-label">Quantity<span class="star">*</span></label>
+                                                    <div>
+                                                        <input type="number" name="quantity[0]" id="quantity_0" class="input_style" placeholder="Enter Quantity" maxlength="10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <label for="Outprice_0" class="form-label">Price<span class="star">*</span></label>
+                                                    <div>
+                                                        <input type="number" name="Outprice[0]" id="Outprice_0" class="input_style outprice" placeholder="Enter Price" maxlength="10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-div">
+                                                    <div class="del_button">
+                                                        <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
-                                    <div class="form-div">
-                                        <label for="Outprice" class="form-label">Price<span class="star">*</span></label>
-                                        <div>
-                                            <input type="number" name="Outprice[0]" id="Outprice" class="input_style outprice" placeholder="Enter Price" maxlength="10" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-div">
-                                        <div class="del_button">
-                                            <img src="../assets/images/delete_icon.png" alt="delete-icon-img" class="deleteButton">
-                                        </div>
-                                    </div>
+                                </div>   
+                                <div class="add_btnDiv">
+                                    <button  type="button" class="add_btn combo_add_btn"  id="addProduct"><i class="fa fa-solid fa-plus"></i>&emsp;Add Product</button>
+                                </div>
                                 </div>
                             </div>
-                        </div>   
-                        <div class="add_btnDiv">
-                            <button  type="button" class="add_btn combo_add_btn"  id="addProduct"><i class="fa fa-solid fa-plus"></i>&emsp;Add Product</button>
+                            <div class="add_btnDiv">
+                                <input type="submit" value="Add <?php echo $combo;?>" class="add_btn" name="combo_add">
+                            </div>
                         </div>
-                </div>
-                    
-                </div>
-                <div class="add_btnDiv">
-                    <input type="submit" value="Add <?php echo $combo;?>" class="add_btn" name="combo_add">
-                </div>
-            </form>
-            <?php } ?>
+                    </form>
+                <?php
+            }?>
         </div>
     </div>
 </div>
@@ -521,7 +566,7 @@
     </div>
 <?php
 $product_name=[];
-$product = $mysqli->query("SELECT `id`,`p_title`, `p_variation`,`unit` FROM `e_product_details` WHERE active=1 and type!=2 and cos_id='$cos_id' ORDER BY p_title");
+$product = $mysqli->query("SELECT `id`,`p_title`, `p_variation`,`unit` FROM `e_product_details` WHERE active=1 and cos_id='$cos_id' ORDER BY p_title");
 while($row = $product->fetch_assoc()){
     $product_name[]=$row; 
 }

@@ -17,6 +17,11 @@
 </head>
 <body>
 <?php 
+if(isset($_SESSION['old_role'])){
+    $old_category = $_SESSION['old_role'] ?? [];
+    unset($_SESSION['old_role']);
+
+}
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -78,13 +83,13 @@
                         <div class="form-div">
                             <label for="role_title" class="form-label">Role Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="role_title" class="input_style" placeholder="Enter Role Name" maxlength="50" required autofocus>
+                                <input type="text" name="role_title" value="<?= htmlspecialchars($old_role['role_title'] ?? '') ?>" class="input_style" placeholder="Enter Role Name" maxlength="50" required autofocus>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="role_desc" class="form-label">Description</label>
                             <div>
-                                <textarea rows="6" cols="30" name="role_desc" class="input_style" placeholder="Enter Description"></textarea>
+                                <textarea rows="6" cols="30" name="role_desc" class="input_style" placeholder="Enter Description"><?= htmlspecialchars($old_role['role_desc'] ?? '') ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -92,8 +97,8 @@
                         <div class="form-div">
                             <label for="role_status" class="form-label">Role Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="role_status" class="input_style" value="1">Publish
-                                <input type="radio" name="role_status" class="input_style" value="0">Unpublish
+                                <input type="radio" name="role_status" class="input_style" value="1" <?= isset($old_category['role_status']) && $old_category['role_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="role_status" class="input_style" value="0" <?= isset($old_category['role_status']) && $old_category['role_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>

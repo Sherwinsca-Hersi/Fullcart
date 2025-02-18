@@ -51,6 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
+                $_SESSION['old_banner'] = $_POST;
+                $_SESSION['old_banner']['b_img'] = $targetFile; 
+                // echo $targetFile;
                 header("Location: addBanner.php");
                 exit();
             }
@@ -72,6 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
+                $_SESSION['old_banner'] = $_POST;
+                $_SESSION['old_banner']['b_img'] = $targetFile; 
+                // echo $targetFile;
                 header("Location: addBanner.php");
                 exit();
             }
@@ -178,6 +184,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_query = false;
             $err_msg=$exception->getMessage();
             $_SESSION['error_message'] = $err_msg;
+            $_SESSION['old_coupon'] = $_POST;
+            $_SESSION['old_coupon']['coup_img'] = $targetFile; 
             header("Location: addCoupon.php");
             exit();
         }
@@ -249,71 +257,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         }
     }
-    //product_insert
-    // else if(isset($_POST["product_add"])){
-    //     if(isset($_FILES["prod_img"])){
-    //         $p_title = $mysqli->real_escape_string(trim($_POST['p_title']))??'';
-    //         $sku_id = trim($_POST['sku_id'])??'';
-    //         $barcode = trim($_POST['barcode'])??NULL;
-    //         // $pcategory = $_POST['pcategory']??'';
-    //         $pcategory = trim($_POST['category-id'])??'';
-    //         // $psub_category = $_POST['psub_category']??'';
-    //         $psub_category = trim($_POST['subcategory-id'])??'';
-    //         $p_variation = trim($_POST['p_variation'])??'';
-    //         $unit = trim($_POST['unit'])??'';
-    //         // $unit = trim($_POST['unit'])??'';
-    //         // $flocation = trim($_POST['flocation'])??'';
-    //         // $glocation = trim($_POST['glocation'])??'';
-    //         // $reorder_level = $_POST['reorder_level'] != null ? trim($_POST['reorder_level']) : '20';
-    //         // $emergency_level = $_POST['emergency_level'] != null ? trim($_POST['emergency_level']) : '10';
-    //         $p_status = trim($_POST['p_status'])??0;
-    
-    //         if(empty($_FILES["prod_img"]["name"])){
-    //             $targetFile = "defaultimgs/nullimg.png";
-    //         } else {
-    //             $targetDir = "../../product/";
-    //             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
-    //             $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
-    //             $imageFileType = strtolower(pathinfo($_FILES["prod_img"]["name"], PATHINFO_EXTENSION));
-    
-    //             $newFileName = $sanitizedTitle . '_' . $sanitizedVariation . '_' . time() . '.' . $imageFileType;
-    //             $targetFile = $targetDir . $newFileName;
-    
-    //             move_uploaded_file($_FILES["prod_img"]["tmp_name"], $targetFile);
-    //             $targetFile = substr($targetFile, 6);
-    //         }
-    
-    //         $prod_query = $mysqli->query("SELECT count(*) as total FROM `e_product_details` WHERE p_title = '$p_title' AND p_variation='$p_variation' AND unit='$unit' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
-    //         if($prod_query['total'] > 0){
-    //             $_SESSION['error_message'] = "Product already exists!";
-    //             header("Location: addproduct.php");
-    //             exit();
-    //         } else {
-    //             try {
-    //                 $fields1 = "`cos_id`,`sku_id`,`barcode`,`cat_id`,`sub_cat_id`,`p_img`,`p_title`,`p_variation`,`unit`,`active`,`platform`";
-    //                 $values1 = "'$cos_id','$sku_id','$barcode','$pcategory','$psub_category','$targetFile','$p_title','$p_variation','$unit','$p_status','$platform'";
-    
-    //                 $product_insert = "INSERT INTO e_product_details ($fields1) VALUES ($values1)";
-    //                 $insert_query = $mysqli->query($product_insert);
-    
-    //                 if (!$insert_query) {
-    //                     throw new Exception("Error occurred during the insert into e_product_details: " . $mysqli->error);
-    //                 }
-    //                 $_SESSION['success'] = "Product Details Added Successfully!";
-    //                 header("Location: products.php");
-    //                 exit();
-    //             }catch (mysqli_sql_exception $exception) {
-    //                 mysqli_rollback($mysqli);
-    //                 $insert_query = false;
-    //                 $err_msg=$exception->getMessage();
-    //                 $_SESSION['error_message'] = $err_msg;
-    //                 header("Location: addproduct.php");
-    //                 exit();
-    //             }
-    //         }
-    //     }
-    // }
-
     elseif (isset($_POST["product_add"])) {
         $p_title = $mysqli->real_escape_string(trim($_POST['p_title'])) ?? '';
         $hsn_code = trim($_POST['hsn_code']) ?? '';
@@ -378,12 +321,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                                 else{
                                     $_SESSION['error_message'] = "Invalid Image Format";
+                                    $_SESSION['old_product_data'] = $_POST;
+                                    $_SESSION['old_product_data']['main_prod_img'] = $maintargetFile; 
+                                    $_SESSION['old_product_data']['prod_img'] = $imagePathsString; 
                                     header("Location: addproduct.php");
                                     exit();
                                 }
                         }
                         else{
                             $_SESSION['error_message'] = "Image File Error";
+                            $_SESSION['old_product_data'] = $_POST;
+                            $_SESSION['old_product_data']['main_prod_img'] = $maintargetFile; 
+                            $_SESSION['old_product_data']['prod_img'] = $imagePathsString;  
                             header("Location: addproduct.php");
                             exit();
                         }
@@ -398,14 +347,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $prod_query = $mysqli->query("SELECT count(*) as total FROM `e_product_details` WHERE p_title = '$p_title' AND p_variation='$p_variation' AND unit='$unit' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
                 if ($prod_query['total'] > 0) {
                     $_SESSION['error_message'] = "Product already exists!";
-                    header("Location: addproduct.php");
+                    $_SESSION['old_product_data'] = $_POST;
+                    $_SESSION['old_product_data']['main_prod_img'] = $maintargetFile; 
+                    $_SESSION['old_product_data']['prod_img'] = $imagePathsString; 
                     exit();
                 } else {
                     try {
                         $fields1 = "`cos_id`,`sku_id`,`hsn_code`,`barcode`,`cat_id`,`sub_cat_id`,`p_img`,`imgs`,`p_title`,`p_variation`,`unit`,`p_desc`,`is_loose`,`active`,`platform`";
                         $values1 = "'$cos_id','$sku_id','$hsn_code','$barcode','$pcategory','$psub_category','$maintargetFile','$imagePathsString','$p_title','$p_variation','$unit','$p_desc','$imprint','$p_status','$platform'";
     
-                        $product_insert = "INSERT INTO e_product_details ($fields1) VALUES ($values1)";
+                        $product_insert = "INSERT INTO `e_product_details` ($fields1) VALUES ($values1)";
                         $insert_query = $mysqli->query($product_insert);
     
                         if (!$insert_query) {
@@ -417,115 +368,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } catch (mysqli_sql_exception $exception) {
                         $mysqli->rollback();
                         $_SESSION['error_message'] = $exception->getMessage();
+                        $_SESSION['old_product_data'] = $_POST;
+                        $_SESSION['old_product_data']['main_prod_img'] = $maintargetFile; 
+                        $_SESSION['old_product_data']['prod_img'] = $imagePathsString; 
                         header("Location: addproduct.php");
                         exit();
                     }
                 }
             }
         } else {
-            $_SESSION['error_message'] = "Image File is not set";
+            $_SESSION['error_message'] = "Please Choose the Product Image to Add Product";
+            $_SESSION['old_product_data'] = $_POST;
+            $_SESSION['old_product_data']['main_prod_img'] = $maintargetFile; 
+            $_SESSION['old_product_data']['prod_img'] = $imagePathsString; 
             header("Location: addproduct.php");
             exit();
         }
     }
     
-    
-    //product update
-    // elseif(isset($_POST["product_update"])){
-    //     if(isset($_FILES["prod_img"])){
-    //         $product_id=trim($_POST['productid']);
-    //         $p_title = $mysqli->real_escape_string(trim($_POST['p_title']));
-	// 	    $sku_id = trim($_POST['sku_id']);
-	// 	    $barcode = trim($_POST['barcode'])??NULL;
-    //         $pcategory = trim($_POST['category-id'])??'';
-    //         $psub_category = trim($_POST['subcategory-id'])??'';
-	// 	    $p_variation = trim($_POST['p_variation']);
-	// 	    $unit = trim($_POST['unit']);
-    //         // $reorder_level = $_POST['reorder_level'] != null ? trim($_POST['reorder_level']) : '20';
-    //         // $emergency_level = $_POST['emergency_level'] != null ? trim($_POST['emergency_level']) : '10';
-    //         // $flocation = trim($_POST['flocation']);
-	// 	    // $glocation = trim($_POST['glocation']);
-	// 	    $p_status = trim($_POST['p_status'])??0;
-
-	// 	    if(empty($_FILES["prod_img"]["name"])){
-    //             try{
-    //                 $update_query1 = "UPDATE e_product_details 
-    //                 SET city_id = '1001', 
-    //                  sku_id = '$sku_id', 
-    //                  barcode = '$barcode', 
-    //                  cat_id = '$pcategory', 
-    //                  sub_cat_id = '$psub_category', 
-    //                  p_title = '$p_title', 
-    //                  p_variation = '$p_variation', 
-    //                  unit = '$unit',
-    //                  active = '$p_status', 
-    //                  up_platform = '$platform'
-    //                  WHERE cos_id = '$cos_id' AND id = '$product_id'";
-    //                 $result1 = mysqli_query($mysqli, $update_query1);
-    //                 if (!$result1) {
-    //                     throw new Exception("Error occurred during the update of e_product_details: " . mysqli_error($mysqli));
-    //                 }
-    //                 $_SESSION['success'] = "Product Details Updated Successfully!";
-    //                 header("Location: products.php");
-    //                 exit();
-    //             }
-    //             catch (mysqli_sql_exception $exception) {
-    //                 mysqli_rollback($mysqli);
-    //                 $result1 = false;
-    //                 $err_msg=$exception->getMessage();
-    //                 $_SESSION['error_message'] = $err_msg;
-    //                 header("Location: addproduct.php?productid=$product_id");
-    //                 exit();
-    //             }
-	// 	    }
-    //         else{            
-    //             $targetDir = "../../product/";
-    //             $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_title);
-    //             $sanitizedVariation = preg_replace('/[^A-Za-z0-9\-]/', '_', $p_variation);
-    //             $imageFileType = strtolower(pathinfo($_FILES["prod_img"]["name"], PATHINFO_EXTENSION));
-
-    //             $newFileName = $sanitizedTitle . '_' . $sanitizedVariation . '_' . time() . '.' . $imageFileType;
-    //             $targetFile = $targetDir . $newFileName;
-    //             move_uploaded_file($_FILES["prod_img"]["tmp_name"], $targetFile);
-
-    //             $targetFile=substr($targetFile,6);
-            
-    //                 try {
-    //                     if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".webp") !== false){
-    //                         $update_query1 = "UPDATE e_product_details 
-    //                             SET city_id = '1001', 
-    //                            sku_id = '$sku_id', 
-    //                            barcode = '$barcode', 
-    //                            cat_id = '$pcategory', 
-    //                            sub_cat_id = '$psub_category', 
-    //                            p_img = '$targetFile', 
-    //                            p_title = '$p_title', 
-    //                            p_variation = '$p_variation', 
-    //                            unit = '$unit',
-    //                            active = '$p_status', 
-    //                             up_platform = '$platform'
-    //                        WHERE cos_id = '$cos_id' AND id = '$product_id'";
-    //                       $result1 = mysqli_query($mysqli, $update_query1);
-    //                         if (!$result1) {
-    //                           throw new Exception("Error occurred during the update of e_product_details: " . mysqli_error($mysqli));
-    //                         }
-    //                         $_SESSION['success'] = "Product Details Updated Successfully!";
-    //                           header("Location: products.php");
-    //                         exit();
-    //                     }
-    //                 } 
-    //                 catch (mysqli_sql_exception $exception) {
-    //                     mysqli_rollback($mysqli);
-    //                     $result1 = false;
-    //                     $err_msg=$exception->getMessage();
-    //                     $_SESSION['error_message'] = $err_msg;
-    //                     header("Location: addproduct.php?productid=$product_id");
-    //                     exit();
-    //                 }
-    //         }
-    //     }
-    // }  
-
     elseif (isset($_POST["product_update"])) {
     
         // Extract product details from form
@@ -649,7 +509,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     
-    
     //Combo Add
     else if(isset($_POST["combo_add"])){
         $bulkPricing = [];
@@ -748,6 +607,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_query3 = false;
             $err_msg=$exception->getMessage();
             $_SESSION['error_message'] = $err_msg;
+            $_SESSION['old_combo'] = $_POST;
+            $_SESSION['old_combo']['combo_img'] = $targetFile;
+            $_SESSION['old_combo']['bulkPricing'] = $bulkPricing;
+            $_SESSION['old_combo']['comboProducts'] = $comboProducts;
             header("Location: addCombo.php");
             exit();
         }
@@ -1029,6 +892,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $batchno_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` WHERE s_batch_no='$batch_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
             if($batchno_query['total'] > 0){
                 $_SESSION['error_message'] = "Stock With Same Batch No already exists!";
+                $_SESSION['old_stock'] = $_POST;
+                $_SESSION['old_stock']['stock_bill'] = $targetFile; 
                 header("Location: inventory_addStock.php");
                 exit();
             } else {
@@ -1070,6 +935,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         throw new Exception("Error occurred during the insert into e_product_price: " . mysqli_error($mysqli));
                     }
                     $_SESSION['success'] = "Stock Added Successfully!";
+                     $_SESSION['old_stock']['stock_bill'] = $targetFile; 
                     header("Location: inventory_addStock.php");
                     exit();
                 }
@@ -1080,6 +946,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $insert_query3 = false;
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
+                    $_SESSION['old_stock']['stock_bill'] = $targetFile; 
                     header("Location: inventory_addStock.php");
                     exit();
                 }
@@ -1299,6 +1166,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $category_query = $mysqli->query("SELECT count(*) as total FROM `e_category_details` WHERE title='$category_title'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($category_query['total'] > 0){
                 $_SESSION['error_message'] = "Category already exists!";
+                $_SESSION['old_category'] = $_POST;
+                $_SESSION['old_category']['cat_img'] = $targetFile; 
                 header("Location: addcategory.php");
                 exit();
             } else {
@@ -1316,6 +1185,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $insert_query = false;
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
+                    $_SESSION['old_category'] = $_POST;
+                    $_SESSION['old_category']['cat_img'] = $targetFile;  
                     header("Location: addcategory.php");
                     exit();
                 }
@@ -1417,6 +1288,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $subcategory_query = $mysqli->query("SELECT count(*) as total FROM `e_subcategory_details` WHERE c_id='$cat_id' AND title='$subcategory' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($subcategory_query['total'] > 0){
                 $_SESSION['error_message'] = "Subcategory already exists!";
+                $_SESSION['old_subcategory'] = $_POST;
+                $_SESSION['old_subcategory']['subcat_img'] = $targetFile;  
                 header("Location: addsubcategory.php");
                 exit();
             } else {
@@ -1434,6 +1307,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $insert_query = false;
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
+                    $_SESSION['old_subcategory'] = $_POST;
+                    $_SESSION['old_subcategory']['subcat_img'] = $targetFile;  
                     header("Location: addsubcategory.php");
                     exit();
                 }
@@ -1533,6 +1408,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $err_msg=$exception->getMessage();
             $_SESSION['error_message'] = $err_msg;
             // echo $err_msg;
+            $_SESSION['old_timeslot'] = $_POST;
             header("Location: addTimeslot.php");
             exit();
         }
@@ -1596,6 +1472,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     WHERE `mobile_1` = '$mobile1' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
                 if($mobile_query['total'] > 0){
                     $_SESSION['error_message'] = "Profile with same mobile number already exists!";
+                    $_SESSION['old_profile'] = $_POST;
+                        $_SESSION['old_profile']['add_logo_img'] = $targetFile;  
                     header("Location: addProfile.php");
                     exit();
                 } else{
@@ -1614,6 +1492,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $err_msg=$exception->getMessage();
                         $_SESSION['error_message'] = $err_msg;
                         // echo $err_msg;
+                        $_SESSION['old_profile'] = $_POST;
+                        $_SESSION['old_profile']['add_logo_img'] = $targetFile;  
                         header("Location: addProfile.php");
                         exit();
                     } 
@@ -1622,12 +1502,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             else{
                 $_SESSION['error_message'] = "Image Format is not correct";
                 // echo $err_msg;
+                $_SESSION['old_profile'] = $_POST;
+                $_SESSION['old_profile']['add_logo_img'] = $targetFile;  
                 header("Location: addProfile.php");
                 exit();
             }
         }else{
             $_SESSION['error_message'] = "Please Choose Image";
             // echo $err_msg;
+            $_SESSION['old_profile'] = $_POST;
+            $_SESSION['old_profile']['add_logo_img'] = $targetFile;  
             header("Location: addProfile.php");
             exit();
         }
@@ -1750,6 +1634,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE `s_mobile` = '$emp_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($mobile_query['total'] > 0){
                 $_SESSION['error_message'] = "Employee with same mobile number already exists!";
+                $_SESSION['old_employee'] = $_POST;
                 header("Location: addEmployee.php");
                 exit();
             } else {
@@ -1769,6 +1654,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
                     // echo $err_msg;
+                    $_SESSION['old_employee'] = $_POST;
                     header("Location: addEmployee.php");
                     exit();
                 } 
@@ -1857,6 +1743,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE `s_mobile` = '$d_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($mobile_query['total'] > 0){
                 $_SESSION['error_message'] = "Delivery Person with same mobile number already exists!";
+                $_SESSION['old_delivery'] = $_POST;
                 header("Location: addDeliveryPerson.php");
                 exit();
             } else { 
@@ -1875,6 +1762,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
                     // echo $err_msg;
+                    $_SESSION['old_delivery'] = $_POST;
                     header("Location: addDeliveryPerson.php");
                     exit();
                 } 
@@ -1944,6 +1832,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE `mobile` = '$c_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($mobile_query['total'] > 0){
                 $_SESSION['error_message'] = "Customer with same mobile number already exists!";
+                $_SESSION['old_customer'] = $_POST;
                 header("Location: addCustomer.php");
                 exit();
             } 
@@ -1977,6 +1866,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $err_msg=$exception->getMessage();
                     // echo $err_msg;
                     $_SESSION['error_message'] = $err_msg;
+                    $_SESSION['old_customer'] = $_POST;
                     header("Location: addCustomer.php");
                     exit();
                 } 
@@ -2027,8 +1917,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $exp_amount = trim($_POST['exp_amount']);
           $exp_title = $mysqli->real_escape_string(trim($_POST['exp_title']));
           $exp_desc = $mysqli->real_escape_string(trim($_POST['exp_desc']));
-          if(empty($_FILES["exp_img"]["name"])){
-            $targetFile = "defaultimgs/nullimg.png";
+            if(empty($_FILES["exp_img"]["name"])){
+                $targetFile = "defaultimgs/nullimg.png";
             }
             else{
                 $targetDir = "../../expense/";
@@ -2055,6 +1945,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
+                $_SESSION['old_expense'] = $_POST;
+                $_SESSION['old_expense']['exp_img'] = $targetFile;  
                 header("Location: addExpense.php");
                 exit();
             } 
@@ -2143,6 +2035,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE `v_mobile` = '$v_mobile' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($mobile_query['total'] > 0){
                 $_SESSION['error_message'] = "Vendor with same mobile number already exists!";
+                $_SESSION['old_vendor'] = $_POST;
                 header("Location: addVendors.php");
                 exit();
             } else {
@@ -2161,6 +2054,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $insert_query = false;
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
+                    $_SESSION['old_vendor'] = $_POST;
                     header("Location: addVendors.php");
                     exit();
                 } 
@@ -2227,6 +2121,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
+                $_SESSION['form_data'] = [
+                    'bank_name' => $bank_name,
+                    'account_holder' => $account_holder,
+                    'account_no' => $account_no,
+                    'upi_id' => $upi_id,
+                    'ifsc_code' => $ifsc_code,
+                    'app_status' => $app_status
+                ];        
                 header("Location: addBank.php");
                 exit();
             } 
@@ -2277,6 +2179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_query = false;
             $err_msg=$exception->getMessage();
             $_SESSION['error_message'] = $err_msg;
+            $_SESSION['old_role'] = $_POST;
             header("Location: addRole.php");
             exit();
         } 
@@ -2286,7 +2189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role_id = $_POST['roleid'];
         $role_title = $mysqli->real_escape_string(trim($_POST['role_title']));
         $role_desc=$mysqli->real_escape_string(trim($_POST['role_desc']));
-        $role_status = trim($_POST['role_status'])== ''|| NULL ? 1 : trim($_POST['role_status']);
+        $role_status = trim($_POST['role_status'])== '' || NULL ? 1 : trim($_POST['role_status']);
 
         try{
             $role_update="UPDATE `e_salesman_role` SET `role_title`='$role_title', `role_desc`='$role_desc',`active`='$role_status',

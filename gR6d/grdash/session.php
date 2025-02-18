@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['cos_id'])) {
-    header("Location: index.php");
+    header("Location: ../../gF6d/gfdash/index.php");
     exit();
 }
 
@@ -11,7 +11,7 @@ if (!isset($_SESSION['cos_id'])) {
 <script>
 if(localStorage.getItem('sessionActive')==='false'){
     console.log("Session is inactive");
-    window.location.href="index.php";
+    window.location.href="../../gF6d/gfdash/index.php";
 }
 </script>
 

@@ -19,7 +19,7 @@ if(isset($_SESSION['old_subcategory'])){
     $old_subcategory = $_SESSION['old_subcategory'] ?? [];
 
     $subcat_img = $_SESSION['old_subcategory']['subcat_img'];
-
+    unset($_SESSION['old_subcategory']);
 }
     require_once '../api/sidebar.php';
     ?>
@@ -207,7 +207,6 @@ if(isset($_SESSION['old_subcategory'])){
 </div>
     <?php
         if(isset($_SESSION['error_message'])): 
-            echo "I am in...";
         ?>
         <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
         <script>

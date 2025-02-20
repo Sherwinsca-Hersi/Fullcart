@@ -13,6 +13,11 @@
 </head>
 <body>
     <?php 
+    if(isset($_SESSION['old_multiple_stock'])){
+        $old_multiple_stock = $_SESSION['old_multiple_stock'] ?? [];
+        $stock_bill=$_SESSION['old_multiple_stock']['stock_bill'];
+        unset($_SESSION['old_multiple_stock']);
+    }
     require_once '../api/sidebar.php';
     ?>
     <div class="navbar_div">
@@ -24,104 +29,127 @@
         <h2>Add Multiple Stock</h2><br><br>
         <form class="addstock_form" method="post" action="com_ins_upd.php"  enctype="multipart/form-data" autocomplete="off" id="myForm" onsubmit="return validateForm()">
             <div id="containerStock">
-                <div class="grid_col" id="cloningDiv">
-                    <div class="grid-col-1">
-                        <!-- <div class="form-div">
-                            <label for="pname" class="form-label">Product Name</label>
-                            <div>
-                                <input type="text" name="p_title" class="input_style"  placeholder=" Enter Product Name" value="<?php echo $data['p_title'];?>" disabled>
-                            </div>
-                        </div> -->
-                        <!-- <div class="form-div">
-                            <label for="pname" class="form-label">Product Name</label>
-                            <div>
-                                <select name="pname" class="input_style" placeholder="Enter Product Name" id="product" onchange="updateURL()" required>
-                                    <option value=""  class="option_style" disabled selected>Select Product Name</option>
-                                    <?php
-                                     $product = $mysqli->query("select id,p_title,p_variation,unit FROM `e_product_details` as pd join  `e_product_stock` as ps on ps.s_product_id=pd.id and ps.active=1 and ps.cos_id='$cos_id' where ps.cos_id = pd.cos_id and pd.active=ps.active");
-                                    while($row = $product->fetch_assoc())
-                                    {
-	                                ?>
-	                                    <option value="<?php echo $row['id'];?>"><?php echo $row['p_title']." ".$row['p_variation']." ".$row['unit'];?></option>
-	                                    <?php 
-                                        }	
-									   ?>
-                                </select>
-                            </div>
-                        </div> -->
-                        <div class="form-div">
-                            <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
-                            <!-- <div> -->
-                                <div class="search-container">
-                                    <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required>
-                                    <div id="dropdown" class="dropdown">
-                                        <!-- Suggestions will be dynamically added here -->
-                                    </div>
-                                    <input type="hidden" id="product-id"  class="product-id" name="product-id[]">
-                                        <!-- other form fields -->
-                                </div>
-                            <!-- </div> -->
-                        </div>
-                        <script>
-                            function retainSelectedValue() {
-                                var params = new URLSearchParams(window.location.search);
-                                var selectedValue = params.get('productid');
-                                if (selectedValue) {
-                                    document.getElementById('product').value = selectedValue;
-                                }
-                            }
-
-                            // Call retainSelectedValue on page load
-                            window.onload = retainSelectedValue;
-                        </script>
-    
-    <div class="form-div">
-    <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
-    <div class="batch_div">
-        <input type="text" name="batch_no[]" class="input_style batch-no batch_div" placeholder="Enter Batch No" required>
-        <button type="button" class="generate-batch-no barcode_btn" aria-label="Generate Batch Number"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-    </div>
-    
-</div>
-
-
-                        <!-- <div class="form-div">
-                            <label for="mrp" class="form-label">MRP<span class="star">*</span></label>
-                            <div>
-                                <input type="number" name="mrp[]" id="mrp" class="input_style mrp" placeholder="Enter MRP" required>
-                                <span class="rupees_symbol">₹</span>
-                                <small id="mrp-error" class="mrp-error">MRP Cannot be 0</small>
-                            </div>
-                        </div> -->
-                        <div class="form-div">
-                            <label for="inprice" class="form-label">In-Price<span class="star">*</span></label>
-                            <div>
-                                <input type="number" name="in_price[]" class="input_style" placeholder="Enter In-Price"  id="inprice"  required>
-                                <span class="rupees_symbol">₹</span>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="outprice" class="form-label">Out-Price<span class="star">*</span></label>
-                            <div>
-                                <input type="number" name="out_price[]" class="input_style outprice" placeholder="Enter Out-Price" id="outprice" required>
-                                <span class="rupees_symbol">₹</span>
-                                <small id="price-error" class="price-error">Out-Price must be less than or equal to MRP</small>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <label for="tstock" class="form-label">Stock Count<span class="star">*</span></label>
-                            <div>
-                                <input type="number" name="tstock[]" id="tstock" class="input_style" placeholder="Enter Stock Count" required>
-                            </div>
-                        </div>
-                        <div class="form-div">
-                            <div>
-                                <img src="../assets/images/delete_icon.png" class="deleteButton" alt="delete-icon-img">
-                            </div>
-                        </div>
+            <?php
+    if (!empty($old_multiple_stock['pname'])) {
+        foreach ($old_multiple_stock['pname'] as $index => $pname) {
+    ?>
+    <div class="grid_col" id="cloningDiv">
+        <div class="grid-col-1">
+            <div class="form-div">
+                <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
+                <div class="search-container">
+                    <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" 
+                        value="<?= htmlspecialchars($pname) ?>" required>
+                    <div id="dropdown" class="dropdown">
+                        <!-- Suggestions will be dynamically added here -->
                     </div>
+                    <input type="hidden" class="product-id" name="product-id[]" 
+                        value="<?= htmlspecialchars($old_multiple_stock['product-id'][$index] ?? '') ?>">
                 </div>
             </div>
+
+            <div class="form-div">
+                <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
+                <div class="batch_div">
+                    <input type="text" name="batch_no[]" class="input_style batch-no" placeholder="Enter Batch No"
+                        value="<?= htmlspecialchars($old_multiple_stock['batch_no'][$index] ?? '') ?>" required>
+                    <button type="button" class="generate-batch-no barcode_btn">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="inprice" class="form-label">In-Price<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="in_price[]" class="input_style" placeholder="Enter In-Price"
+                        value="<?= htmlspecialchars($old_multiple_stock['in_price'][$index] ?? '') ?>" required>
+                    <span class="rupees_symbol">₹</span>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="outprice" class="form-label">Out-Price<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="out_price[]" class="input_style outprice" placeholder="Enter Out-Price"
+                        value="<?= htmlspecialchars($old_multiple_stock['out_price'][$index] ?? '') ?>" required>
+                    <span class="rupees_symbol">₹</span>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="tstock" class="form-label">Stock Count<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="tstock[]" class="input_style" placeholder="Enter Stock Count"
+                        value="<?= htmlspecialchars($old_multiple_stock['tstock'][$index] ?? '') ?>" required>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <div>
+                    <img src="../assets/images/delete_icon.png" class="deleteButton" alt="delete-icon-img">
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+        }
+    } else { 
+    ?>
+    <!-- Default empty field when there's no old session data -->
+    <div class="grid_col" id="cloningDiv">
+        <div class="grid-col-1">
+            <div class="form-div">
+                <label for="pname" class="form-label">Product Name<span class="star">*</span></label>
+                <div class="search-container">
+                    <input type="text" placeholder="Search..." class="input_style search-box" name="pname[]" required>
+                    <div id="dropdown" class="dropdown"></div>
+                    <input type="hidden" class="product-id" name="product-id[]">
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
+                <div class="batch_div">
+                    <input type="text" name="batch_no[]" class="input_style batch-no" placeholder="Enter Batch No" required>
+                    <button type="button" class="generate-batch-no barcode_btn">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="inprice" class="form-label">In-Price<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="in_price[]" class="input_style" placeholder="Enter In-Price" required>
+                    <span class="rupees_symbol">₹</span>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="outprice" class="form-label">Out-Price<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="out_price[]" class="input_style outprice" placeholder="Enter Out-Price" required>
+                    <span class="rupees_symbol">₹</span>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <label for="tstock" class="form-label">Stock Count<span class="star">*</span></label>
+                <div>
+                    <input type="number" name="tstock[]" class="input_style" placeholder="Enter Stock Count" required>
+                </div>
+            </div>
+
+            <div class="form-div">
+                <div>
+                    <img src="../assets/images/delete_icon.png" class="deleteButton" alt="delete-icon-img">
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>
             <div class="clone_btn">
                 <!-- <input type="hidden" name="stock_prod_id" value="<?php echo isset($_GET['productid']) ? htmlspecialchars($_GET['productid']) : ''; ?>"> -->
                 <input type="button" value="Add Another Stock" class="add_btn clone_stock_btn" name="clone_stock_btn" id="cloneStockBtn">
@@ -135,7 +163,7 @@
                         <input type="file" id="stock_bill" class="img_upload" name="stock_bill">
                     </div>
                     <div>
-                        <img id="previewImage" width="100px"/>
+                        <img id="previewImage" src="../../<?= !empty($stock_bill) ? $stock_bill : '' ?>"  width="100px"/>
                     </div>
                 </div>
                         <script>
@@ -149,26 +177,31 @@
                             });
                         </script>
                         <div class="form-div">
-                            <label for="supplier_id" class="form-label">Supplier Name</label>
+                            <label for="supplier_id" class="form-label">Supplier Name<span class="star">*</span></label>
                             <div>
                             <select name="supplier_id" class="input_style" required>
-                                    <option value=""  class="option_style" disabled selected>Select Supplier</option>
-                                    <?php
-                                     $vendor = $mysqli->query("select * from e_vendor_details where cos_id = '$cos_id' and active=1");
-                                    while($row = $vendor->fetch_assoc())
-                                    {
-	                                ?>
-                                        <option value="<?php echo $row['v_id'];?>"><?php echo $row['v_name'];?></option>
-	                                <?php 
-                                    }	
-									?>
+                                <option value="" class="option_style" disabled>Select Supplier</option>
+                                 <?php
+                                    // Retrieve the old supplier_id from session if available
+                                    $old_supplier_id = $_SESSION['old_multiple_stock']['supplier_id'] ?? '';
+
+                                    $vendor = $mysqli->query("SELECT * FROM e_vendor_details WHERE cos_id = '$cos_id' AND active = 1");
+                                    while ($row = $vendor->fetch_assoc()) {
+                                        $selected = ($row['v_id'] == $old_supplier_id) ? 'selected' : '';
+                                    ?>
+                                        <option value="<?php echo $row['v_id']; ?>" <?php echo $selected; ?>>
+                                            <?php echo $row['v_name']; ?>
+                                        </option>
+                                    <?php 
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="invoice_no" class="form-label">Invoice No</label>
                             <div>
-                                <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No" id="invoiceNo">
+                                <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No" value="<?= htmlspecialchars($old_multiple_stock['invoice_no'] ?? '') ?>"  maxlength="10" id="invoiceNo">
                             </div>
                         </div>
             </div>
@@ -207,6 +240,24 @@
             <button class="popup_cancel" id="cancel_btn">Cancel</button>
         </div>
     </div>
+
+    <?php
+        if(isset($_SESSION['error_message'])): 
+            echo "I am in...";
+        ?>
+        <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+        <script>
+    iziToast.error({
+        title: 'Error',
+        message: '<?php echo addslashes($_SESSION['error_message']); ?>',
+        position: 'bottomCenter'
+    });
+</script>
+        <?php
+        unset($_SESSION['error_message']);
+        endif;
+    ?>
+
 <?php
 $product_name=[];
 $product = $mysqli->query("SELECT `id`,`p_title`, `p_variation`,`unit` FROM `e_product_details` WHERE cos_id='$cos_id' 

@@ -23,6 +23,8 @@ if(isset($_SESSION['old_product_data'])){
     $prod_img = $_SESSION['old_product_data']['prod_img'];
 
     $imagePaths = explode('|', $prod_img);
+    
+    unset($_SESSION['old_product_data']);
 }
 ?>
 
@@ -483,7 +485,7 @@ form.addEventListener('submit', function(event) {
                             <div class="file_upload">
                                 <i class="fa-3x fa fa-search" aria-hidden="true"></i>
                                 <span>Search Image to Upload</span>
-                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img">
+                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img" required>
                             </div>
                             <div>
                                 <img id="previewImage" src="../../<?= !empty($main_prod_img) ? $main_prod_img : '' ?>" width="100px"/>

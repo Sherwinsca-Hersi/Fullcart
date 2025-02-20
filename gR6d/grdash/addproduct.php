@@ -182,7 +182,7 @@ if(isset($_SESSION['old_product_data'])){
                             <div class="file_upload">
                                 <i class="fa-3x fa fa-search" aria-hidden="true"></i>
                                 <span>Search Image to Upload</span>
-                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img">
+                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img" >
                             </div>
                             <div>
                                 <?php
@@ -336,7 +336,7 @@ if(isset($_SESSION['old_product_data'])){
                             <div class="file_upload">
                                 <i class="fa-3x fa fa-search" aria-hidden="true"></i>
                                 <span>Search Image to Upload</span>
-                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img">
+                                <input type="file" id="main_prod_img" class="img_upload" name="main_prod_img" required>
                             </div>
                             <div>
                                 <img id="previewImage" src="../../<?= !empty($prod_img) ? $prod_img : '' ?>"  width="100px"/>

@@ -70,7 +70,7 @@
                 <div class="grid_col">
                     <div class="grid-col-1">
                         <div class="form-div">
-                            <label for="unit" class="form-label">Product Unit<sup>*</sup></label>
+                            <label for="unit" class="form-label">Product Unit<span class="star">*</span></label>
                             <div>
                                 <input type="text" name="unit" value="<?= htmlspecialchars($old_unit['unit'] ?? '') ?>" class="input_style" placeholder="Enter Unit" maxlength="50" autofocus required>
                             </div>

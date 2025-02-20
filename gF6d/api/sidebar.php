@@ -48,18 +48,15 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
 
 ?>
 
-
-
 <div class="sidemenu">
     <div class="logobar">
         <a href="dashboard.php" class="menu-link" data-toggle="submenu"><img src="..\..\<?php echo $imgname; ?>"></a>
     </div>
     <?php
-
     if($store_count==2){
         ?>
         <div class="menu-item">
-            <a href="chooseStore.php" class="menu-link">Home</a>
+            <a href="../../gF6d/gfdash/chooseStore.php" class="menu-link">Home</a>
         </div>
     <?php
     }
@@ -68,16 +65,15 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
         <a href="dashboard.php" class="menu-link" data-url="dashboard.php" id="dashboard-menu">Dashboard</a>
     </div>
     <?php
-
-    if($_SESSION['role']==$delivery_person || $_SESSION['role']==$packager || $_SESSION['role']==$admin || 
-    $_SESSION['role']==$order_processor || $_SESSION['role']==$customer_manager){
+    if($_SESSION['role']==$packager || $_SESSION['role']==$delivery_person || $_SESSION['role']==$admin || 
+            $_SESSION['role']==$order_processor || $_SESSION['role']==$customer_manager){
         ?>
             <div class="menu-item">
                 <a href="orders.php" class="menu-link" data-url="orders.php">Orders</a>
             </div> 
     <?php 
     }
-    if($_SESSION['role']==$admin || $_SESSION['role']==$revenue_manager || $_SESSION['role']==$accountant){
+    if($_SESSION['role']==$admin|| $_SESSION['role']==$revenue_manager || $_SESSION['role']==$accountant){
     ?>
         <div class="menu-item">
             <a href="revenue.php" class="menu-link" data-url="revenue.php">Revenue</a>
@@ -103,7 +99,6 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
                     <a href="subcategory.php" class="submenu-link" data-url="subcategory.php">Product Subcategories</a>
                     <a href="level.php" class="submenu-link" data-url="level.php">Reorder/Low Stock Level</a>
                     <a href="combo.php" class="submenu-link" data-url="combo.php">Combo</a>
-                    <a href="productReviews.php" class="submenu-link" data-url="productReviews.php">Product Reviews</a>
                 </div>
             </div>
     <?php 
@@ -182,7 +177,7 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
             <a href="coupons.php" class="menu-link" data-url="coupons.php">Coupons</a>
         </div>
         <div class="menu-item">
-            <a href="feedbackScreen.php" class="menu-link" data-url="feedbackScreen.php">Customer Feedback</a>
+        <a href="feedbackScreen.php" class="submenu-link" data-url="feedbackScreen.php">Customer Feedback</a>
         </div>
         <div class="menu-item">
             <a  class="menu-link" data-toggle="submenu">Settings <span class="arrow down"></span></a>
@@ -191,6 +186,7 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
                 <!-- <a href="employee.php" class="submenu-link" data-url="employee.php">Employees</a> -->
                 <a href="banners.php" class="submenu-link" data-url="banners.php">Banners</a>
                 <a href="coupons.php" class="submenu-link" data-url="coupons.php">Coupons</a>
+                <a href="unit.php" class="submenu-link" data-url="unit.php">Units</a>
                 <!-- <a href="category.php" class="submenu-link" data-url="category.php">Product Categories</a> -->
                 <!-- <a href="subcategory.php" class="submenu-link" data-url="subcategory.php">Product Subcategories</a> -->
                 <!-- <a href="level.php" class="submenu-link" data-url="level.php">Reorder/Low Stock Level</a> -->
@@ -327,9 +323,18 @@ function clearActiveMenuOnLogout() {
     localStorage.removeItem('activeSubmenu');
 }
 
-document.querySelector('.logout-link').addEventListener('click', function(event) { 
+document.querySelector('.logout-link').addEventListener('click', function(event) {
     event.preventDefault();
     clearActiveMenuOnLogout();
+});
+document.addEventListener("DOMContentLoaded", function () {
+    let activeMainMenu = localStorage.getItem("activeMainMenu");
+    console.log(activeMainMenu);
+
+    if (activeMainMenu === "Home") {
+        localStorage.setItem("activeMainMenu", "Dashboard");
+        console.log("activeMainMenu changed to dashboard");
+    }
 });
 </script>
 

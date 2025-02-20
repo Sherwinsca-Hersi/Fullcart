@@ -14,9 +14,8 @@
 <body>
 <?php 
 if(isset($_SESSION['old_delivery'])){
-    $old_category = $_SESSION['old_delivery'] ?? [];
+    $old_delivery = $_SESSION['old_delivery'] ?? [];
     unset($_SESSION['old_delivery']);
-
 }
     require_once '../api/sidebar.php';
     ?>

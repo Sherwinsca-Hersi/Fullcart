@@ -142,9 +142,9 @@ a{
 }
 .star{
     color: var(--required-color);
-    font-size: 1.5em;
-    width: 1.5em;
-    height: 1.5em;
+    font-size: 1em;
+    /* width: 1.5em;
+    height: 1.5em; */
 }
 form label.no-sup:after {
     content: "\00a0"; 
@@ -1646,6 +1646,11 @@ input[type="file"]{
 .batch_div,.barcode_input{
     display: inline-flex;
     gap: 0.3em;
+}
+.batch_div{
+    display: inline-flex;
+    gap: 0.3em;
+    padding: 0 !important;
 }
 .batch-no{
     width: 100%;

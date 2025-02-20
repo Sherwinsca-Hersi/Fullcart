@@ -431,7 +431,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 19 AND active != 2 AND active != 0";
+        $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Packager%'  AND active != 2 AND active != 0")->fetch_assoc();
+        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -491,7 +492,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 19 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Packager%'  AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -551,7 +553,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 20 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Delivery%'  AND active != 2 AND active != 0")->fetch_assoc();
+        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -611,7 +614,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 20 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Delivery%' AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -900,7 +904,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 19 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Packager%'  AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -960,7 +965,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 19 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Packager%'  AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -1020,7 +1026,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 20 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Delivery%' AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -1080,7 +1087,8 @@ if (isset($_SESSION['toast'])) {
     <a href="#" class="myLink order-action" id="myLink" data-dsid="<?php echo $online_order['id']; ?>"></a>
     <select class="form-control select2-single salesman-select mySelect" id="db_select" required>
         <?php
-        $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = 20 AND active != 2 AND active != 0";
+         $role_query = $mysqli->query("SELECT id FROM e_salesman_role WHERE cos_id = '$cos_id' AND role_title LIKE '%Delivery%'  AND active != 2 AND active != 0")->fetch_assoc();
+         $query = "SELECT id, s_name FROM e_salesman_details WHERE cos_id = '$cos_id' AND role = ".$role_query['id']." AND active != 2 AND active != 0";
         $result = $mysqli->query($query);
     if ($result && $result->num_rows > 0) {
 ?>
@@ -1159,13 +1167,7 @@ if (isset($_SESSION['toast'])) {
 <!-- <script src="../assets/js/date2.js"></script> -->
 <?php 
 if(isset($_POST['real_order'])){
-
-    $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`,
-     `address`, `landmark`, `d_charge`, `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,
-     `salesman_id`, `wall_amt`, `name`,`mobile`, `t_slot`, `status`, `bill_type`, 
-     `bank_trans_id`, `upi_id`, `recon_status`,`active` FROM `e_normal_order_details` where cos_id = '$cos_id' 
-     and invoice_no!=0 order by id desc");
-
+    $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and invoice_no!=0 order by id desc");
     while($row1 = $stmt->fetch_assoc())
     {
     ?>
@@ -1207,51 +1209,27 @@ else if(isset($_POST['online_order'])){
     
                                                 $i=0;
                                                     if($currentStatus === 'completed') {
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, 
-                                                        `address`, `landmark`, `d_charge`, `cou_id`, `cou_amt`, `o_total`, `subtotal`,
-                                                        `trans_id`, `payment_active`,`salesman_id`, `wall_amt`, `name`, `mobile`, `t_slot`, 
-                                                        `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active` FROM `e_normal_order_details` 
-                                                        where cos_id = '$cos_id' and active='6'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='6'  and bill_type='1' order by id desc");
                                                     } 
                                                     else if ($currentStatus === 'processing'){
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`,
-                                                         `address`, `landmark`, `d_charge`, `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`,
-                                                          `payment_active`,`salesman_id`, `wall_amt`, `name`, `mobile`, `t_slot`, `status`, `bill_type`,
-                                                           `bank_trans_id`, `upi_id`, `recon_status`,`active` FROM `e_normal_order_details` 
-                                                           where cos_id = '$cos_id' and active='2'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='2'  and bill_type='1' order by id desc");
                                                     }
                                                     else if ($currentStatus === 'packed'){
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, 
-                                                        `p_method_id`, `address`, `landmark`, `d_charge`, `cou_id`, `cou_amt`, `o_total`, 
-                                                        `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`, `name`, `mobile`, 
-                                                        `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active` FROM 
-                                                        `e_normal_order_details` where cos_id = '$cos_id' and active='3'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='3'  and bill_type='1' order by id desc");
                                                     }
                                                     else if ($currentStatus === 'db_assigned'){
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`,
-                                                         `landmark`, `d_charge`, `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active` 
-                                                         FROM `e_normal_order_details` where cos_id = '$cos_id' and active='4'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='4'  and bill_type='1' order by id desc");
                                                     }
                                                     else if ($currentStatus === 'out_delivery'){
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`, `name`, `mobile`, `t_slot`, 
-                                                        `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active` FROM `e_normal_order_details` 
-                                                        where cos_id = '$cos_id' and active='5'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='5'  and bill_type='1' order by id desc");
                                                     }
                                                     else if ($currentStatus === 'all_orders'){
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id'  and bill_type='1' order by id desc");
                                                     }
                                                     else{
-                                                        $stmt = $mysqli->query("SELECT  `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`,
-                                                         `d_charge`, `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, 
-                                                        `wall_amt`, `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active` 
-                                                        FROM `e_normal_order_details` where cos_id = '$cos_id' and active='1'
-                                                         and status='Order Placed'  and bill_type='1' order by id desc");
+                                                        $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='1' and status='Order Placed'  and bill_type='1' order by id desc");
                                                     }
+    // $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='1' and bill_type='1' order by id desc");
     while($row1 = $stmt->fetch_assoc())
     {
     ?>
@@ -1290,46 +1268,25 @@ else if(isset($_POST['online_order'])){
         
                                                     $i=0;
                                                         if($currentStatus === 'completed') {
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='6'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='6'  and bill_type='1' order by id desc");
                                                         } 
                                                         else if ($currentStatus === 'processing'){
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='2'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='2'  and bill_type='1' order by id desc");
                                                         }
                                                         else if ($currentStatus === 'packed'){
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='3'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='3'  and bill_type='1' order by id desc");
                                                         }
                                                         else if ($currentStatus === 'db_assigned'){
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='4'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='4'  and bill_type='1' order by id desc");
                                                         }
                                                         else if ($currentStatus === 'out_delivery'){
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='5'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='5'  and bill_type='1' order by id desc");
                                                         }
                                                         else if ($currentStatus === 'all_orders'){
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id'  and bill_type='1' order by id desc");
                                                         }
                                                         else{
-                                                            $stmt = $mysqli->query("SELECT `id`, `cos_id`, `u_id`, `invoice_no`, `o_date`, `p_method_id`, `address`, `landmark`, `d_charge`, 
-                                                        `cou_id`, `cou_amt`, `o_total`, `subtotal`,`trans_id`, `payment_active`,`salesman_id`, `wall_amt`,
-                                                         `name`, `mobile`, `t_slot`, `status`, `bill_type`, `bank_trans_id`, `upi_id`, `recon_status`,`active`
-                                                          FROM `e_normal_order_details` where cos_id = '$cos_id' and active='1' and status='Order Placed'  and bill_type='1' order by id desc");
+                                                            $stmt = $mysqli->query("SELECT * FROM `e_normal_order_details` where cos_id = '$cos_id' and active='1' and status='Order Placed'  and bill_type='1' order by id desc");
                                                         }
     while($row1 = $stmt->fetch_assoc())
     {
@@ -1389,8 +1346,6 @@ else if(isset($_POST['online_order'])){
         });
     });
 </script>
-
-
 <script>
     const onlineOrderButton = document.querySelector("#online_order");
     const realOrderButton = document.querySelector("#real_order");
@@ -1463,6 +1418,7 @@ localStorage.setItem('salesselectedTab', 'online_order');
     //     });
     // });
 
+
     document.addEventListener("DOMContentLoaded", () => {
     const orderButtons = document.querySelectorAll(".order_btn");
     const selectedButtons = document.querySelectorAll(".selected_btn");
@@ -1510,6 +1466,8 @@ localStorage.setItem('salesselectedTab', 'online_order');
 });
 
 </script>
+
+
 
 <script>
 

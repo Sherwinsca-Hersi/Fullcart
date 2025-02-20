@@ -61,7 +61,7 @@
                             <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
                             <div>
                                 <div class="batch_div">
-                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no" value="<?php echo $stock_data['s_batch_no'];?>" maxlength="6" required>
+                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no" maxlength="10" value="<?php echo $stock_data['s_batch_no'];?>" maxlength="6" required>
                                     <button type="button" class="barcode_btn" id="generateBatchNo"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                     <div class="form-div">
                         <label for="invoice_no" class="form-label">Invoice No</label>
                         <div>
-                            <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No" value="<?php echo $stock_data['invoice_no'];?>">
+                            <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No" maxlength="10" value="<?php echo $stock_data['invoice_no'];?>">
                         </div>
                     </div>
                     <div class="img_input">
@@ -228,7 +228,7 @@
                             <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
                             <div>
                                 <div class="batch_div">
-                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no"  required>
+                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no"  maxlength="10" required>
                                     <button type="button" class="barcode_btn" id="generateBatchNo"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                         <div class="form-div">
                             <label for="invoice_no" class="form-label">Invoice No</label>
                             <div>
-                                <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No">
+                                <input type="text" name="invoice_no" class="input_style" maxlength="10" placeholder="Enter Invoive No">
                             </div>
                         </div>
                         <div class="img_input">
@@ -444,7 +444,7 @@
                             <label for="batch_no" class="form-label">Batch No<span class="star">*</span></label>
                             <div>
                                 <div class="batch_div">
-                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no" maxlength="6" required>
+                                    <input type="text" name="batch_no" class="input_style" placeholder="Enter Batch No" id="batch_no" maxlength="10" required>
                                     <button type="button" class="barcode_btn" id="generateBatchNo"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -522,7 +522,7 @@
                             </div>
                         </div>
                         <div class="form-div">
-                            <label for="supplier_id" class="form-label no-sup">Supplier Name</label>
+                            <label for="supplier_id" class="form-label no-sup">Supplier Name<span class="star">*</span></label>
                             <div>
                             <select name="supplier_id" class="input_style" required>
                                     <option value=""  class="option_style" disabled selected>Select Supplier</option>
@@ -541,7 +541,7 @@
                         <div class="form-div">
                             <label for="invoice_no" class="form-label no-sup">Invoice No</label>
                             <div>
-                                <input type="text" name="invoice_no" class="input_style" placeholder="Enter Invoive No">
+                                <input type="text" name="invoice_no" class="input_style" maxlength="10" placeholder="Enter Invoive No">
                             </div>
                         </div>
                         <div class="img_input">

@@ -17,7 +17,7 @@
 <body>
 <?php 
 if(isset($_SESSION['old_timeslot'])){
-    $old_product_data = $_SESSION['old_timeslot'] ?? [];
+    $old_timeslot = $_SESSION['old_timeslot'] ?? [];
     unset($_SESSION['old_timeslot']);
 }
     require_once '../api/sidebar.php';
@@ -92,7 +92,7 @@ if(isset($_SESSION['old_timeslot'])){
                             </div>      
                         </div>
                         <div class="form-div">
-                            <label for="slot_limit" class="form-label">Slot Limit</label>
+                            <label for="slot_limit" class="form-label">Slot Limit<span class="star">*</span></label>
                             <div>
                                 <input type="number" id="slot_limit"  name="slot_limit" value="<?= htmlspecialchars($old_timeslot['slot_limit'] ?? '') ?>" required> 
                             </div>        
@@ -108,8 +108,8 @@ if(isset($_SESSION['old_timeslot'])){
                         <div class="form-div">
                             <label for="cat_status" class="form-label">Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="timeslot_status" class="input_style" value="1" <?= isset($old_timeslot['timeslot_status']) && $old_category['timeslot_status'] == '1' ? 'checked' : '' ?>>Publish
-                                <input type="radio" name="timeslot_status" class="input_style" value="0" <?= isset($old_timeslot['timeslot_status']) && $old_category['timeslot_status'] == '0' ? 'checked' : '' ?>>Unpublish
+                                <input type="radio" name="timeslot_status" class="input_style" value="1" <?= isset($old_timeslot['timeslot_status']) && $old_timeslot['timeslot_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="timeslot_status" class="input_style" value="0" <?= isset($old_timeslot['timeslot_status']) && $old_timeslot['timeslot_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>

@@ -13,13 +13,11 @@
 </head>
 <body>
 <?php 
-if(isset($_SESSION['old_banner'])){  
-$old = $_SESSION['old_banner'] ?? [];
-$b_category = $old['pcategory'] ?? '';
-$b_category_id = $old['category-id'] ?? '';
-$b_status = $old['b_status'] ?? '1';
-$b_img = $_SESSION['old_banner']['b_img']?? '';
-unset($_SESSION['old_banner']);
+
+if(isset($_SESSION['old_banner'])){
+    $old = $_SESSION['old_banner'] ?? [];
+    $b_img = $_SESSION['old_banner']['b_img']?? '';
+    unset($_SESSION['old_banner']);
 }
 
     require_once '../api/sidebar.php';
@@ -43,16 +41,33 @@ unset($_SESSION['old_banner']);
             <?php 
 			if(isset($_GET['bannerid']))
 			{
-				$data = $mysqli->query("SELECT id,c_id,bg_img,active FROM e_dat_banner WHERE   id=".$_GET['bannerid']."  AND  cos_id = '$cos_id'")->fetch_assoc();
+				$data = $mysqli->query("SELECT id,c_id,bg_img,active FROM e_dat_banner WHERE cos_id = '$cos_id' AND id=".$_GET['bannerid']."")->fetch_assoc();
 			?>
             <form class="addBanner_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data" autocomplete="off">
                 <div class="grid_col">
                     <div class="grid-col-1">
+                        <!-- <div class="form-div">
+                            <label for="b_category" class="form-label">Banner Category</label>
+                            <div>
+                                <select name="b_category" class="input_style" placeholder="Enter Banner Category">
+                                    <option value=""  class="option_style" disabled selected>Banner Category</option>
+                                    <?php
+                                        $cat = $mysqli->query("SELECT id,title FROM e_category_details WHERE active=1 AND  cos_id = '$cos_id'");
+                                    while($row = $cat->fetch_assoc())
+                                    {
+	                                ?>
+                                        <option value="<?php echo $row['id'];?>" <?php if($row['id'] == $data['c_id']) {echo 'selected';} ?>><?php echo $row['title'];?></option>
+	                                    <?php 
+                                        }	
+									   ?>
+                                </select>
+                            </div>
+                        </div> -->
                         <?php
                                 $prod_category=$mysqli->query("SELECT id,title FROM `e_category_details` WHERE active=1 AND id='".$data['c_id']."' AND cos_id='$cos_id'")->fetch_assoc();
                             ?>
                             <div class="form-div">
-                                <label for="pcategory" class="form-label">Product Category</label>
+                                <label for="pcategory" class="form-label">Banner Category</label>
                                 <div class="search-container">
                                     <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?php if(!($prod_category['title']==NULL || '')){
                                         echo htmlspecialchars($prod_category['title']); 
@@ -112,14 +127,31 @@ unset($_SESSION['old_banner']);
             <form class="addBanner_form" method="post" action="com_ins_upd.php" id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data" autocomplete="off">
                 <div class="grid_col">
                     <div class="grid-col-1">
+                        <!-- <div class="form-div">
+                            <label for="b_category" class="form-label">Banner <span class="star">*</span></label>
+                            <div>
+                                <select name="b_category" class="input_style" placeholder="Enter Banner Category" required autofocus>
+                                    <option value=""  class="option_style" disabled selected>Banner Category</option>
+                                    <?php
+                                     $cat = $mysqli->query("SELECT title FROM e_category_details WHERE cos_id = '$cos_id' AND active=1");
+                                    while($row = $cat->fetch_assoc())
+                                    {
+	                                ?>
+	                                    <option value="<?php echo $row['id'];?>"><?php echo $row['title'];?></option>
+	                                    <?php 
+                                        }	
+									   ?>
+                                </select>
+                            </div>
+                        </div> -->
                         <div class="form-div">
-                                <label for="pcategory" class="form-label">Banner Category</label>
+                                <label for="pcategory" class="form-label">Banner Category<span class="star">*</span></label>
                                 <div class="search-container">
-                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($b_category) ?>" required>
+                                    <input type="text" placeholder="Search Categories..." class="input_style search-box" name="pcategory" value="<?= htmlspecialchars($old_banner['pcategory'] ?? '') ?>" required>
                                     <div id="dropdown" class="dropdown">
                                         <!-- Suggestions will be dynamically added here -->
                                     </div>
-                                    <input type="hidden" id="category-id" name="category-id" value="<?= htmlspecialchars($b_category_id) ?>">
+                                    <input type="hidden" id="category-id" name="category-id"  value="<?= htmlspecialchars($old_banner['category-id'] ?? '') ?>">
                                         <!-- other form fields -->
                                 </div>
                         </div>
@@ -127,10 +159,10 @@ unset($_SESSION['old_banner']);
                             <div class="file_upload">
                                 <i class="fa-3x fa fa-search" aria-hidden="true"></i>
                                 <span>Search Image to Upload</span>
-                                <input type="file" id="b_img" class="img_upload" name="b_img" accept="image/*">
+                                <input type="file" id="b_img" class="img_upload" name="b_img" accept="image/*" required>
                             </div>
                             <div>
-                                <img id="previewImage" src="../../<?= !empty($b_img) ? $b_img : '' ?>"   width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($b_img) ? $b_img : '' ?>"  width="100px"/>
                             </div>
                         </div>
                         <script>
@@ -148,8 +180,8 @@ unset($_SESSION['old_banner']);
                         <div class="form-div">
                             <label for="b_status" class="form-label">Banner Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="b_status" class="input_style" value="1" <?= ($b_status == '1') ? 'checked' : '' ?>>Publish
-                                <input type="radio" name="b_status" class="input_style" value="0"  <?= ($b_status == '0') ? 'checked' : '' ?>>Unpublish
+                                <input type="radio" name="b_status" class="input_style" value="1" <?= isset($old_banner['b_status']) && $old_banner['b_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="b_status" class="input_style" value="0"  <?= isset($old_banner['b_status']) && $old_banner['b_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>
@@ -184,9 +216,17 @@ unset($_SESSION['old_banner']);
             require_once "logoutpopup.php";
         ?>
     </div>
+    <!-- <div class="popup" id="popup">
+        <h4>All unsaved changes will be lost.</h4>
+        <div class="popup_btns">
+            <button class="price_btn">Price</button>
+            <button class="stock_btn">Stock</button>
+            <button class="popup_cancel" id="cancel_btn">Cancel</button>
+        </div>
+    </div> -->
     <?php
 $category_name=[];
-$category = $mysqli->query("SELECT `id`,`title` FROM `e_category_details` WHERE   active=1 AND cos_id='$cos_id' GROUP BY id ORDER BY title");
+$category = $mysqli->query("SELECT `id`,`title` FROM `e_category_details` WHERE cos_id='$cos_id' AND active=1 GROUP BY id ORDER BY title");
 while($row = $category->fetch_assoc()){
     $category_name[]=$row; 
 }

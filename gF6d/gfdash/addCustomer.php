@@ -194,7 +194,7 @@
                     </div>
                     <div class="grid-col-2">
                         <div class="form-div">
-                            <label for="c_street" class="form-label">Street</label>
+                            <label for="c_street" class="form-label">Street<span class="star"></span></label>
                             <div>
                                 <input type="text" name="c_street" value="<?= htmlspecialchars($old_customer['c_street'] ?? '') ?>"  class="input_style" placeholder="Enter Street" maxlength="50">
                             </div>

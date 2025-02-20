@@ -16,6 +16,7 @@
 <body>
 <?php 
 if(isset($_SESSION['old_subcategory'])){
+    
     $old_subcategory = $_SESSION['old_subcategory'] ?? [];
 
     $subcat_img = $_SESSION['old_subcategory']['subcat_img'];

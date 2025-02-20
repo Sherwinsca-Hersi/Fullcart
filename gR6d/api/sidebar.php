@@ -327,6 +327,15 @@ document.querySelector('.logout-link').addEventListener('click', function(event)
     event.preventDefault();
     clearActiveMenuOnLogout();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    let activeMainMenu = localStorage.getItem("activeMainMenu");
+    console.log(activeMainMenu);
+
+    if (activeMainMenu === "Home") {
+        localStorage.setItem("activeMainMenu", "Dashboard");
+        console.log("activeMainMenu changed to dashboard");
+    }
+});
 </script>
 
 

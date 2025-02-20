@@ -18,7 +18,7 @@
 <body>
 <?php 
 if(isset($_SESSION['old_role'])){
-    $old_category = $_SESSION['old_role'] ?? [];
+    $old_role = $_SESSION['old_role'] ?? [];
     unset($_SESSION['old_role']);
 
 }
@@ -97,8 +97,8 @@ if(isset($_SESSION['old_role'])){
                         <div class="form-div">
                             <label for="role_status" class="form-label">Role Status</label>
                             <div class="radio_btn_div">
-                                <input type="radio" name="role_status" class="input_style" value="1" <?= isset($old_category['role_status']) && $old_category['role_status'] == '1' ? 'checked' : '' ?>>Publish
-                                <input type="radio" name="role_status" class="input_style" value="0" <?= isset($old_category['role_status']) && $old_category['role_status'] == '0' ? 'checked' : '' ?>>Unpublish
+                                <input type="radio" name="role_status" class="input_style" value="1" <?= isset($old_role['role_status']) && $old_role['role_status'] == '1' ? 'checked' : '' ?>>Publish
+                                <input type="radio" name="role_status" class="input_style" value="0" <?= isset($old_role['role_status']) && $old_role['role_status'] == '0' ? 'checked' : '' ?>>Unpublish
                             </div>
                         </div>
                     </div>

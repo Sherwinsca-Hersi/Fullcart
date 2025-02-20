@@ -566,7 +566,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // echo $sku_id;
             $fields1="`cos_id`,`sku_id`,`c_img`,`title`,`offer_amt`,`from_qty`,`to_qty`,`bulk_price`,`created_by`,`platform`";
             $values1="'$cos_id','$sku_id','$targetFile','$combo_name','$offer_amt','$fromQty','$toQty','$price','$created_by','$platform'";              
-            $combo_insert="INSERT INTO  `e_data_collection` ($fields1) VALUES ($values1)";
+            $combo_insert="INSERT INTO  `e_data_collections` ($fields1) VALUES ($values1)";
             // echo $combo_insert;
             $insert_query1=$mysqli->query($combo_insert);
             $combo_id=$mysqli->insert_id;
@@ -1166,6 +1166,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query3 = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
+                $_SESSION['old_multiple_stock'] = $_POST;
+                $_SESSION['old_multiple_stock']['stock_bill']= $targetFile;
                 header("Location: multipleStock.php");
                 exit();
             }
@@ -1561,38 +1563,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $country = trim($_POST['country']);
         $pincode= trim($_POST['pincode']);
         $address = $doorno . ", " . $street . "," . $area . "," . $city . "," . $state ."," . $country."-" . $pincode;
-        if(empty($_FILES["logo_img"]["name"])){
-            try{
-                $profile_update="UPDATE `e_data_profile` SET  `business_name`='$business_name', `mobile_1`='$mobile1',`mobile_2`='$mobile2',`email_id`='$b_email',`gst_no`='$gst_no',`address`='$address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$profile_id'";
-                $update_query=$mysqli->query($profile_update);
-                $_SESSION['success'] = "Profile Details Updated Successfully!";
-                header("Location: profile.php");
-                exit();
-            }
-            catch (mysqli_sql_exception $exception) {
-                mysqli_rollback($mysqli);
-                $update_query = false;
-                $err_msg=$exception->getMessage();
-                $_SESSION['error_message'] = $err_msg;
-                // echo $err_msg;
-                header("Location: addProfile.php?profileid=$profile_id");
-                exit();
-            } 
-        }
-        else{
-            $targetDir = "../../logo/";
-            $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $business_name);
-            $imageFileType = strtolower(pathinfo($_FILES["logo_img"]["name"], PATHINFO_EXTENSION));
-    
-            $newFileName = $sanitizedTitle . '_' . time() . '.' . $imageFileType;
-            $targetFile = $targetDir . $newFileName;
-            move_uploaded_file($_FILES["logo_img"]["tmp_name"], $targetFile);
-    
-            $targetFile=substr($targetFile,6);
-            if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
-       
+        $mobile_query = $mysqli->query("SELECT COUNT(*) as total FROM `e_data_profile` 
+                WHERE `$mobile1` = '$mobile1' 
+                AND `id` != '$profile_id' 
+                AND active != 2 
+                AND cos_id = '$cos_id'")->fetch_assoc();
+
+        if ($mobile_query['total'] > 0) {
+            $_SESSION['error_message'] = "Another profile  with the same mobile number already exists!";
+            $_SESSION['old_profile'] = $_POST;
+            header("Location: addProfile.php?profileid=$profile_id");
+            exit();
+        }else{
+            if(empty($_FILES["logo_img"]["name"])){
                 try{
-                    $profile_update="UPDATE `e_data_profile` SET `logo_img`='$targetFile', `business_name`='$business_name', `mobile_1`='$mobile1',`mobile_2`='$mobile2',`email_id`='$b_email',`gst_no`='$gst_no',`address`='$address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$profile_id'";
+                    $profile_update="UPDATE `e_data_profile` SET  `business_name`='$business_name', `mobile_1`='$mobile1',`mobile_2`='$mobile2',`email_id`='$b_email',`gst_no`='$gst_no',`address`='$address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$profile_id'";
                     $update_query=$mysqli->query($profile_update);
                     $_SESSION['success'] = "Profile Details Updated Successfully!";
                     header("Location: profile.php");
@@ -1609,11 +1594,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } 
             }
             else{
-                $_SESSION['error_message'] = 'Image File Format is Invalid';
-                header("Location: addProfile.php?profileid=$profile_id");
-                exit();
+                $targetDir = "../../logo/";
+                $sanitizedTitle = preg_replace('/[^A-Za-z0-9\-]/', '_', $business_name);
+                $imageFileType = strtolower(pathinfo($_FILES["logo_img"]["name"], PATHINFO_EXTENSION));
+        
+                $newFileName = $sanitizedTitle . '_' . time() . '.' . $imageFileType;
+                $targetFile = $targetDir . $newFileName;
+                move_uploaded_file($_FILES["logo_img"]["tmp_name"], $targetFile);
+        
+                $targetFile=substr($targetFile,6);
+                if(strpos($targetFile, ".png") !== false || strpos($targetFile, ".jpg") !== false || strpos($targetFile, ".jpeg") !== false || strpos($targetFile, ".svg") !== false || strpos($targetFile, ".jfif") !== false || strpos($targetFile, ".avif") !== false || strpos($targetFile, ".webp") !== false){
+           
+                    try{
+                        $profile_update="UPDATE `e_data_profile` SET `logo_img`='$targetFile', `business_name`='$business_name', `mobile_1`='$mobile1',`mobile_2`='$mobile2',`email_id`='$b_email',`gst_no`='$gst_no',`address`='$address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$profile_id'";
+                        $update_query=$mysqli->query($profile_update);
+                        $_SESSION['success'] = "Profile Details Updated Successfully!";
+                        header("Location: profile.php");
+                        exit();
+                    }
+                    catch (mysqli_sql_exception $exception) {
+                        mysqli_rollback($mysqli);
+                        $update_query = false;
+                        $err_msg=$exception->getMessage();
+                        $_SESSION['error_message'] = $err_msg;
+                        // echo $err_msg;
+                        header("Location: addProfile.php?profileid=$profile_id");
+                        exit();
+                    } 
+                }
+                else{
+                    $_SESSION['error_message'] = 'Image File Format is Invalid';
+                    header("Location: addProfile.php?profileid=$profile_id");
+                    exit();
+                }
+    
             }
-
         }
     }
     else{
@@ -1659,7 +1674,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 WHERE `s_mobile` = '$emp_phone' AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
             if($mobile_query['total'] > 0){
                 $_SESSION['error_message'] = "Employee with same mobile number already exists!";
-                $_SESSION['old_delivery'] = $_POST;
+                $_SESSION['old_employee'] = $_POST;
                 header("Location: addEmployee.php");
                 exit();
             } else {
@@ -1679,7 +1694,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $err_msg=$exception->getMessage();
                     $_SESSION['error_message'] = $err_msg;
                     // echo $err_msg;
-                    $_SESSION['old_delivery'] = $_POST;
+                    $_SESSION['old_employee'] = $_POST;
                     header("Location: addEmployee.php");
                     exit();
                 } 
@@ -1717,23 +1732,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return !empty($part);
         });
         
-        $emp_address = implode(", ", $emp_address_parts);        
-        try{
-            $employee_update="UPDATE `e_salesman_details` SET `s_name`='$emp_name', `s_mobile`='$emp_phone',`whatsapp`='$emp_whatsapp', `email`='$emp_email' ,`s_address`='$emp_address', `password`='$emp_password', `role`='$emp_role' ,`other_roles`='$roles' ,`joining_date`='$emp_join_date',`salary`='$emp_salary',`bonus`='$emp_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$employee_id'";
-            $update_query=$mysqli->query($employee_update);
-            $_SESSION['success'] = "Employee Details Updated Successfully!";
-            header("Location: employee.php");
-            exit();
-        }
-        catch (mysqli_sql_exception $exception) {
-            mysqli_rollback($mysqli);
-            $update_query = false;
-            $err_msg=$exception->getMessage();
-            $_SESSION['error_message'] = $err_msg;
-            // echo $err_msg;
+        $emp_address = implode(", ", $emp_address_parts);    
+        $mobile_query = $mysqli->query("SELECT COUNT(*) as total FROM `e_salesman_details` 
+                WHERE `s_mobile` = '$emp_phone' 
+                AND `id` != '$employee_id' 
+                AND active != 2 
+                AND cos_id = '$cos_id'")->fetch_assoc();
+
+        if ($mobile_query['total'] > 0) {
+            $_SESSION['error_message'] = "Another employee with the same mobile number already exists!";
+            $_SESSION['old_employee'] = $_POST;
             header("Location: addEmployee.php?employeeid=$employee_id");
             exit();
-        } 
+        }else{  
+            try{
+                $employee_update="UPDATE `e_salesman_details` SET `s_name`='$emp_name', `s_mobile`='$emp_phone',`whatsapp`='$emp_whatsapp', `email`='$emp_email' ,`s_address`='$emp_address', `password`='$emp_password', `role`='$emp_role' ,`other_roles`='$roles' ,`joining_date`='$emp_join_date',`salary`='$emp_salary',`bonus`='$emp_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$employee_id'";
+                $update_query=$mysqli->query($employee_update);
+                $_SESSION['success'] = "Employee Details Updated Successfully!";
+                header("Location: employee.php");
+                exit();
+            }
+            catch (mysqli_sql_exception $exception) {
+                mysqli_rollback($mysqli);
+                $update_query = false;
+                $err_msg=$exception->getMessage();
+                $_SESSION['error_message'] = $err_msg;
+                // echo $err_msg;
+                header("Location: addEmployee.php?employeeid=$employee_id");
+                exit();
+            }   
+        }
     }
     //delivery add
     elseif (isset($_POST["delivery_add"])) {
@@ -1821,22 +1849,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 });
 
             $d_address = implode(", ",$address_parts);
-        try{
-            $delivery_update="UPDATE `e_salesman_details` SET `s_name`='$d_name', `s_mobile`='$d_phone', `email`='$d_email' ,`whatsapp`='$d_whatsapp',`s_address`='$d_address', `password`='$d_password', `role`='$d_role' ,`joining_date`='$d_join_date',`salary`='$d_salary',`bonus`='$d_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$delivery_id'";
-            $update_query=$mysqli->query($delivery_update);
-            $_SESSION['success'] = "Delivery Person Details Updated Successfully!";
-            header("Location: deliveryPerson.php");
-            exit();
-        }
-        catch (mysqli_sql_exception $exception) {
-            mysqli_rollback($mysqli);
-            $update_query = false;
-            $err_msg=$exception->getMessage();
-            $_SESSION['error_message'] = $err_msg;
-            // echo $err_msg;
+            $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_salesman_details` 
+                WHERE `s_mobile` = '$d_phone' AND `id` != '$delivery_id'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
+
+        if ($mobile_query['total'] > 0) {
+            $_SESSION['error_message'] = "Another Employee with the same mobile number already exists!";
+            $_SESSION['old_delivery'] = $_POST;
             header("Location: addDeliveryPerson.php?deliveryid=$delivery_id");
             exit();
-        } 
+        }else{
+            try{
+                $delivery_update="UPDATE `e_salesman_details` SET `s_name`='$d_name', `s_mobile`='$d_phone', `email`='$d_email' ,`whatsapp`='$d_whatsapp',`s_address`='$d_address', `password`='$d_password', `role`='$d_role' ,`joining_date`='$d_join_date',`salary`='$d_salary',`bonus`='$d_bonus',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$delivery_id'";
+                $update_query=$mysqli->query($delivery_update);
+                $_SESSION['success'] = "Delivery Person Details Updated Successfully!";
+                header("Location: deliveryPerson.php");
+                exit();
+            }
+            catch (mysqli_sql_exception $exception) {
+                mysqli_rollback($mysqli);
+                $update_query = false;
+                $err_msg=$exception->getMessage();
+                $_SESSION['error_message'] = $err_msg;
+                // echo $err_msg;
+                header("Location: addDeliveryPerson.php?deliveryid=$delivery_id");
+                exit();
+            } 
+        }
     }
     //cust add
     elseif (isset($_POST["cust_add"])) {
@@ -1914,28 +1952,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $c_country = trim($_POST['c_country']);
         $c_pincode = trim($_POST['c_pincode']);
         $c_whatsapp = trim($_POST['c_whatsapp']);
+        $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_user_details` 
+        WHERE `mobile` = '$c_phone' AND `id` != '$customer_id'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
 
-        try{
-            $customer_update="UPDATE `e_user_details` SET `name`='$c_name', `mobile`='$c_phone',`whatsapp`='$c_whatsapp',`email_id`='$c_email' ,`password`='$c_password',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$customer_id'";
-            // echo $customer_update;
-            $update_query1=$mysqli->query($customer_update);
-            $address_update="UPDATE `e_address_details` SET `landmark`='$c_street',`area`='$c_area',`address_line_1`='$c_doorno',`name`='$c_name',`mobile`='$c_phone',`pincode`='$c_pincode',`city`='$c_city',`state`='$c_state',`country`='$c_country',`updated_by`='$updated_by',`up_platform`='$platform' WHERE `cos_id`= '$cos_id' AND `user_id`='$customer_id'";
-            // echo $address_update;
-            $update_query2=$mysqli->query($address_update);
-            $_SESSION['success'] = "Customer Details Updated Successfully!";
-            header("Location: customers.php");
+        if ($mobile_query['total'] > 0) {
+            $_SESSION['error_message'] = "Another Customer with the same mobile number already exists!";
+            $_SESSION['old_customer'] = $_POST;
+            header("Location: addCustomer.php?customerid=$customer_id");
             exit();
+        }else{
+            try{
+                $customer_update="UPDATE `e_user_details` SET `name`='$c_name', `mobile`='$c_phone',`whatsapp`='$c_whatsapp',`email_id`='$c_email' ,`password`='$c_password',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `id`='$customer_id'";
+                // echo $customer_update;
+                $update_query1=$mysqli->query($customer_update);
+                $address_update="UPDATE `e_address_details` SET `landmark`='$c_street',`area`='$c_area',`address_line_1`='$c_doorno',`name`='$c_name',`mobile`='$c_phone',`pincode`='$c_pincode',`city`='$c_city',`state`='$c_state',`country`='$c_country',`updated_by`='$updated_by',`up_platform`='$platform' WHERE `cos_id`= '$cos_id' AND `user_id`='$customer_id'";
+                // echo $address_update;
+                $update_query2=$mysqli->query($address_update);
+                $_SESSION['success'] = "Customer Details Updated Successfully!";
+                header("Location: customers.php");
+                exit();
+            }
+            catch (mysqli_sql_exception $exception) {
+                mysqli_rollback($mysqli);
+                $update_query1 = false;
+                $update_query2 = false;
+                $err_msg=$exception->getMessage();
+                // echo $err_msg;
+                $_SESSION['error_message'] = $err_msg;
+                header("Location: addCustomer.php?customerid=customer_id");
+                exit();
+            } 
         }
-        catch (mysqli_sql_exception $exception) {
-            mysqli_rollback($mysqli);
-            $update_query1 = false;
-            $update_query2 = false;
-            $err_msg=$exception->getMessage();
-            // echo $err_msg;
-            $_SESSION['error_message'] = $err_msg;
-            header("Location: addCustomer.php?customerid=customer_id");
-            exit();
-        } 
+       
     }
     //Expense Insert
     elseif (isset($_POST["expense_add"])) {
@@ -2108,22 +2156,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vend_address_parts = array_filter($vend_address_parts, function($part) {
             return !empty($part);
         });
-        $v_address = implode(", ", $vend_address_parts);   
-        try{
-            $vendor_update="UPDATE `e_vendor_details` SET `v_name`='$v_name', `business_name`='$business_name', `v_mobile`='$v_mobile', `contact_person`='$contact_person' ,`v_whatsapp`='$v_whatsapp',`gst_no`='$gst_no',`v_address`='$v_address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `v_id`='$vendor_id'";
-            $update_query=$mysqli->query($vendor_update);
-            $_SESSION['success'] = "Vendor Details Updated Successfully!";
-            header("Location: vendors.php");
-            exit();
-        }
-        catch (mysqli_sql_exception $exception) {
-            mysqli_rollback($mysqli);
-            $update_query = false;
-            $err_msg=$exception->getMessage();
-            $_SESSION['error_message'] = $err_msg;
+        $v_address = implode(", ", $vend_address_parts);  
+        $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_user_details` 
+        WHERE `mobile` = '$v_mobile' AND `id` != '$vendor_id'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
+
+        if ($mobile_query['total'] > 0) {
+            $_SESSION['error_message'] = "Another Vendor with the same mobile number already exists!";
+            $_SESSION['old_vendor'] = $_POST;
             header("Location: addVendors.php?vendorid=$vendor_id");
             exit();
-        } 
+        }else{ 
+            try{
+                $vendor_update="UPDATE `e_vendor_details` SET `v_name`='$v_name', `business_name`='$business_name', `v_mobile`='$v_mobile', `contact_person`='$contact_person' ,`v_whatsapp`='$v_whatsapp',`gst_no`='$gst_no',`v_address`='$v_address',`updated_by`='$updated_by', `up_platform`='$platform'  WHERE `cos_id`= '$cos_id' AND `v_id`='$vendor_id'";
+                $update_query=$mysqli->query($vendor_update);
+                $_SESSION['success'] = "Vendor Details Updated Successfully!";
+                header("Location: vendors.php");
+                exit();
+            }
+            catch (mysqli_sql_exception $exception) {
+                mysqli_rollback($mysqli);
+                $update_query = false;
+                $err_msg=$exception->getMessage();
+                $_SESSION['error_message'] = $err_msg;
+                header("Location: addVendors.php?vendorid=$vendor_id");
+                exit();
+            } 
+        }
     }
     //bank add
     elseif (isset($_POST["bank_add"])) { 
@@ -2148,14 +2206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insert_query = false;
                 $err_msg=$exception->getMessage();
                 $_SESSION['error_message'] = $err_msg;
-                $_SESSION['form_data'] = [
-                    'bank_name' => $bank_name,
-                    'account_holder' => $account_holder,
-                    'account_no' => $account_no,
-                    'upi_id' => $upi_id,
-                    'ifsc_code' => $ifsc_code,
-                    'app_status' => $app_status
-                ];        
+                $_SESSION['old_bank']  = $_POST;
                 header("Location: addBank.php");
                 exit();
             } 

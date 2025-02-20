@@ -291,13 +291,13 @@ if(isset($_SESSION['old_combo'])){
                         <div class="form-div">
                             <label for="combo_name" class="form-label"><?php echo $combo;?> Product Name<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="combo_name" class="input_style" placeholder=" Enter <?php echo $combo;?> Product Name"  maxlength="60" autofocus required>
+                                <input type="text" name="combo_name" class="input_style" placeholder=" Enter <?php echo $combo;?> Product Name" value="<?= htmlspecialchars($old_combo['combo_name'] ?? '') ?>"  maxlength="60" autofocus required>
                             </div>
                         </div>
                         <div class="form-div">
                             <label for="sku_id" class="form-label">Model No<span class="star">*</span></label>
                             <div>
-                                <input type="text" name="sku_id"  class="input_style" placeholder="Enter Model No"  maxlength="10" required>
+                                <input type="text" name="sku_id"  value="<?= htmlspecialchars($old_combo['sku_id'] ?? '') ?>" class="input_style" placeholder="Enter Model No"  maxlength="10" required>
                             </div>
                         </div>
                         <div class="img_input">
@@ -307,7 +307,7 @@ if(isset($_SESSION['old_combo'])){
                                 <input type="file" id="combo_img" class="img_upload" name="combo_img" required>
                             </div>
                             <div>
-                                <img id="previewImage"  width="100px"/>
+                                <img id="previewImage" src="../../<?= !empty($combo_img) ? $combo_img : '' ?>"  width="100px"/>
                             </div>
                         </div>
                     </div>
@@ -398,16 +398,18 @@ if(isset($_SESSION['old_combo'])){
                                 <?php
                                     if(!empty($comboProducts)){
                                         foreach ($comboProducts as $index => $combo){
+                                            $prod_name=$mysqli->query("SELECT id,p_title,p_variation,unit FROM `e_product_details` WHERE active=1 AND id=".$combo['product_name']." AND cos_id='$cos_id'")->fetch_assoc();
+        
                                         ?>
                                         <div class="grid-col-4" id="cloneComboProduct">
                                             <div class="form-div">
                                             <label for="pname_<?= $index ?>" class="form-label">Product Name <span class="star">*</span></label>
                                             <div class="search-container">
-                                                <input type="text" placeholder="Search..." class="input_style search-box" name="pname[<?= $index ?>]" value="<?= htmlspecialchars($combo['product_name']) ?>" required>
+                                                <input type="text" placeholder="Search..." class="input_style search-box" name="pname[<?= $index ?>]" value="<?= htmlspecialchars($prod_name['p_title'].' '.$prod_name['p_variation'].' '. $prod_name['unit']) ?? '' ?>" required>
                                                 <div id="dropdown_<?= $index ?>" class="dropdown">
                                                     <!-- Suggestions will be dynamically added here -->
                                                 </div>
-                                                <input type="hidden" id="product-id_<?= $index ?>" name="product-id[<?= $index ?>]" class="product-id">
+                                                <input type="hidden" id="product-id_<?= $index ?>" name="product-id[<?= $index ?>]" class="product-id" value="<?= htmlspecialchars($combo['product_name']) ?>">
                                             </div>
                                             </div>
                                             <div class="form-div">
@@ -476,13 +478,28 @@ if(isset($_SESSION['old_combo'])){
                     
                 </div>
                 <div class="add_btnDiv">
-                    <input type="submit" value="Add <?php echo $combo;?>" class="add_btn" name="combo_add">
+                    <input type="submit" value="Add Combo" class="add_btn" name="combo_add">
                 </div>
             </form>
             <?php } ?>
         </div>
     </div>
 </div>
+<?php
+        if(isset($_SESSION['error_message'])): 
+        ?>
+        <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+        <script>
+    iziToast.error({
+        title: 'Error',
+        message: '<?php echo addslashes($_SESSION['error_message']); ?>',
+        position: 'bottomCenter'
+    });
+</script>
+        <?php
+        unset($_SESSION['error_message']);
+        endif;
+    ?>
     <div>
         <?php
             require_once "logoutpopup.php";

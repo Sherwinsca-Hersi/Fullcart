@@ -16,7 +16,7 @@
 <body>
 <?php 
 if(isset($_SESSION['old_profile'])){
-    $old_product_data = $_SESSION['old_profile'] ?? [];
+    $old_profile = $_SESSION['old_profile'] ?? [];
 
     $add_logo_img = $_SESSION['old_profile']['add_logo_img'];
 
@@ -288,7 +288,7 @@ if(isset($_SESSION['old_profile'])){
                 <div class="file_upload">
                     <i class="fa-3x fa fa-search" aria-hidden="true"></i>
                     <span>Upload Logo Image</span>
-                    <input type="file" id="add_logo_img" class="img_upload" name="add_logo_img">
+                    <input type="file" id="add_logo_img" class="img_upload" name="add_logo_img" required>
                 </div>
                 <div>
                     <img id="previewImage"  src="../../<?= !empty($add_logo_img) ? $add_logo_img : '' ?>" width="100px"/>
@@ -322,7 +322,7 @@ if(isset($_SESSION['old_profile'])){
                         <div class="form-div">
                             <label for="mobile2" class="form-label">Contact No 2</label>
                             <div>
-                                <input type="text" name="mobile2"  class="input_style" value="<?= htmlspecialchars($old_profile['mobile2'] ?? '') ?>"  placeholder="Enter Contact 2" maxlength="15" required>
+                                <input type="text" name="mobile2"  class="input_style" value="<?= htmlspecialchars($old_profile['mobile2'] ?? '') ?>"  placeholder="Enter Contact 2" maxlength="15">
                             </div>
                         </div>
                         <div class="form-div">

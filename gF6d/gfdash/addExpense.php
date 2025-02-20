@@ -14,7 +14,7 @@
 <body>
 <?php 
 if(isset($_SESSION['old_expense'])){
-    $old_category = $_SESSION['old_expense'] ?? [];
+    $old_expense = $_SESSION['old_expense'] ?? [];
 
     $exp_img = $_SESSION['old_expense']['exp_img'];
 

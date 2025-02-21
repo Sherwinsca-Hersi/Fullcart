@@ -337,7 +337,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $fields1 = "`cos_id`,`sku_id`,`barcode`,`cat_id`,`sub_cat_id`,`p_img`,`p_title`,`p_variation`,`unit`,`brand`,`p_desc`,`active`,`is_loose`,`reorder_level`,`emergency_level`,`platform`";
                     $values1 = "'$cos_id','$sku_id','$barcode','$pcategory','$psub_category','$targetFile','$p_title','$p_variation','$unit','$brand','$p_desc','$p_status','$is_loose','$reorder_level','$emergency_level','$platform'";
     
-                    $product_insert = "INSERT INTO e_product_detail ($fields1) VALUES ($values1)";
+                    $product_insert = "INSERT INTO e_product_details ($fields1) VALUES ($values1)";
 
                     $insert_query = $mysqli->query($product_insert);
     
@@ -566,7 +566,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // echo $sku_id;
             $fields1="`cos_id`,`sku_id`,`c_img`,`title`,`offer_amt`,`from_qty`,`to_qty`,`bulk_price`,`created_by`,`platform`";
             $values1="'$cos_id','$sku_id','$targetFile','$combo_name','$offer_amt','$fromQty','$toQty','$price','$created_by','$platform'";              
-            $combo_insert="INSERT INTO  `e_data_collections` ($fields1) VALUES ($values1)";
+            $combo_insert="INSERT INTO  `e_data_collection` ($fields1) VALUES ($values1)";
             // echo $combo_insert;
             $insert_query1=$mysqli->query($combo_insert);
             $combo_id=$mysqli->insert_id;
@@ -2157,8 +2157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return !empty($part);
         });
         $v_address = implode(", ", $vend_address_parts);  
-        $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_user_details` 
-        WHERE `mobile` = '$v_mobile' AND `id` != '$vendor_id'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
+        $mobile_query = $mysqli->query("SELECT count(*) as total FROM `e_vendor_details` 
+        WHERE `v_mobile` = '$v_mobile' AND `v_id` != '$vendor_id'  AND active!=2 AND cos_id='$cos_id'")->fetch_assoc();
 
         if ($mobile_query['total'] > 0) {
             $_SESSION['error_message'] = "Another Vendor with the same mobile number already exists!";

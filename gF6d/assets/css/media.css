@@ -911,9 +911,7 @@
     float: right;
     margin-right: 7em;
 }
- .form-div label{
-    padding:1em 0.6em;
-}
+
 #data{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -1253,9 +1251,7 @@
     float: right;
     margin-right: 7em;
 }
- .form-div label{
-    padding:1em 0.6em;
-}
+
 .preview_popup{
     width: 60vw;
     height: 80vh;
@@ -1594,9 +1590,7 @@
     float: right;
     margin-right: 7em;
 }
- .form-div label{
-    padding:1em 0.6em;
-}
+
 .preview_popup{
     width: 60vw;
     height: 80vh;
@@ -1939,9 +1933,7 @@
     float: right;
     margin-right: 7em;
 }
- .form-div label{
-    padding:1em 0.6em;
-}
+
 .preview_popup{
     width: 60vw;
     height: 80vh;
@@ -2291,9 +2283,7 @@
     float: right;
     margin-right: 7em;
 }
- .form-div label{
-    padding:1em 0.6em;
-}
+
 .preview_popup{
     width: 60vw;
     height: 80vh;

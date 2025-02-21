@@ -1479,20 +1479,28 @@ input[type="checkbox"]::before {
     background-color: var(--font-color);
     cursor:pointer;
 }
+
 .checkbox_div{
-    width: 5em;
+    width: 10em;
     height: auto;
     padding: 1em;
-}
-.role_checkbox{
     display: grid;
-    grid-template-columns:repeat(2,0.5fr);
-    row-gap: 0.7em;
-    column-gap: 0;
 }
-.role_checkbox input {
-    width: 50px;
+
+.role_checkbox {
+    width: 5em;
+    display: flex;
+    flex-direction: column; 
+    gap: 5px; 
 }
+.role_label{
+    padding: 0 !important;
+}
+input[type="checkbox"]{
+    width: 1em;
+    height: 1em;
+}
+
 .grid_col{
     display: grid;
     grid-template-columns: repeat(2,1fr);

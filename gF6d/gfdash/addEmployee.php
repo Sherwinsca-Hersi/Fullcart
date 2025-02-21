@@ -125,9 +125,11 @@ if(isset($_SESSION['old_employee'])){
                             <div class="role_checkbox">
                             <?php
                                 foreach ($roles as $role) {
-                                    $checked = in_array($role['id'], $selected_roles) ? 'checked' : '';
-                                    echo '<input type="checkbox" name="role[]" class="input_style" value="' . $role['id'] . '" ' . $checked . '>';
-                                    echo htmlspecialchars($role['role_title']) . '<br>';
+                                $checked = in_array($role['id'], $selected_roles) ? 'checked' : '';
+                                echo '<label class="role_label">
+                                        <input type="checkbox" name="role[]" class="input_style" value="' . $role['id'] . '" ' . $checked . '>
+                                        <span>' . htmlspecialchars($role['role_title']) . '</span>
+                                    </label>';
                                 }
                             ?>
                             </div>
@@ -417,26 +419,25 @@ if(isset($_SESSION['old_employee'])){
                             <label for="role" class="form-label">Other Roles</label>
                             <div class="checkbox_div">
                                 <div class="role_checkbox">
-                                    <?php
+                                <?php
+                                    $role_query = "SELECT id,role_title FROM `e_salesman_role`
+                                    WHERE active!=2 AND cos_id = '$cos_id' ORDER BY role_title ASC";
 
-                                     $role_query="SELECT id,role_title FROM `e_salesman_role`
-                                         WHERE active!=2 AND cos_id = '$cos_id' ORDER BY role_title ASC";
+                                    $roles = $mysqli->query($role_query);
 
-                                     $roles = $mysqli->query($role_query);
+                                    $selected_roles = isset($old_employee['role']) ? (array) $old_employee['role'] : [];
 
-                                     // Retrieve selected roles from session, ensuring it's an array
-                                     $selected_roles = isset($old_employee['role']) ? (array) $old_employee['role'] : [];
-                                 
-                                     while ($row = $roles->fetch_assoc()) {
-                                         $role_id = $row['id'];
-                                         $role_title = htmlspecialchars($row['role_title']);
-                                         
-                                         // Check if the current role ID exists in the session's selected roles
-                                         $isChecked = in_array($role_id, $selected_roles) ? 'checked' : '';
-                                 
-                                         echo '<input type="checkbox" name="role[]" class="input_style" value="' . $role_id . '" ' . $isChecked . '> ' . $role_title . '<br>';
+                                    while ($row = $roles->fetch_assoc()) {
+                                        $role_id = $row['id'];
+                                        $role_title = htmlspecialchars($row['role_title']);
+                                        $isChecked = in_array($role_id, $selected_roles) ? 'checked' : '';
+
+                                        echo '<label class="role_label">
+                                            <input type="checkbox" name="role[]" class="input_style" value="' . $role_id . '" ' . $isChecked . '>
+                                            <span>' . $role_title . '</span>
+                                        </label>';
                                     }
-                                 ?>
+                                ?>
                                 </div>
                             </div>
                         </div>

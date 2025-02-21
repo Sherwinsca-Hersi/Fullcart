@@ -41,7 +41,7 @@
 			if(isset($_GET['customerid']))
 			{
                 $data = $mysqli->query("SELECT  `id`, `name`, `mobile`, `email_id`, `password`, `whatsapp`,`wallet` FROM `e_user_details`  WHERE 
-                                         id=".$_GET['customerid']." AND cos_id = '$cos_id' ")->fetch_assoc();
+                                         id=".$_GET['customerid']." AND cos_id = '$cos_id'")->fetch_assoc();
 
                 $cust_address=$mysqli->query("SELECT  `id`, `user_id`, `area`,`pincode`, `address_line_1`,`landmark`,  
                                         `name`, `mobile`, `city`, `state`, `address_line_2`,  `country` FROM `e_address_details` 

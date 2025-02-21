@@ -225,7 +225,7 @@ if(isset($_SESSION['old_combo'])){
                                         FROM e_product_details pd
                                         JOIN e_product_stock ps ON ps.s_product_id = pd.id AND ps.active = 1 
                                         AND pd.active = 1 AND pd.cos_id = '$cos_id' AND ps.cos_id = pd.cos_id
-                                        WHERE pd.id = {$combo_prod['prod_id']} ORDER BY pd.id DESC;")->fetch_assoc();
+                                        WHERE pd.id = {$combo_prod['prod_id']} ORDER BY pd.id DESC")->fetch_assoc();
                                 ?>
                     <div class="form-div">
                         <label for="pname" class="form-label">Product Name</label>
@@ -507,7 +507,10 @@ if(isset($_SESSION['old_combo'])){
     </div>
 <?php
 $product_name=[];
-$product = $mysqli->query("SELECT `id`,`p_title`, `p_variation`,`unit` FROM `e_product_details` WHERE active=1 and type!=2 and cos_id='$cos_id' ORDER BY p_title");
+$product = $mysqli->query("SELECT pd.id, pd.p_title, pd.p_variation, pd.unit FROM `e_product_details` 
+ pd JOIN e_product_stock ps ON ps.s_product_id = pd.id AND ps.active = 1 
+AND pd.active = 1 AND pd.cos_id = '$cos_id' AND ps.cos_id = pd.cos_id ORDER BY p_title");
+
 while($row = $product->fetch_assoc()){
     $product_name[]=$row; 
 }

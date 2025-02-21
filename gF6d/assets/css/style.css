@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 :root {
     /* font-size */
-
     --big-font-size: 2.5rem;
     --h1-font-size: 1.5rem;
     --h2-font-size: 1.25rem;
@@ -13,7 +12,7 @@
     --font-medium: 500;
     --font-semi-bold: 600;
 
-       /* color */
+    /* color */
 
     /* colors to be changed */
     --theme-color:#770FA0;
@@ -22,8 +21,8 @@
 
 
     --secondary-theme-color:#dcc5e5;
-    /* --secondary-theme-color: #e2f8c4; */
-    /* --secondary-theme-color: #b7b7ed; */
+    --secondary-theme-color: #e2f8c4;
+    --secondary-theme-color: #b7b7ed;
 
     --rightbar-color: #f8f9fa;
     /* --rightbar-color:#f7f7f8; */
@@ -42,13 +41,15 @@
     /* --radio-btn-color: #5a7821; */
     /* --radio-btn-color : var(--theme-color); */
 
+
     --add-stock-btn: #c191d3;
     /* --add-stock-btn: #e6f0d8; */
     /* --add-stock-btn: #6d6b8b; */
 
+    
+    --thead-background: #712a8e;
     /* --thead-background: #71a426; */
-    /* --thead-background: #712a8e; */
-    --thead-background: var(--theme-color);
+    /* --thead-background: var(--theme-color); */
 
 
     --btn-font-color: white;
@@ -60,6 +61,12 @@
     --active-color: var(--theme-color);
     /* --active-color: var(--paginate-button-color); */
     /* --active-color: red; */
+
+    --sidemenu-color: black;
+    /* --sidemenu-color: var(--theme-color); */
+
+
+   
 
     --sidebar-font-color:white;
     --card-background:rgba(255, 255, 255, 1);
@@ -120,6 +127,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -180,7 +189,8 @@ thead tr{
 
 /* Multiple Image */
 
-#previewContainer {
+
+   #previewContainer {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -192,28 +202,18 @@ thead tr{
     display: inline-block;
 }
 
+
 .delete-button {
     position: absolute;
     top: 5px;
     right: 5px;
-    color: white;
+    /* background-color: rgba(0, 0, 0, 0.6); */
+    color: var(--font-color);
     border: none;
     border-radius: 50%;
-    padding: 8px 12px;
+    padding: 5px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
-    background-color: #ff4d4d;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.delete-button:hover {
-    background-color: #e60000; /* Darker red on hover */
-    transform: scale(1.1); /* Slight zoom effect */
-}
-
-.delete-button:active {
-    transform: scale(0.95); /* Slight press effect */
 }
 
 
@@ -750,15 +750,15 @@ label #cancel {
     align-items: center;
     text-align: left;
 }
-.top_products_unavailable{
-    display: grid;
-    align-items: center;
-    justify-content: center;
-}
 .top_products img{
     width: 100px;
     height: 100px;
     margin-left: 5%;
+}
+.top_products_unavailable{
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
 .top_products h4,.top_products h4{
     white-space: nowrap;
@@ -938,10 +938,6 @@ table.dataTable.no-footer {
     margin: 0;
     border: 0.001px solid var(--table-border-color) !important;
 }
-
-#example thead th{
-    color: var(--sidebar-font-color);
-}
 #example tbody th,#example1 tbody th{
     border-color: var(--white-smoke-color);
     border-bottom: var(--white-smoke-color);
@@ -1116,7 +1112,6 @@ table.dataTable.no-footer {
 /* .download_btn,.print_btn{
     float:right !important;
 } */
-
 .order_preview_btns{
     float: right !important;
     margin: 2em;
@@ -1485,19 +1480,24 @@ input[type="checkbox"]::before {
     cursor:pointer;
 }
 .checkbox_div{
-    width: 5em;
+    width: 10em;
     height: auto;
     padding: 1em;
-}
-.role_checkbox{
     display: grid;
-    grid-template-columns:repeat(2,0.5fr);
-    row-gap: 0.7em;
-    column-gap: 0;
-    white-space: nowrap;
 }
-.role_checkbox input {
-    width: 50px;
+
+.role_checkbox {
+    width: 5em;
+    display: flex;
+    flex-direction: column; 
+    gap: 5px; 
+}
+.role_label{
+    padding: 0 !important;
+}
+input[type="checkbox"]{
+    width: 1em;
+    height: 1em;
 }
 .grid_col{
     display: grid;
@@ -1742,7 +1742,7 @@ input[id="barcode"],input[id="batch_no"]{
 }
 .addstock_form  .grid_col .grid-col-1,.addstock_form  .grid_col .grid-col-2{
     display: grid;
-    grid-template-columns: 1.5fr 1.5fr repeat(6,1fr);
+    grid-template-columns: 1.5fr 1.5fr repeat(7,1fr);
     align-items: center;
     margin: 0;
 }
@@ -1922,30 +1922,15 @@ td div select{
 }
 .product_preview_head th{
     padding: 1em;
+    color: var(--font-color);
     font-weight: bold;
 }
-
 .preview_body_text td{
     padding: 0.5em;
     color: var(--font-color);
-    height: fit-content;
 }
-.preview_body_text td:nth-child(2){
-    padding: 0.5em;
-    color: var(--font-color);
-    white-space: wrap;
-    width: 6em;
-    max-width: 5em;
-}
-.preview_body_text td:nth-child(2) .imprint{
-    white-space: wrap;
-    font-size: 0.9em;
-    word-wrap: break-word;
-    font-weight: bold !important;
-}
-.imprint{
-    font-weight: bold !important;
-}
+
+
 .order_btns{
     display:flex;
     justify-content:center;
@@ -1960,7 +1945,7 @@ td div select{
 
 .order_btn{
     background-color: var(--card-title-color);
-    color: var(--sidebar-font-color);
+    color: var(--font-color);
 }
 
 .open_popup{
@@ -2205,7 +2190,7 @@ td div select{
     width: 15vw;
     height:100vh;
     padding: 1em;
-    background-color: black;
+    background-color: var(--sidemenu-color);
     color: var(--sidebar-font-color);
     float: left;
     font-weight: bold;
@@ -2360,6 +2345,7 @@ td div select{
     margin-top: 20px;
 }
 
+
 /* Feedback  */
 
 .fixed-top-container {
@@ -2479,46 +2465,6 @@ td div select{
     text-align: right;
 }
 
-.not_found_image{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 80vw;
-    height: 70vh;
-}
-
-/* Star Rating */
-
-.star-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.star_rating {
-  font-size: 2rem;
-  color: #ccc; /* Default empty star color */
-}
-
-.filled {
-  color: #ffca08; /* Filled star color */
-}
-
-.half-filled {
-  color: #ffca08; /* Half-filled star color */
-  position: relative;
-}
-
-.half-filled::after {
-  content: '\\2605'; /* Unicode for star */
-  color: #ccc;
-  position: absolute;
-  left: 0;
-  width: 50%; /* Covers half of the star */
-  overflow: hidden;
-  display: inline-block;
-}
-
 
 /* Input Container */
 .message-input-container {
@@ -2566,7 +2512,13 @@ td div select{
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add hover shadow */
 }
 
-
+.not_found_image{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 70vh;
+}
 
 
 

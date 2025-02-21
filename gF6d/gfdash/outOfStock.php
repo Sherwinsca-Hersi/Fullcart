@@ -88,18 +88,34 @@
                         <td><?php 
                             echo $out_Stock['emergency_level']??'N/A'; 
                         ?></td>
-                        <td data-sort='<?php echo date_format(date_create($out_Stock['created_ts']), "Ymd"); ?>'>
-                            <?php 
-                                $date = date_create($out_Stock['created_ts']);
-                                echo date_format($date, "d/m/Y h:i A");
-                            ?>
-                        </td>
-                        <td data-sort='<?php echo date_format(date_create($out_Stock['updated_ts']), "Ymd"); ?>'>
-                            <?php 
-                                $date = date_create($out_Stock['updated_ts']);
-                                echo date_format($date, "d/m/Y h:i A");
-                            ?>
-                        </td>
+                        <td data-sort='<?php echo !empty($out_Stock['created_ts']) ? date('Ymd', strtotime($out_Stock['created_ts'])) : ''; ?>'>
+    <?php 
+        if (!empty($out_Stock['created_ts'])) {
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $out_Stock['created_ts']);
+            if ($date) {
+                echo $date->format('d/m/Y h:i A');
+            } else {
+                echo "Invalid Date";
+            }
+        } else {
+            echo "-";
+        }
+    ?>
+</td>
+                       <td data-sort='<?php echo !empty($out_Stock['updated_ts']) ? date('Ymd', strtotime($out_Stock['updated_ts'])) : ''; ?>'>
+    <?php 
+        if (!empty($out_Stock['updated_ts'])) {
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $out_Stock['updated_ts']);
+            if ($date) {
+                echo $date->format('d/m/Y h:i A');
+            } else {
+                echo "Invalid Date";
+            }
+        } else {
+            echo "-";
+        }
+    ?>
+</td>
                     </tr>
                     <?php
                     $i++;

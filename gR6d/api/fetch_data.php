@@ -152,35 +152,25 @@ while ($low_qty = $low_stock_products->fetch_assoc()) {
 //Out Of Stock Products
 
 $out_stock_products=$mysqli->query("SELECT 
-    pd.id, 
-    pd.p_title, 
-    pd.p_variation, 
-    pd.unit, 
-    pd.sku_id, 
-    pd.reorder_level, 
-    pd.emergency_level, 
-    ps.s_product_id, 
-    ps.s_batch_no, 
-    ps.s_mrp, 
-    ps.in_price, 
-    ps.s_out_price, 
-    ps.s_expiry_date, 
-    ps.stock_bill, 
-    ps.qty, 
-    pp.qty_left,
-    ps.updated_ts, 
-    ps.created_ts
-FROM e_product_details pd 
-LEFT JOIN e_product_stock ps 
-    ON ps.s_product_id = pd.id 
-    AND ps.cos_id = pd.cos_id 
-    AND (ps.active IS NULL OR ps.active != 1)
-LEFT JOIN e_product_price pp 
-    ON pp.product_id = ps.s_product_id  
-    AND pp.cos_id = ps.cos_id
-WHERE pd.cos_id = '$cos_id' 
-AND (pp.qty_left = 0 OR pp.qty_left IS NULL)
-ORDER BY ps.s_id DESC LIMIT 5");
+    pd.id, pd.p_title, pd.p_variation, pd.unit, 
+    pd.sku_id, pd.reorder_level, pd.emergency_level, 
+    ps.s_product_id, ps.s_batch_no, ps.s_mrp, ps.in_price, 
+    ps.s_out_price, ps.s_expiry_date, ps.stock_bill, ps.qty, 
+    ps.updated_ts, ps.created_ts,
+    pp.qty_left 
+FROM 
+    e_product_details pd
+LEFT JOIN 
+    e_product_stock ps 
+    ON ps.s_product_id = pd.id
+LEFT JOIN 
+    e_product_price pp 
+    ON pp.product_id = pd.id  
+WHERE 
+    pd.cos_id = '$cos_id'
+    AND (ps.s_product_id IS NULL OR ps.active != 1)
+ORDER BY 
+    ps.s_id DESC LIMIT 5");
 
 $out_stock_prod = [];
 while ($out_qty = $out_stock_products->fetch_assoc()) {
@@ -408,35 +398,25 @@ while($missing_qty=$missing_stock_query->fetch_assoc()){
 //Out of Stock
 
 $out_stock_query=$mysqli->query("SELECT 
-    pd.id, 
-    pd.p_title, 
-    pd.p_variation, 
-    pd.unit, 
-    pd.sku_id, 
-    pd.reorder_level, 
-    pd.emergency_level, 
-    ps.s_product_id, 
-    ps.s_batch_no, 
-    ps.s_mrp, 
-    ps.in_price, 
-    ps.s_out_price, 
-    ps.s_expiry_date, 
-    ps.stock_bill, 
-    ps.qty, 
-    pp.qty_left,
-    ps.updated_ts, 
-    ps.created_ts
-FROM e_product_details pd 
-LEFT JOIN e_product_stock ps 
-    ON ps.s_product_id = pd.id 
-    AND ps.cos_id = pd.cos_id 
-    AND (ps.active IS NULL OR ps.active != 1)
-LEFT JOIN e_product_price pp 
-    ON pp.product_id = ps.s_product_id  
-    AND pp.cos_id = ps.cos_id
-WHERE pd.cos_id = '$cos_id' 
-AND (pp.qty_left = 0 OR pp.qty_left IS NULL)
-ORDER BY ps.s_id DESC");
+    pd.id, pd.p_title, pd.p_variation, pd.unit, 
+    pd.sku_id, pd.reorder_level, pd.emergency_level, 
+    ps.s_product_id, ps.s_batch_no, ps.s_mrp, ps.in_price, 
+    ps.s_out_price, ps.s_expiry_date, ps.stock_bill, ps.qty, 
+    ps.updated_ts, ps.created_ts,
+    pp.qty_left 
+FROM 
+    e_product_details pd
+LEFT JOIN 
+    e_product_stock ps 
+    ON ps.s_product_id = pd.id
+LEFT JOIN 
+    e_product_price pp 
+    ON pp.product_id = pd.id  
+WHERE 
+    pd.cos_id = '$cos_id'
+    AND (ps.s_product_id IS NULL OR ps.active != 1)
+ORDER BY 
+    ps.s_id DESC");
 
 $outOfStock=[];
 while($out_of_stock_products=$out_stock_query->fetch_assoc()){

@@ -80,7 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['old_banner']['b_img'] = $targetFile; 
                 // echo $targetFile;
                 header("Location: addBanner.php");
-                header("Location: addBanner.php");
                 exit();
             }
             
@@ -867,7 +866,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 $product_id=trim($_POST['stock_prod_id']);
 		        $tstock = trim($_POST['tstock']);
-                $is_loose=$mysqli->query("SELECT is_loose FROM e_product_details WHERE id='$product_id' AND active=1 AND cos_id = '$cos_id'")->fetch_assoc();
+                $is_loose=$mysqli->query("SELECT is_loose FROM e_product_details WHERE id='$product_id' 
+                AND active=1 AND cos_id = '$cos_id'")->fetch_assoc();
                 if($is_loose['is_loose']==1){
                     $tstock = $tstock * 1000;
                 }
@@ -893,13 +893,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                 $targetFile=substr($targetFile,6);
             }
-            $batchno_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` WHERE s_batch_no='$batch_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
+            $batchno_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` 
+                WHERE s_batch_no='$batch_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
+            $invoice_query = $mysqli->query("SELECT count(*) as total FROM `e_product_stock` 
+                WHERE invoice_no='$invoice_no' AND active=1 AND cos_id='$cos_id'")->fetch_assoc();
+                
             if($batchno_query['total'] > 0){
                 $_SESSION['error_message'] = "Stock With Same Batch No already exists!";
                 $_SESSION['old_stock']['stock_bill'] = $targetFile; 
                 header("Location: inventory_addStock.php");
                 exit();
-            } else {
+            } 
+            else  if($invoice_query['total'] > 0){
+                $_SESSION['error_message'] = "Stock With Same Invoice No already exists!";
+                $_SESSION['old_stock']['stock_bill'] = $targetFile; 
+                header("Location: inventory_addStock.php");
+                exit();
+            }
+            else {
                 try{
                     $fields1 = "`cos_id`, `invoice_no`,`stock_bill`,  `supplier_id`,`created_by`,`platform`";
                     $values1 = "'$cos_id', '$invoice_no', '$targetFile', '$supplier_id','$created_by','$platform'";

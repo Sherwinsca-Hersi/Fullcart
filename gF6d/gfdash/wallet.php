@@ -51,6 +51,7 @@
         <tr>
             <th><input type="checkbox" class="check_value checkbox_thead" name="checkbox">&emsp;S.No</th>
             <th>Wallet Customer Name</th>
+            <th>Customer Mobile No</th>
             <th>Wallet Amount</th>
             <!-- <th>Amount Type</th> -->
             <th>Wallet Balance</th>
@@ -66,8 +67,11 @@
                 <!-- <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $wallet_detail['id']?>"?>">&emsp;<?php echo $i; ?></td> -->
                 <td><?php echo $i; ?></td>
                 <td><?php 
-                    $data=$mysqli->query("SELECT name FROM `e_user_details` WHERE cos_id='$cos_id' AND id=".$wallet_detail['u_id']."")->fetch_assoc();                
-                echo $data['name']; ?></td>
+                    $customer=$mysqli->query("SELECT name FROM `e_user_details` WHERE cos_id='$cos_id' AND id=".$wallet_detail['u_id']."")->fetch_assoc();                
+                echo $customer['name']; ?></td>
+                <td><?php 
+                    $data=$mysqli->query("SELECT mobile FROM `e_user_details` WHERE cos_id='$cos_id' AND id=".$wallet_detail['u_id']."")->fetch_assoc();                
+                echo $data['mobile']; ?></td>
                 <td><?php echo $wallet_detail['amt']; ?></td>
                 <!-- <td><?php echo $wallet_detail['amt_type'] ?? 'N/A'; ?></td> -->
                 <td><?php echo $wallet_detail['balance'] ?? 'N/A'; ?></td>   

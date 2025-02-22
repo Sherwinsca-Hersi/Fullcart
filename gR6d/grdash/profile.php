@@ -81,13 +81,15 @@
                 <td><?php echo $profile_detail['email_id'] ?? 'N/A'; ?></td>
                 <td><?php echo $profile_detail['gst_no'] ?? 'N/A'; ?></td>
                 <td><?php echo $profile_detail['address'] ?? 'N/A'; ?></td>  
-                <td><?php if($profile_detail['active']==1){
-                    echo "Active";
-                }elseif($profile_detail['active']==0){
-                    echo "Inactive";
-                }
-                ?></td>
-                    
+                <td class="<?php echo ($profile_detail['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                    <?php  
+                        if($profile_detail['active']==1){
+                            echo  "Active"; 
+                        }else{
+                            echo "Inactive";
+                        }
+                    ?>
+                </td>   
             </tr>
         <?php
         $i++;

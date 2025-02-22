@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
     function fetchData() {
         const formattedStartDate = formatDate(currentStartDate);
         const formattedEndDate = formatDate(currentEndDate);

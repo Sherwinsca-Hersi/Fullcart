@@ -65,6 +65,11 @@
     --sidemenu-color: black;
     /* --sidemenu-color: var(--theme-color); */
 
+    --success-color : #41bc41;
+    --error-color : #e03748;
+
+    
+
 
    
 
@@ -89,6 +94,8 @@
     --snackbar-success-color:#5cb85c;
     --table-border-color: rgb(247, 247, 247);
     --file-upload-color:rgba(243, 243, 242, 1);
+    --success-color : #28A745;
+    --error-color : #DC3545;
 }
 
 /*scrollbar style*/
@@ -134,7 +141,7 @@
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
+}
 
 a{
     text-decoration: none;
@@ -143,8 +150,21 @@ a{
 .star{
     color: var(--required-color);
     font-size: 1em;
-    /* width: 1.5em;
-    height: 1.5em; */
+}
+.center_align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.success_style{
+    color : var(--success-color);
+    font-weight: bold;
+    font-size: var(--medium-font-size);
+}
+.error_style{
+    color : var(--error-color);
+    font-weight: bold;
+    font-size: var(--medium-font-size);
 }
 form label.no-sup:after {
     content: "\00a0"; 

@@ -1,3 +1,6 @@
+<?php
+    require 'session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,11 +52,15 @@
                     <tr class="<?php echo ($i % 2 === 0)? 'teven' : 'todd';?>">
                         <td><input type="checkbox" class="check_value checkbox_tdef" name="checkbox" data-id="<?php echo $unit['id']; ?>">&emsp;<?php echo $i; ?></td>
                         <td><?php echo $unit['unit']; ?></td>
-                        <?php if($unit['active'] == 1) { ?>
-                            <td><div class="badge badge-success">Published</div></td>
-								<?php } else { ?>
-							<td><div class="badge badge-danger">Unpublished</div></td>
-								<?php } ?>
+                        <td class="<?php echo ($unit['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($unit['active']==1){
+                                    echo  "Published"; 
+                                }else{
+                                    echo "Unpublished";
+                                }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                         $i++;

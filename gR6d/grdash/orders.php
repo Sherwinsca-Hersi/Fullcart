@@ -390,15 +390,18 @@ if (isset($_SESSION['toast'])) {
                                                 <td><?php echo $online_order['name']; ?></td>
                                                 <td><?php echo number_format((double)$online_order['o_total'], 2, '.', ''); ?></td>
                                                 <td><?php 
-                                                if($online_order['p_method_id']==1){
-                                                    echo "RazorPay";
-                                                }
-                                                else if($online_order['p_method_id']==2){
-                                                    echo "COD";
-                                                }
-                                                else{
-                                                    echo "N/A";
-                                                }
+                                                    if($online_order['p_method_id']==1){
+                                                        echo "RazorPay";
+                                                    }
+                                                    else if($online_order['p_method_id']==2){
+                                                        echo "COD";
+                                                    }
+                                                    else if($online_order['p_method_id']==5){
+                                                        echo "Wallet";
+                                                    }
+                                                    else{
+                                                        echo "N/A";
+                                                    }
                                                 ?>
                                                </td>
                                                 <td><?php echo $online_order['trans_id'];?></td>
@@ -868,6 +871,9 @@ if (isset($_SESSION['toast'])) {
                                                 }
                                                 else if($online_order['p_method_id']==2){
                                                     echo "COD";
+                                                }
+                                                else if($online_order['p_method_id']==5){
+                                                    echo "Wallet";
                                                 }
                                                 else{
                                                     echo "N/A";

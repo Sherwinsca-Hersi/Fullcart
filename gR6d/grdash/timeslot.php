@@ -56,11 +56,15 @@
                         <td><?php echo $timeslot_detail['min_time']; ?></td>
                         <td><?php echo $timeslot_detail['max_time'];?></td>
                         <td><?php echo $timeslot_detail['slot_limit']??'N/A';?></td>
-                        <?php if($timeslot_detail['active'] == 1) { ?>
-                            <td><div class="badge badge-success">Published</div></td>
-								<?php } else { ?>
-							<td><div class="badge badge-danger">Unpublished</div></td>
-								<?php } ?>
+                        <td class="<?php echo ($timeslot_detail['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($timeslot_detail['active']==1){
+                                    echo  "Published"; 
+                                }else{
+                                    echo "Unpublished";
+                                }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                         $i++;

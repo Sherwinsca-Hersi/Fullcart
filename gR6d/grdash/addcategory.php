@@ -88,7 +88,7 @@ if(isset($_SESSION['old_category'])){
                             <label for="cat_status" class="form-label">Category Status</label>
                             <div class="radio_btn_div">
                                 <input type="radio" name="cat_status" class="input_style" value="1" <?php if($data['active']==1){echo "checked";}?>>Published
-                                <input type="radio" name="cat_status" class="input_style" value="2" <?php if($data['active']==0){echo "checked";}?>>Unpublished
+                                <input type="radio" name="cat_status" class="input_style" value="0" <?php if($data['active']==0){echo "checked";}?>>Unpublished
                             </div>
                         </div>
                     </div>

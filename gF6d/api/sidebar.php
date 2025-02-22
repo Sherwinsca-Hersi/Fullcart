@@ -99,6 +99,7 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
                     <a href="subcategory.php" class="submenu-link" data-url="subcategory.php">Product Subcategories</a>
                     <a href="level.php" class="submenu-link" data-url="level.php">Reorder/Low Stock Level</a>
                     <a href="combo.php" class="submenu-link" data-url="combo.php">Combo</a>
+                    <a href="productReviews.php" class="submenu-link" data-url="combo.php">Product Reviews</a>
                 </div>
             </div>
     <?php 
@@ -186,7 +187,7 @@ if(isset($_SESSION['mobile']) && isset($_SESSION['password'])){
                 <!-- <a href="employee.php" class="submenu-link" data-url="employee.php">Employees</a> -->
                 <a href="banners.php" class="submenu-link" data-url="banners.php">Banners</a>
                 <a href="coupons.php" class="submenu-link" data-url="coupons.php">Coupons</a>
-                <a href="unit.php" class="submenu-link" data-url="unit.php">Units</a>
+                <!-- <a href="unit.php" class="submenu-link" data-url="unit.php">Units</a> -->
                 <!-- <a href="category.php" class="submenu-link" data-url="category.php">Product Categories</a> -->
                 <!-- <a href="subcategory.php" class="submenu-link" data-url="subcategory.php">Product Subcategories</a> -->
                 <!-- <a href="level.php" class="submenu-link" data-url="level.php">Reorder/Low Stock Level</a> -->

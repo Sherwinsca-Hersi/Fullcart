@@ -55,7 +55,6 @@
             <th>Product Variation</th>
             <th>Reorder Level</th>
             <th>Low Stock Alert</th>
-            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -70,13 +69,6 @@
                 <td><?php echo $product_detail['p_variation']." ".$product_detail['unit']; ?></td>
                 <td><?php echo $product_detail['reorder_level'] ?? 'N/A'; ?></td>
                 <td><?php echo $product_detail['emergency_level'] ?? 'N/A'; ?></td>
-                <td>
-                    <?php if($product_detail['active'] == 1) { ?>
-                        <div class="badge badge-success">Published</div>
-                    <?php } else { ?>
-                        <div class="badge badge-danger">Unpublished</div>
-                    <?php } ?>
-                </td>
             </tr>
         <?php
         $i++;

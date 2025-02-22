@@ -71,17 +71,15 @@
                 <td><?php echo $wallet_detail['amt']; ?></td>
                 <!-- <td><?php echo $wallet_detail['amt_type'] ?? 'N/A'; ?></td> -->
                 <td><?php echo $wallet_detail['balance'] ?? 'N/A'; ?></td>
-                <td><?php  if($wallet_detail['status']=='Credit'){
-                    echo  "Credit"; 
-                }
-                else if($wallet_detail['status']=='Debit'){
-                    echo "Debit";
-                }
-                else{
-                    echo 'N/A';
-                }
-                ?>
-                </td>                
+                <td class="<?php echo ($wallet_detail['status'] == 'Credit') ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($wallet_detail['status']=='Credit'){
+                                    echo  "Credit"; 
+                                }else{
+                                    echo "Debit";
+                                }
+                            ?>
+                        </td>        
             </tr>
         <?php
         $i++;

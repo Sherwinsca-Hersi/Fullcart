@@ -116,7 +116,8 @@
     }
 ?></td>
                         <?php 
-                            $cust_order_query=$mysqli->query("SELECT created_ts,subtotal FROM `e_normal_order_details` WHERE cos_id='$cos_id' and active=1 and u_id=".$customer_detail['id']." ORDER BY created_ts DESC LIMIT 1")->fetch_assoc();
+                            $cust_order_query=$mysqli->query("SELECT created_ts,subtotal FROM `e_normal_order_details`
+                            WHERE cos_id='$cos_id'  AND u_id=".$customer_detail['id']." ORDER BY created_ts DESC LIMIT 1")->fetch_assoc();
                         ?>
                         <td><?php  echo $cust_order_query['created_ts']??'N/A';?></td>
                         <td><?php  echo $cust_order_query['subtotal']??'N/A';?></td>

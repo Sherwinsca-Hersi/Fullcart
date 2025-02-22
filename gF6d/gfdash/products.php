@@ -109,12 +109,14 @@
                 </td>
                 <td><?php echo $product_detail['p_variation']." ".$product_detail['unit']; ?></td>
                 <td><?php echo $product_detail['barcode'] ?? 'N/A'; ?></td>
-                <td>
-                    <?php if($product_detail['active'] == 1) { ?>
-                        <div class="badge badge-success">Published</div>
-                    <?php } else { ?>
-                        <div class="badge badge-danger">Unpublished</div>
-                    <?php } ?>
+                <td class="<?php echo ($product_detail['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                    <?php  
+                        if($product_detail['active']==1){
+                            echo  "Published"; 
+                        }else{
+                            echo "Unpublished";
+                        }
+                    ?>
                 </td>
             </tr>
         <?php

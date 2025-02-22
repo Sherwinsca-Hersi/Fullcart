@@ -400,6 +400,9 @@ if (isset($_SESSION['toast'])) {
                                                 else if($online_order['p_method_id']==2){
                                                     echo "COD";
                                                 }
+                                                else if($online_order['p_method_id']==5){
+                                                    echo "Wallet";
+                                                }
                                                 else{
                                                     echo "N/A";
                                                 }
@@ -872,6 +875,9 @@ if (isset($_SESSION['toast'])) {
                                                 }
                                                 else if($online_order['p_method_id']==2){
                                                     echo "COD";
+                                                }
+                                                else if($online_order['p_method_id']==5){
+                                                    echo "Wallet";
                                                 }
                                                 else{
                                                     echo "N/A";

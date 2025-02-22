@@ -71,13 +71,14 @@
                 <td><?php echo $bank_detail['account_no']; ?></td>
                 <td><?php echo $bank_detail['ifsc_code'] ?? 'N/A'; ?></td>
                 <td><?php echo $bank_detail['upi_id'] ?? 'N/A'; ?></td>
-                <td><?php  if($bank_detail['app_status']==1){
+                <td class="<?php echo ($bank_detail['app_status'] == 1) ? 'success_style' : 'error_style'; ?>">
+                <?php  if($bank_detail['app_status']==1){
                     echo  "Active"; 
                 }else{
                     echo "In-Active";
                 }
                 ?>
-                </td>                
+                </td>                  
             </tr>
         <?php
         $i++;

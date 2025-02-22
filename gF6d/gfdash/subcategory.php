@@ -60,11 +60,15 @@
                         </td>
                         <td> <?php echo $subcategory['title']; ?></td>
                         <td><img src="../../<?php echo $subcategory['c_img']; ?>"  width="80px" height="60px"/></td>
-                        <?php if($subcategory['active'] == 1) { ?>
-                            <td><div class="badge badge-success">Published</div></td>
-								<?php } else { ?>
-							<td><div class="badge badge-danger">Unpublished</div></td>
-								<?php } ?>
+                        <td class="<?php echo ($subcategory['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($subcategory['active']==1){
+                                    echo  "Active"; 
+                                }else{
+                                    echo "Inactive";
+                                }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                         $i++;

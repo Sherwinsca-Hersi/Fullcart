@@ -63,11 +63,15 @@
                                 } 
                             ?>
                         </td>
-                        <?php if($banner_details['active'] == 1) { ?>
-                            <td><div class="badge badge-success">Published</div></td>
-								<?php } else { ?>
-							<td><div class="badge badge-danger">Unpublished</div></td>
-								<?php } ?>
+                        <td class="<?php echo ($banner_details['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($banner_details['active']==1){
+                                    echo  "Published"; 
+                                }else{
+                                    echo "Unpublished";
+                                }
+                            ?>
+                        </td>           
                     </tr>
                     <?php
                         $i++;

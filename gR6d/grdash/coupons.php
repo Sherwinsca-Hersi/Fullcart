@@ -62,11 +62,15 @@
                         <td><?php echo $coupon_details['min_amt'];?></td>
                         <td><?php echo $coupon_details['c_value'];?></td>
                         <td><?php echo $coupon_details['c_desc'];?></td>
-                        <?php if($coupon_details['active'] == 1) { ?>
-                        <td><div class="badge badge-success">Published</div></td>
-						<?php } else { ?>
-						<td><div class="badge badge-danger">Unpublished</div></td>
-						<?php } ?>
+                        <td class="<?php echo ($coupon_details['active'] == 1) ? 'success_style' : 'error_style'; ?>">
+                            <?php  
+                                if($coupon_details['active']==1){
+                                    echo  "Published"; 
+                                }else{
+                                    echo "Unpublished";
+                                }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                     $i++;
